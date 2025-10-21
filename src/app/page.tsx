@@ -96,7 +96,7 @@ export default function HomePage() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-400 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading EmmanuelOS Dashboard...</p>
         </div>
       </div>
@@ -106,24 +106,29 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="glass border-b border-white/10 p-6">
+      <header className="glass-header p-8 md:p-12">
         <div className="max-w-7xl mx-auto">
           <motion.h1
-            className="text-3xl font-bold gold-text mb-2"
+            className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent mb-3 tracking-tight"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            EmmanuelOS v2.0
+            EmmanuelOS
           </motion.h1>
-          <motion.p
-            className="text-muted-foreground"
+          <motion.div
+            className="space-y-2"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            SWART Dashboard - System-Wide Analytics, Reporting & Tracking
-          </motion.p>
+            <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed">
+              System-Wide Analytics, Reporting & Tracking Dashboard
+            </p>
+            <p className="text-sm text-slate-500 max-w-2xl">
+              Centralized command center for monitoring and managing your complete application portfolio with real-time insights and comprehensive analytics.
+            </p>
+          </motion.div>
         </div>
       </header>
 

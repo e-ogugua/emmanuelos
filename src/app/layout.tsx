@@ -12,7 +12,7 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'EmmanuelOS v3.0 - SWART Dashboard',
+  title: 'EmmanuelOS - SWART Dashboard',
   description: 'System-Wide Analytics, Reporting & Tracking dashboard for all personal and business apps',
 }
 

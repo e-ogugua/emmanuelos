@@ -38,27 +38,58 @@ export function AdminAnalyticsPanel() {
 
   if (!isAdmin) {
     return (
-      <Card className="glass-card max-w-md mx-auto">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Lock className="w-5 h-5" />
-            Admin Access
+      <Card className="glass-card max-w-lg mx-auto border-2 border-amber-200 bg-gradient-to-br from-amber-50/10 to-orange-50/10">
+        <CardHeader className="text-center">
+          <CardTitle className="flex items-center justify-center gap-3 text-xl">
+            <div className="p-2 bg-amber-100 rounded-full">
+              <Lock className="w-6 h-6 text-amber-600" />
+            </div>
+            Admin Access Required
           </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex gap-2">
-            <Input
-              type="password"
-              placeholder="Enter admin password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-            />
-            <Button onClick={handleLogin}>Login</Button>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            Admin access required for analytics control
+          <p className="text-sm text-muted-foreground mt-2">
+            Enter the admin password to access analytics controls and switch between demo and live modes
           </p>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="space-y-3">
+            <label className="text-sm font-medium text-gray-700">Admin Password</label>
+            <div className="flex gap-3">
+              <Input
+                type="password"
+                placeholder="Enter admin password..."
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+                className="flex-1 bg-white/50 border-gray-200 focus:border-amber-400 focus:ring-amber-400"
+              />
+              <Button
+                onClick={handleLogin}
+                className="bg-amber-600 hover:bg-amber-700 text-white px-6"
+              >
+                Access
+              </Button>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+            <div className="flex items-start gap-3">
+              <div className="p-1 bg-blue-100 rounded">
+                <Settings className="w-4 h-4 text-blue-600" />
+              </div>
+              <div className="flex-1">
+                <h4 className="font-medium text-blue-900 mb-1">Admin Controls</h4>
+                <p className="text-sm text-blue-700">
+                  As an admin, you can control analytics modes for each application, switch between demo and live data, and monitor real-time performance across your entire portfolio.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <p className="text-xs text-muted-foreground">
+              🔐 Secure admin access • 📊 Full analytics control • 🎛️ Mode switching
+            </p>
+          </div>
         </CardContent>
       </Card>
     )
