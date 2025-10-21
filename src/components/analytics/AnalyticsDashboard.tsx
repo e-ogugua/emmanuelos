@@ -30,12 +30,10 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsData }) {
 
   return (
     <div className="space-y-6">
-      {/* Admin Panel (only visible to admin) */}
-      {isAdmin && (
-        <div className="mb-8">
-          <AdminAnalyticsPanel />
-        </div>
-      )}
+      {/* Admin Panel - Always visible, content changes based on auth status */}
+      <div className="mb-8">
+        <AdminAnalyticsPanel />
+      </div>
 
       {/* Public Analytics Display - Always shows fake data as real */}
       <div className="space-y-6">
