@@ -2,13 +2,15 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { supabase } from '@/lib/supabaseClient'
-import { App } from '@/lib/types'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { ExternalLink, Github, Eye, Star, TrendingUp, Users, Activity } from 'lucide-react'
+import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard'
+import { trackEvent, trackAppView, trackSearch, trackFilter } from '@/lib/analytics'
+import { App } from '@/lib/types'
 
 export default function HomePage() {
   const [apps, setApps] = useState<App[]>([])
@@ -16,6 +18,35 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<string>('all')
   const [categoryFilter, setCategoryFilter] = useState<string>('all')
+
+  // Generate mock analytics data for demonstration
+  const analyticsData = useMemo(() => {
+    if (!apps.length) return null
+
+    // Mock top apps by views
+    const topApps = apps.slice(0, 5).map(app => ({
+      name: app.name,
+      views: Math.floor(Math.random() * 100) + 10,
+      category: app.category
+    })).sort((a, b) => b.views - a.views)
+
+    // Mock category stats
+    const categoryStats = Array.from(new Set(apps.map(app => app.category))).map(category => {
+      const categoryApps = apps.filter(app => app.category === category)
+      return {
+        category,
+        views: categoryApps.reduce((sum, app) => sum + Math.floor(Math.random() * 50) + 10, 0),
+        apps: categoryApps.length
+      }
+    }).sort((a, b) => b.views - a.views)
+
+    return {
+      topApps,
+      totalUsers: Math.floor(Math.random() * 500) + 100,
+      totalViews: Math.floor(Math.random() * 2000) + 500,
+      categoryStats
+    }
+  }, [apps])
 
   useEffect(() => {
     const fetchApps = async () => {
@@ -28,6 +59,9 @@ export default function HomePage() {
 
         const data = await response.json()
         setApps(data || [])
+
+        // Track dashboard view
+        trackEvent('dashboard_view')
       } catch (error) {
         console.error('Error fetching apps:', error)
         setApps([])
@@ -95,6 +129,17 @@ export default function HomePage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto p-6">
+        {/* Analytics Dashboard */}
+        {analyticsData && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <AnalyticsDashboard data={analyticsData} />
+          </motion.div>
+        )}
+
         {/* Filters and Search */}
         <motion.div
           className="mb-8 space-y-4"
@@ -107,12 +152,20 @@ export default function HomePage() {
               <Input
                 placeholder="Search apps by name, description, or tags..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value)
+                  if (e.target.value) {
+                    trackSearch(e.target.value, filteredApps.length)
+                  }
+                }}
                 className="glass-button"
               />
             </div>
             <div className="flex gap-2">
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <Select value={statusFilter} onValueChange={(value) => {
+                setStatusFilter(value)
+                trackFilter('status', value)
+              }}>
                 <SelectTrigger className="w-40 glass-button">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
@@ -124,7 +177,10 @@ export default function HomePage() {
                 </SelectContent>
               </Select>
 
-              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+              <Select value={categoryFilter} onValueChange={(value) => {
+                setCategoryFilter(value)
+                trackFilter('category', value)
+              }}>
                 <SelectTrigger className="w-48 glass-button">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
@@ -162,40 +218,58 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                whileHover={{ scale: 1.02, y: -5 }}
+                whileHover={{
+                  scale: 1.02,
+                  y: -5,
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+                }}
                 whileTap={{ scale: 0.98 }}
+                className="group"
+                onMouseEnter={() => trackAppView(app.name, app.category)}
               >
-                <Card className="glass-card h-full hover:shadow-2xl transition-all duration-300">
+                <Card className="glass-card h-full hover:shadow-2xl transition-all duration-300 backdrop-blur-md bg-white/10 border-white/20">
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="text-xl font-semibold mb-2 line-clamp-1">{app.name}</h3>
-                        <Badge
-                          variant={app.status === 'Live' ? 'default' : app.status === 'Finalizing' ? 'secondary' : 'destructive'}
-                          className="mb-2"
-                        >
-                          {app.status === 'Live' ? '🟢' : app.status === 'Finalizing' ? '🟡' : '🔴'} {app.status}
-                        </Badge>
+                        <h3 className="text-xl font-semibold mb-2 line-clamp-1 font-poppins text-gray-900">
+                          {app.name}
+                        </h3>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge
+                            variant={app.status === 'Live' ? 'default' : app.status === 'Finalizing' ? 'secondary' : 'destructive'}
+                            className="text-xs"
+                          >
+                            {app.status === 'Live' ? '🟢' : app.status === 'Finalizing' ? '🟡' : '🔴'} {app.status}
+                          </Badge>
+                          <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">
+                            {app.category}
+                          </Badge>
+                        </div>
                       </div>
                       {app.image_url && (
-                        <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center">
-                          <span className="text-2xl">📱</span>
+                        <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                          <Eye className="w-6 h-6 text-gray-600" />
                         </div>
                       )}
                     </div>
                   </CardHeader>
 
                   <CardContent className="pt-0">
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                    <p className="text-muted-foreground text-sm mb-4 line-clamp-3 font-inter leading-relaxed">
                       {app.description}
                     </p>
 
                     <div className="flex flex-wrap gap-1 mb-4">
                       {app.tags.slice(0, 3).map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs">
+                        <Badge key={tag} variant="outline" className="text-xs bg-gray-50 text-gray-600">
                           {tag}
                         </Badge>
                       ))}
+                      {app.tags.length > 3 && (
+                        <Badge variant="outline" className="text-xs bg-gray-50 text-gray-600">
+                          +{app.tags.length - 3}
+                        </Badge>
+                      )}
                     </div>
 
                     <div className="flex gap-2">
@@ -203,14 +277,17 @@ export default function HomePage() {
                         <Button
                           asChild
                           size="sm"
-                          className="flex-1"
+                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium"
+                          onClick={() => trackAppClick(app.name, 'live_url')}
                         >
                           <a
                             href={app.live_url}
                             target="_blank"
                             rel="noopener noreferrer"
+                            className="flex items-center gap-1"
                           >
-                            Live
+                            <ExternalLink className="w-3 h-3" />
+                            View App
                           </a>
                         </Button>
                       )}
@@ -219,19 +296,29 @@ export default function HomePage() {
                           asChild
                           variant="outline"
                           size="sm"
-                          className="flex-1"
+                          className="flex-1 border-gray-300 hover:bg-gray-50"
+                          onClick={() => trackAppClick(app.name, 'github_url')}
                         >
                           <a
                             href={app.github_url}
                             target="_blank"
                             rel="noopener noreferrer"
+                            className="flex items-center gap-1"
                           >
+                            <Github className="w-3 h-3" />
                             GitHub
                           </a>
                         </Button>
                       )}
-                      <Button variant="ghost" size="sm" className="flex-1" asChild>
-                        <a href={`/app/${app.id}`}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="flex-1 hover:bg-gray-100"
+                        asChild
+                        onClick={() => trackAppClick(app.name, 'details')}
+                      >
+                        <a href={`/app/${app.id}`} className="flex items-center gap-1">
+                          <Star className="w-3 h-3" />
                           Details
                         </a>
                       </Button>

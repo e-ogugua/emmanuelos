@@ -62,3 +62,34 @@ export function generateTrafficData(days: number = 7) {
 
   return data
 }
+
+// Umami Analytics Hook for custom event tracking
+declare global {
+  interface Window {
+    umami?: {
+      track: (event: string, data?: Record<string, any>) => void
+    }
+  }
+}
+
+export const trackEvent = (event: string, data?: Record<string, any>) => {
+  if (typeof window !== 'undefined' && window.umami) {
+    window.umami.track(event, data)
+  }
+}
+
+export const trackAppView = (appName: string, category: string) => {
+  trackEvent('app_view', { app_name: appName, category })
+}
+
+export const trackAppClick = (appName: string, action: string) => {
+  trackEvent('app_interaction', { app_name: appName, action })
+}
+
+export const trackSearch = (query: string, results: number) => {
+  trackEvent('search', { query, results })
+}
+
+export const trackFilter = (filterType: string, value: string) => {
+  trackEvent('filter', { filter_type: filterType, value })
+}
