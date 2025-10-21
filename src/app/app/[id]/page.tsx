@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from 'recharts'
+import { AreaChart, Area, BarChart, Bar, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 import { Github, ExternalLink, Share2, MessageCircle, TrendingUp, Star, GitCommit, Users, Clock, Eye } from 'lucide-react'
 import { fetchGithubData, fetchAnalyticsData, generateTrafficData } from '@/lib/analytics'
 import { App } from '@/lib/types'
@@ -15,9 +15,26 @@ export default function AppDetailPage() {
   const params = useParams()
   const [app, setApp] = useState<App | null>(null)
   const [loading, setLoading] = useState(true)
-  const [analyticsData, setAnalyticsData] = useState<any>(null)
-  const [githubData, setGithubData] = useState<any>(null)
-  const [trafficData, setTrafficData] = useState<any[]>([])
+  const [analyticsData, setAnalyticsData] = useState<{
+    visitors: number;
+    pageViews: number;
+    bounceRate: number;
+    avgSessionDuration: number;
+    topPages: Array<{ path: string; views: number }>;
+  } | null>(null)
+  const [githubData, setGithubData] = useState<{
+    stars: number;
+    forks: number;
+    lastCommit: string;
+    contributors: number;
+    issues: number;
+    language: string;
+  } | null>(null)
+  const [trafficData, setTrafficData] = useState<Array<{
+    date: string;
+    visitors: number;
+    pageViews: number;
+  }>>([])
   const [activeTab, setActiveTab] = useState('overview')
 
   useEffect(() => {
@@ -42,12 +59,12 @@ export default function AppDetailPage() {
         setApp(appData)
 
         // Load analytics data
-        const analytics = await fetchAnalyticsData(appData.id)
+        const analytics = await fetchAnalyticsData()
         setAnalyticsData(analytics)
 
         // Load GitHub data if available
         if (appData.github_url) {
-          const github = await fetchGithubData(appData.github_url)
+          const github = await fetchGithubData()
           setGithubData(github)
         }
 
@@ -313,7 +330,7 @@ export default function AppDetailPage() {
                       <XAxis
                         dataKey="date"
                         stroke="rgba(255,255,255,0.7)"
-                        tickFormatter={(value) => new Date(value).toLocaleDateString()}
+                        tickFormatter={(value: string) => new Date(value).toLocaleDateString()}
                       />
                       <YAxis stroke="rgba(255,255,255,0.7)" />
                       <Tooltip
@@ -322,7 +339,7 @@ export default function AppDetailPage() {
                           border: '1px solid rgba(255,255,255,0.1)',
                           borderRadius: '8px'
                         }}
-                        labelFormatter={(value) => new Date(value).toLocaleDateString()}
+                        labelFormatter={(value: string) => new Date(value).toLocaleDateString()}
                       />
                       <Area
                         type="monotone"

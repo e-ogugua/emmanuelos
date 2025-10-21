@@ -1,4 +1,4 @@
-export default [
+const appsData = [
   {
     name: "Emmdra Empire & Lifestyle",
     description: "A comprehensive Nigerian lifestyle and e-commerce platform empowering users through authentic fashion, natural beauty solutions, creative workshops, and community building.",
@@ -135,3 +135,5 @@ export default [
     tags: ["Professional Services", "Web Development", "Portfolio", "Business Strategy", "Consulting", "Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Responsive Design", "Professional Branding"]
   }
 ]
+
+export default appsData
