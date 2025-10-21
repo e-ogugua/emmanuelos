@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
+  // App directory is now the default in Next.js 15
+  // No experimental configuration needed
 };
 
 module.exports = nextConfig;
