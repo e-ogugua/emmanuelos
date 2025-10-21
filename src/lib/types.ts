@@ -8,6 +8,9 @@ export interface App {
   github_url?: string;
   analytics_url?: string;
   image_url?: string;
+  logo?: string;
+  cover?: string;
+  screenshots?: string[];
   created_at: string;
   last_updated: string;
   tags: string[];
@@ -28,6 +31,9 @@ export interface AppFormData {
   github_url?: string;
   analytics_url?: string;
   image_url?: string;
+  logo?: string;
+  cover?: string;
+  screenshots?: string[];
   tags: string[];
   socials?: {
     email?: string;
@@ -35,4 +41,12 @@ export interface AppFormData {
     location?: string;
   };
   traffic?: number;
+}
+
+export interface AssetMap {
+  [appName: string]: {
+    logo?: string;
+    cover?: string;
+    screenshots?: string[];
+  };
 }

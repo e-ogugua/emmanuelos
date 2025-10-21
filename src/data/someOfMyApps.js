@@ -108,6 +108,15 @@ const appsData = [
     tags: ["Fintech", "Open Source", "Banking", "Payments", "Multi-Currency", "Merchant Services", "Lending", "Cryptocurrency", "KYC/AML", "Next.js", "NestJS", "TypeScript", "PostgreSQL", "Sandbox", "Financial Services", "Cross-Border", "API Platform", "Developer Community"]
   },
   {
+    name: "PoshPoulet Scratch Game",
+    description: "An interactive Scratch-based farm simulation game integrated into a Next.js web app for educational organic farming experiences.",
+    category: "Education & Gaming",
+    status: "In Development",
+    live_url: "coming soon",
+    github_url: "https://github.com/e-ogugua/poshpoule-scratch-game",
+    tags: ["Scratch Game", "Farm Simulation", "Organic Farming", "Educational Gaming", "Next.js", "React", "TypeScript", "Tailwind CSS", "Interactive Learning", "Agriculture Education", "Progress Tracking", "Community Gaming"]
+  },
+  {
     name: "EmmanuelOS",
     description: "System-Wide Analytics, Reporting & Tracking dashboard for all personal and business apps.",
     category: "Portfolio",

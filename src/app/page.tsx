@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -11,8 +12,8 @@ import { ExternalLink, Github, Eye, Star, Settings } from 'lucide-react'
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard'
 import { AdminModal } from '@/components/admin/AdminModal'
 import { trackEvent, trackAppView, trackSearch, trackFilter, trackAppClick } from '@/lib/analytics'
+import { mergeAppAssets } from '@/lib/assets'
 import { App } from '@/lib/types'
-
 export default function HomePage() {
   const [apps, setApps] = useState<App[]>([])
   const [loading, setLoading] = useState(true)
@@ -60,7 +61,7 @@ export default function HomePage() {
         }
 
         const data = await response.json()
-        setApps(data || [])
+        setApps(mergeAppAssets(data || []))
 
         // Track dashboard view
         trackEvent('dashboard_view')
@@ -239,113 +240,139 @@ export default function HomePage() {
                 key={app.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
                 whileHover={{
                   scale: 1.02,
-                  y: -5,
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+                  y: -8,
+                  rotateX: 2,
+                  rotateY: 2,
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)"
                 }}
                 whileTap={{ scale: 0.98 }}
-                className="group"
+                className="group relative"
                 onMouseEnter={() => trackAppView(app.name, app.category)}
               >
-                <Card className="glass-card h-full hover:shadow-2xl transition-all duration-300 backdrop-blur-md bg-white/10 border-white/20">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-xl font-semibold mb-2 line-clamp-1 font-poppins text-gray-900">
-                          {app.name}
-                        </h3>
-                        <div className="flex items-center gap-2 mb-2">
-                          <Badge
-                            variant={app.status === 'Live' ? 'default' : app.status === 'Finalizing' ? 'secondary' : 'destructive'}
-                            className="text-xs"
-                          >
-                            {app.status === 'Live' ? '🟢' : app.status === 'Finalizing' ? '🟡' : '🔴'} {app.status}
-                          </Badge>
-                          <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">
-                            {app.category}
-                          </Badge>
+                <Card className={`glass-card h-full hover:shadow-2xl transition-all duration-500 backdrop-blur-md border-white/20 overflow-hidden ${
+                  app.cover ? 'bg-cover bg-center bg-no-repeat' : 'bg-white/10'
+                }`} style={app.cover ? { backgroundImage: `url(${app.cover})` } : {}}>
+                  {/* Frosted glass overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/10 to-transparent backdrop-blur-sm" />
+
+                  {/* Content overlay */}
+                  <div className="relative z-10 h-full flex flex-col">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          {/* App Logo */}
+                          {app.logo && (
+                            <div className="w-12 h-12 mb-3 bg-white/20 rounded-xl backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-lg">
+                              <Image
+                                src={app.logo}
+                                alt={`${app.name} logo`}
+                                width={32}
+                                height={32}
+                                className="w-8 h-8 object-contain"
+                                onError={(e) => {
+                                  e.currentTarget.style.display = 'none'
+                                }}
+                              />
+                            </div>
+                          )}
+
+                          <h3 className="text-xl font-semibold mb-2 line-clamp-1 font-poppins text-gray-900 drop-shadow-sm">
+                            {app.name}
+                          </h3>
+                          <div className="flex items-center gap-2 mb-2">
+                            <Badge
+                              variant={app.status === 'Live' ? 'default' : app.status === 'Finalizing' ? 'secondary' : 'destructive'}
+                              className="text-xs shadow-sm backdrop-blur-sm bg-white/80 text-gray-800"
+                            >
+                              {app.status === 'Live' ? '🟢' : app.status === 'Finalizing' ? '🟡' : '🔴'} {app.status}
+                            </Badge>
+                            <Badge variant="outline" className="text-xs bg-white/60 text-gray-700 border-gray-300/50 backdrop-blur-sm">
+                              {app.category}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        {/* Preview indicator */}
+                        <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-all duration-300 shadow-lg border border-white/20">
+                          <Eye className="w-6 h-6 text-gray-600 drop-shadow-sm" />
                         </div>
                       </div>
-                      {app.image_url && (
-                        <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                          <Eye className="w-6 h-6 text-gray-600" />
-                        </div>
-                      )}
-                    </div>
-                  </CardHeader>
+                    </CardHeader>
 
-                  <CardContent className="pt-0">
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-3 font-inter leading-relaxed">
-                      {app.description}
-                    </p>
+                    <CardContent className="pt-0 flex-1 flex flex-col">
+                      <p className="text-gray-700 text-sm mb-4 line-clamp-3 font-inter leading-relaxed drop-shadow-sm">
+                        {app.description}
+                      </p>
 
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {app.tags.slice(0, 3).map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs bg-gray-50 text-gray-600">
-                          {tag}
-                        </Badge>
-                      ))}
-                      {app.tags.length > 3 && (
-                        <Badge variant="outline" className="text-xs bg-gray-50 text-gray-600">
-                          +{app.tags.length - 3}
-                        </Badge>
-                      )}
-                    </div>
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {app.tags.slice(0, 3).map((tag) => (
+                          <Badge key={tag} variant="outline" className="text-xs bg-white/50 text-gray-600 border-gray-300/50 backdrop-blur-sm">
+                            {tag}
+                          </Badge>
+                        ))}
+                        {app.tags.length > 3 && (
+                          <Badge variant="outline" className="text-xs bg-white/50 text-gray-600 border-gray-300/50 backdrop-blur-sm">
+                            +{app.tags.length - 3}
+                          </Badge>
+                        )}
+                      </div>
 
-                    <div className="flex gap-2">
-                      {app.live_url && (
-                        <Button
-                          asChild
-                          size="sm"
-                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium"
-                          onClick={() => trackAppClick(app.name, 'live_url')}
-                        >
-                          <a
-                            href={app.live_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1"
+                      <div className="flex gap-2 mt-auto">
+                        {app.live_url && (
+                          <Button
+                            asChild
+                            size="sm"
+                            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-lg backdrop-blur-sm"
+                            onClick={() => trackAppClick(app.name, 'live_url')}
                           >
-                            <ExternalLink className="w-3 h-3" />
-                            View App
+                            <a
+                              href={app.live_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-1"
+                            >
+                              <ExternalLink className="w-3 h-3" />
+                              View App
+                            </a>
+                          </Button>
+                        )}
+                        {app.github_url && (
+                          <Button
+                            asChild
+                            variant="outline"
+                            size="sm"
+                            className="flex-1 border-gray-300 hover:bg-gray-50 shadow-lg backdrop-blur-sm"
+                            onClick={() => trackAppClick(app.name, 'github_url')}
+                          >
+                            <a
+                              href={app.github_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-1"
+                            >
+                              <Github className="w-3 h-3" />
+                              GitHub
+                            </a>
+                          </Button>
+                        )}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="flex-1 hover:bg-white/80 shadow-lg backdrop-blur-sm"
+                          asChild
+                          onClick={() => trackAppClick(app.name, 'details')}
+                        >
+                          <a href={`/app/${app.id}`} className="flex items-center gap-1">
+                            <Star className="w-3 h-3" />
+                            Details
                           </a>
                         </Button>
-                      )}
-                      {app.github_url && (
-                        <Button
-                          asChild
-                          variant="outline"
-                          size="sm"
-                          className="flex-1 border-gray-300 hover:bg-gray-50"
-                          onClick={() => trackAppClick(app.name, 'github_url')}
-                        >
-                          <a
-                            href={app.github_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1"
-                          >
-                            <Github className="w-3 h-3" />
-                            GitHub
-                          </a>
-                        </Button>
-                      )}
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="flex-1 hover:bg-gray-100"
-                        asChild
-                        onClick={() => trackAppClick(app.name, 'details')}
-                      >
-                        <a href={`/app/${app.id}`} className="flex items-center gap-1">
-                          <Star className="w-3 h-3" />
-                          Details
-                        </a>
-                      </Button>
-                    </div>
-                  </CardContent>
+                      </div>
+                    </CardContent>
+                  </div>
                 </Card>
               </motion.div>
             ))}
