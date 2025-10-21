@@ -23,29 +23,18 @@ export default function AppDetailPage() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        // Check if Supabase environment variables are available
-        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+        // Fetch all apps and find the specific one
+        const response = await fetch('/api/apps')
 
-        if (!supabaseUrl || !supabaseAnonKey) {
-          console.warn('Supabase environment variables not available')
-          setLoading(false)
-          return
+        if (!response.ok) {
+          throw new Error('Failed to fetch apps')
         }
 
-        // Dynamically import supabase to avoid build-time issues
-        const { createClient } = await import('@supabase/supabase-js')
-        const supabase = createClient(supabaseUrl, supabaseAnonKey)
+        const apps = await response.json()
+        const appData = apps.find((app: App) => app.id === params.id)
 
-        // Fetch app data from Supabase
-        const { data: appData, error: appError } = await supabase
-          .from('apps')
-          .select('*')
-          .eq('id', params.id)
-          .single()
-
-        if (appError || !appData) {
-          console.error('Error fetching app:', appError)
+        if (!appData) {
+          console.error('App not found:', params.id)
           setLoading(false)
           return
         }
