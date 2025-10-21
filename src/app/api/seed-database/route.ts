@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     const supabase = await getSupabaseClient()
 
     // Read the apps data file
-    const filePath = join(process.cwd(), 'someOfmyapps.txt')
+    const filePath = join(process.cwd(), 'public', 'someOfmyapps.txt')
     const appsText = readFileSync(filePath, 'utf-8')
 
     // Parse the data
