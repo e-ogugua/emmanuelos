@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { ExternalLink, Github, Eye, Star, TrendingUp, Users, Activity } from 'lucide-react'
+import { ExternalLink, Github, Eye, Star } from 'lucide-react'
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard'
 import { trackEvent, trackAppView, trackSearch, trackFilter, trackAppClick } from '@/lib/analytics'
 import { App } from '@/lib/types'
@@ -35,7 +35,7 @@ export default function HomePage() {
       const categoryApps = apps.filter(app => app.category === category)
       return {
         category,
-        views: categoryApps.reduce((sum, app) => sum + Math.floor(Math.random() * 50) + 10, 0),
+        views: categoryApps.length * (Math.floor(Math.random() * 50) + 10),
         apps: categoryApps.length
       }
     }).sort((a, b) => b.views - a.views)

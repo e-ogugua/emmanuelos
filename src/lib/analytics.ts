@@ -1,5 +1,5 @@
 // Mock GitHub API integration
-export async function fetchGithubData(repoUrl: string) {
+export async function fetchGithubData() {
   // In a real app, you would make actual API calls to GitHub
   // For demo purposes, returning mock data
 
@@ -19,7 +19,7 @@ export async function fetchGithubData(repoUrl: string) {
 }
 
 // Mock Umami Analytics integration
-export async function fetchAnalyticsData(appId: string) {
+export async function fetchAnalyticsData() {
   // In a real app, you would fetch from Umami API
   // For demo purposes, returning mock data
 
@@ -67,12 +67,12 @@ export function generateTrafficData(days: number = 7) {
 declare global {
   interface Window {
     umami?: {
-      track: (event: string, data?: Record<string, any>) => void
+      track: (event: string, data?: Record<string, string | number | boolean>) => void
     }
   }
 }
 
-export const trackEvent = (event: string, data?: Record<string, any>) => {
+export const trackEvent = (event: string, data?: Record<string, string | number | boolean>) => {
   if (typeof window !== 'undefined' && window.umami) {
     window.umami.track(event, data)
   }

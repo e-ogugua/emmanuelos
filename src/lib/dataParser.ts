@@ -31,8 +31,8 @@ function parseSingleApp(section: string): Omit<App, 'id' | 'created_at' | 'last_
   let status: 'Live' | 'Finalizing' | 'In Development' = 'In Development';
   let live_url = '';
   let github_url = '';
-  let analytics_url = '';
-  let image_url = '';
+  const analytics_url = '';
+  const image_url = '';
   let tags: string[] = [];
   let socials = {};
 
