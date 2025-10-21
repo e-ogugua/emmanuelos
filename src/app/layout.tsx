@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
+import { AnalyticsProvider } from '../contexts/AnalyticsContext'
+import { AdminProvider } from '../contexts/AdminContext'
 
 const inter = Inter({ subsets: ['latin'] })
 const poppins = Poppins({
@@ -30,7 +32,11 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} ${poppins.className}`}>
-        {children}
+        <AdminProvider>
+          <AnalyticsProvider>
+            {children}
+          </AnalyticsProvider>
+        </AdminProvider>
       </body>
     </html>
   )

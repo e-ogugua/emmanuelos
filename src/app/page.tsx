@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ExternalLink, Github, Eye, Star, TrendingUp, Users, Activity } from 'lucide-react'
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard'
-import { trackEvent, trackAppView, trackSearch, trackFilter } from '@/lib/analytics'
+import { trackEvent, trackAppView, trackSearch, trackFilter, trackAppClick } from '@/lib/analytics'
 import { App } from '@/lib/types'
 
 export default function HomePage() {
