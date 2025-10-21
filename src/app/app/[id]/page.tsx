@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from 'recharts'
 import { Github, ExternalLink, Share2, MessageCircle, TrendingUp, Star, GitCommit, Users, Clock, Eye } from 'lucide-react'
 import { fetchGithubData, fetchAnalyticsData, generateTrafficData } from '@/lib/analytics'
-import { supabase } from '@/lib/supabaseClient'
 import { App } from '@/lib/types'
 
 export default function AppDetailPage() {
@@ -24,6 +23,20 @@ export default function AppDetailPage() {
   useEffect(() => {
     const loadData = async () => {
       try {
+        // Check if Supabase environment variables are available
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+        if (!supabaseUrl || !supabaseAnonKey) {
+          console.warn('Supabase environment variables not available')
+          setLoading(false)
+          return
+        }
+
+        // Dynamically import supabase to avoid build-time issues
+        const { createClient } = await import('@supabase/supabase-js')
+        const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
         // Fetch app data from Supabase
         const { data: appData, error: appError } = await supabase
           .from('apps')

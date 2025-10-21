@@ -20,6 +20,21 @@ export default function HomePage() {
   useEffect(() => {
     const fetchApps = async () => {
       try {
+        // Check if Supabase environment variables are available
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+        if (!supabaseUrl || !supabaseAnonKey) {
+          console.warn('Supabase environment variables not available - using fallback data')
+          setApps([])
+          setLoading(false)
+          return
+        }
+
+        // Dynamically import supabase to avoid build-time issues
+        const { createClient } = await import('@supabase/supabase-js')
+        const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
         const { data, error } = await supabase
           .from('apps')
           .select('*')
@@ -27,7 +42,7 @@ export default function HomePage() {
 
         if (error) {
           console.error('Error fetching apps:', error)
-          // Fallback to mock data if Supabase fails
+          // Fallback to empty array if Supabase fails
           setApps([])
         } else {
           setApps(data || [])

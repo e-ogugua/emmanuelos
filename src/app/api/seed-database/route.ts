@@ -2,10 +2,26 @@ import { NextRequest, NextResponse } from 'next/server'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { parseAppsData } from '@/lib/dataParser'
-import { supabase } from '@/lib/supabaseClient'
+
+// Import supabase client dynamically to avoid build-time issues
+async function getSupabaseClient() {
+  const { createClient } = await import('@supabase/supabase-js')
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error('Missing Supabase environment variables. Please check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY')
+  }
+
+  return createClient(supabaseUrl, supabaseAnonKey)
+}
 
 export async function POST(request: NextRequest) {
   try {
+    // Get Supabase client at runtime
+    const supabase = await getSupabaseClient()
+
     // Read the apps data file
     const filePath = join(process.cwd(), 'someOfmyapps.txt')
     const appsText = readFileSync(filePath, 'utf-8')
