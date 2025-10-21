@@ -1,0 +1,137 @@
+export default [
+  {
+    name: "Emmdra Empire & Lifestyle",
+    description: "A comprehensive Nigerian lifestyle and e-commerce platform empowering users through authentic fashion, natural beauty solutions, creative workshops, and community building.",
+    category: "E-commerce & Lifestyle",
+    status: "Live",
+    live_url: "https://emmdra-empire.vercel.app/",
+    github_url: "https://github.com/e-ogugua/emmdraEmpireAndLifestyle",
+    tags: ["E-commerce", "Lifestyle", "Fashion", "Beauty", "Workshops", "Community", "Nigerian Brand", "Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Mobile-First", "Women's Empowerment"]
+  },
+  {
+    name: "Zereth Cakes Hub",
+    description: "A modern web platform for cake ordering, recipes, and bakery services.",
+    category: "Food & Bakery",
+    status: "Live",
+    live_url: "https://zereth-cakes-hub.vercel.app/",
+    github_url: "https://github.com/e-ogugua/zereth-cakes-hub",
+    tags: ["Cakes", "Bakery", "Food", "E-commerce", "Recipes", "Custom Orders", "React", "TypeScript", "Nigeria", "Desserts", "Events"]
+  },
+  {
+    name: "Jepligom Ministry Portal",
+    description: "A modern ministry website and community platform for spiritual growth and connection.",
+    category: "Religious & Community",
+    status: "Live",
+    live_url: "https://jepligom-ministry-portal.vercel.app/",
+    github_url: "https://github.com/e-ogugua/JepligomMinistryPortal",
+    tags: ["Ministry", "Church", "Community", "Sermons", "Events", "Giving", "React", "TypeScript", "Religious", "Non-profit", "Spiritual", "Nigeria"]
+  },
+  {
+    name: "FinanceFlow Pro",
+    description: "A professional financial planning and wealth management platform for modern investors and financial advisors.",
+    category: "Finance & Investment",
+    status: "In Development",
+    live_url: "https://financeflow-pro.vercel.app/",
+    github_url: "https://github.com/e-ogugua/financeflow-pro",
+    tags: ["Finance", "Investment", "Portfolio Management", "Financial Planning", "Wealth Management", "React", "TypeScript", "Vite", "Tailwind CSS", "Financial Technology", "Investment Tracking", "Market Analysis"]
+  },
+  {
+    name: "Workflow Hub",
+    description: "A comprehensive AI tools discovery and comparison platform for professionals and businesses seeking cutting-edge artificial intelligence solutions.",
+    category: "AI Tools Directory & Discovery Platform",
+    status: "In Development",
+    live_url: "https://workflow-hub-psi.vercel.app/",
+    github_url: "https://github.com/e-ogugua/workflow-hub",
+    tags: ["AI Tools", "Artificial Intelligence", "Productivity", "Workflow Automation", "Machine Learning", "AI Directory", "AI Discovery Platform", "React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "AI Comparison", "Tech Directory", "Developer Tools"]
+  },
+  {
+    name: "Bible Game Hub",
+    description: "An immersive faith-based gaming platform for interactive Bible learning, scripture memorization, and spiritual growth through engaging gameplay.",
+    category: "Faith & Education",
+    status: "In Development",
+    live_url: "https://bible-game-hub.vercel.app/",
+    github_url: "https://github.com/e-ogugua/bible-game-hub",
+    tags: ["Faith", "Bible", "Gaming", "Education", "Scripture Learning", "Religious Technology", "Interactive Learning", "Memory Games", "Bible Quiz", "Spiritual Growth", "React", "TypeScript", "Next.js", "Tailwind CSS", "3D Graphics", "Faith-Based Gaming", "Biblical Education", "Religious Gaming"]
+  },
+  {
+    name: "CEOTR Ltd ERP Suite",
+    description: "A comprehensive enterprise resource planning platform for business management, portfolio showcase, and client engagement tailored for construction, IT, consulting, and software development companies.",
+    category: "Business & ERP",
+    status: "Live",
+    live_url: "https://ceotr-ltd-erp-suite.vercel.app/",
+    github_url: "https://github.com/e-ogugua/ceotrLtdErpSuite",
+    tags: ["Business Management", "ERP", "Portfolio Showcase", "Client Engagement", "Construction", "IT Solutions", "Consulting", "Software Development", "React", "Vite", "Tailwind CSS", "Business Analytics", "Lead Management", "Invoice System", "Professional Services", "Multi-Currency", "Responsive Design", "Glass Morphism UI"]
+  },
+  {
+    name: "PoshPOULE Farms Website & ERP Suite",
+    description: "A comprehensive e-commerce and ERP platform for PoshPOULE Farms Ltd, specializing in organic poultry, fresh eggs, vegetables, and farm-fresh produce with multi-currency support and admin dashboard.",
+    category: "Agriculture & E-commerce",
+    status: "Live",
+    live_url: "https://poshpoule-farms.vercel.app",
+    github_url: "https://github.com/e-ogugua/PoshPOULE-Farms-suite",
+    tags: ["Agriculture", "E-commerce", "ERP", "Farm Management", "Organic Products", "Poultry", "Vegetables", "Next.js", "TypeScript", "Tailwind CSS", "Sustainable Farming", "Healthy Living"]
+  },
+  {
+    name: "CEO Writes",
+    description: "A comprehensive blog platform showcasing authentic insights on business strategy, technology trends, leadership, and personal growth from tech entrepreneur Emmanuel Ogugua.",
+    category: "Blog & Personal Branding",
+    status: "Live",
+    live_url: "https://ceowrites-emmanuel-blog-hub.vercel.app/",
+    github_url: "https://github.com/e-ogugua/ceowrites-emmanuelbloghub",
+    tags: ["Blog", "Personal Branding", "Business Strategy", "Technology", "Leadership", "Faith", "Next.js", "React", "Tailwind CSS", "African Tech", "Entrepreneurship", "Content Creation"]
+  },
+  {
+    name: "CodeMentor Academy",
+    description: "An AI-powered coding education platform offering personalized learning paths, interactive lessons, and progress tracking for aspiring developers.",
+    category: "Education & Technology",
+    status: "In Development",
+    live_url: "https://codementor-academy-hwmazanzv-emmanuel-c-oguguas-projects.vercel.app/",
+    github_url: "https://github.com/e-ogugua/codementor-academy",
+    tags: ["Coding Education", "AI Learning", "React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "Interactive Lessons", "Progress Tracking", "Coding Quiz", "Community Learning", "Web Development", "Programming Education", "Personalized Learning"]
+  },
+  {
+    name: "FinEdge-Pro v2",
+    description: "A comprehensive cryptocurrency trading simulation platform with advanced portfolio management, market analysis, and strategy development tools for risk-free trading education and practice.",
+    category: "Finance & Investment",
+    status: "In Development",
+    live_url: "coming soon",
+    github_url: "/Users/ceo/e.ogugua.dev/done/finEdge-pro",
+    tags: ["Cryptocurrency", "Trading Simulation", "Portfolio Management", "Financial Education", "Investment Strategy", "Market Analysis", "Risk Management", "Next.js", "TypeScript", "React", "Financial Technology", "Trading Platform", "Investment Tracking", "Glass UI Design"]
+  },
+  {
+    name: "FinEdge Global",
+    description: "An open-source fintech platform under development, providing sandboxed financial services for multi-market operations with contribution opportunities for developers.",
+    category: "Finance & Fintech",
+    status: "In Development",
+    live_url: "Coming soon",
+    github_url: "https://github.com/your-username/finedge-global",
+    tags: ["Fintech", "Open Source", "Banking", "Payments", "Multi-Currency", "Merchant Services", "Lending", "Cryptocurrency", "KYC/AML", "Next.js", "NestJS", "TypeScript", "PostgreSQL", "Sandbox", "Financial Services", "Cross-Border", "API Platform", "Developer Community"]
+  },
+  {
+    name: "EmmanuelOS",
+    description: "System-Wide Analytics, Reporting & Tracking dashboard for all personal and business apps.",
+    category: "Portfolio",
+    status: "Live",
+    live_url: "https://emmanuelos.vercel.app/",
+    github_url: "https://github.com/e-ogugua/emmanuelos",
+    tags: ["Portfolio", "Dashboard", "Analytics", "Developer Tools", "Supabase", "Next.js", "Tailwind", "shadcn/ui", "Framer Motion", "Umami Analytics", "Productivity", "Personal OS", "Glassmorphism", "SWART System", "Modern UI"]
+  },
+  {
+    name: "FarmTrack",
+    description: "A comprehensive farm management system designed for modern farmers to track activities, manage finances, and optimize agricultural operations.",
+    category: "Agriculture & Farm Management",
+    status: "Live",
+    live_url: "https://farm-track-gamma.vercel.app/",
+    github_url: "https://github.com/e-ogugua/FarmTrack",
+    tags: ["Agriculture", "Farm Management", "Farming Technology", "Crop Tracking", "Inventory Management", "Financial Tracking", "Labor Management", "Weather Integration", "Offline-First", "Next.js", "React", "TypeScript", "Tailwind CSS", "Farm Analytics", "Agricultural Software"]
+  },
+  {
+    name: "CEO.dev - Emmanuel Chukwuka Ogugua Portfolio",
+    description: "A professional portfolio and business website showcasing web development services, consulting expertise, and strategic business solutions for modern enterprises.",
+    category: "Professional Services & Web Development Portfolio",
+    status: "Live",
+    live_url: "https://ceo-dev-emmanuel-chukwuka-ogugua.vercel.app/",
+    github_url: "https://github.com/e-ogugua/ceo-dev-portfolio",
+    tags: ["Professional Services", "Web Development", "Portfolio", "Business Strategy", "Consulting", "Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Responsive Design", "Professional Branding"]
+  }
+]

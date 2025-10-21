@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import seedData from '@/data/someOfMyApps.txt'
+import seedData from '@/data/someOfMyApps'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
