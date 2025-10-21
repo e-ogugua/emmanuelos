@@ -7,8 +7,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { ExternalLink, Github, Eye, Star } from 'lucide-react'
+import { ExternalLink, Github, Eye, Star, Settings } from 'lucide-react'
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard'
+import { AdminModal } from '@/components/admin/AdminModal'
 import { trackEvent, trackAppView, trackSearch, trackFilter, trackAppClick } from '@/lib/analytics'
 import { App } from '@/lib/types'
 
@@ -18,6 +19,7 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<string>('all')
   const [categoryFilter, setCategoryFilter] = useState<string>('all')
+  const [showAdminModal, setShowAdminModal] = useState(false)
 
   // Generate mock analytics data for demonstration
   const analyticsData = useMemo(() => {
@@ -107,28 +109,43 @@ export default function HomePage() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="glass-header p-8 md:p-12">
-        <div className="max-w-7xl mx-auto">
-          <motion.h1
-            className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent mb-3 tracking-tight"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            EmmanuelOS
-          </motion.h1>
-          <motion.div
-            className="space-y-2"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed">
-              System-Wide Analytics, Reporting & Tracking Dashboard
-            </p>
-            <p className="text-sm text-slate-500 max-w-2xl">
-              Centralized command center for monitoring and managing your complete application portfolio with real-time insights and comprehensive analytics.
-            </p>
-          </motion.div>
+        <div className="max-w-7xl mx-auto flex items-start justify-between">
+          <div className="flex-1">
+            <motion.h1
+              className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent mb-3 tracking-tight"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              EmmanuelOS
+            </motion.h1>
+            <motion.div
+              className="space-y-2"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed">
+                System-Wide Analytics, Reporting & Tracking Dashboard
+              </p>
+              <p className="text-sm text-slate-500 max-w-2xl">
+                Centralized command center for monitoring and managing your complete application portfolio with real-time insights and comprehensive analytics.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Admin Button - Subtle placement in top right */}
+          <div className="ml-8">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowAdminModal(true)}
+              className="text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-all duration-200"
+              title="SuperExplorer Admin Access"
+            >
+              <Settings className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -353,6 +370,9 @@ export default function HomePage() {
           </motion.div>
         )}
       </main>
+
+      {/* Admin Modal */}
+      <AdminModal isOpen={showAdminModal} onClose={() => setShowAdminModal(false)} />
     </div>
   )
 }
