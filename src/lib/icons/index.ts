@@ -1,5 +1,8 @@
-// src/lib/icons - Centralized icon imports for optimal bundle size
+// EmmanuelOS Icon Management - Centralized Icon Imports
+// Optimizes bundle size through tree-shaking of unused icons
 // Only imports icons that are actually used across the application
+// Reduces main bundle size by eliminating unused icon code from lucide-react
+// Icons are loaded once and reused across components for consistency
 
 // Core UI icons used throughout the app
 export { Activity, BarChart3, ExternalLink, Eye, EyeOff, Github, Lock, Settings, Star, Timer, TrendingUp, Unlock, Users, Zap } from 'lucide-react'
