@@ -355,12 +355,6 @@ export default function HomePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-4"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      if (typeof window !== 'undefined') {
-                        window.open('https://ceodev.vercel.app', '_blank', 'noopener,noreferrer')
-                      }
-                    }}
                   >
                     <span className="animate-bounce text-2xl group-hover:animate-pulse"></span>
                     <span className="font-semibold">View Full Portfolio</span>

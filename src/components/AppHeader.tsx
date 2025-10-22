@@ -48,12 +48,6 @@ export function AppHeader() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      if (typeof window !== 'undefined') {
-                        window.open('https://ceodev.vercel.app', '_blank', 'noopener,noreferrer')
-                      }
-                    }}
                   >
                     <span className="animate-pulse"></span>
                     Explore Portfolio
