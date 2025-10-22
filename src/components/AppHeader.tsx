@@ -10,19 +10,26 @@ interface AppHeaderProps {
 }
 
 export function AppHeader({ onAdminClick }: AppHeaderProps) {
-  const scrollToApplications = () => {
-    const element = document.getElementById('applications-section')
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
-    }
+  const scrollToApplications = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    // Use requestAnimationFrame for better mobile performance
+    requestAnimationFrame(() => {
+      const element = document.getElementById('applications-section')
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        })
+      }
+    })
   }
   return (
     <header className="relative overflow-hidden bg-gradient-to-r from-sky-100/80 via-blue-100/60 to-indigo-100/80 backdrop-blur-sm">
       <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
-      <div className="relative max-w-7xl mx-auto p-6 md:p-8 lg:p-12">
+      <div className="relative max-w-7xl mx-auto p-6 md:p-8 lg:p-12" style={{ zIndex: 20 }}>
         <div className="flex items-start justify-between">
           <div className="flex-1 pr-4">
             <motion.h1
@@ -55,8 +62,12 @@ export function AppHeader({ onAdminClick }: AppHeaderProps) {
               >
                 <Button
                   asChild
-                  className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-semibold shadow-sky-md hover:shadow-sky-md transition-all duration-normal ease-default rounded-2xl px-5 md:px-6 py-2.5 md:py-3 text-xs md:text-sm"
+                  className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-semibold shadow-sky-md hover:shadow-sky-md transition-all duration-normal ease-default rounded-2xl px-5 md:px-6 py-2.5 md:py-3 text-xs md:text-sm relative z-30"
                   onClick={scrollToApplications}
+                  onTouchStart={(e) => {
+                    e.preventDefault()
+                    scrollToApplications(e as any)
+                  }}
                 >
                   <span className="flex items-center gap-2">
                     <span className="animate-pulse"></span>
@@ -77,8 +88,16 @@ export function AppHeader({ onAdminClick }: AppHeaderProps) {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={onAdminClick}
-                className="text-slate-600 hover:text-amber-600 hover:bg-amber-50/60 transition-all duration-normal ease-default rounded-full p-2 md:p-3 border-2 border-transparent hover:border-amber-300 hover:shadow-md active:scale-95 min-w-[44px] min-h-[44px]"
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  onAdminClick?.()
+                }}
+                onTouchStart={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                }}
+                className="text-slate-600 hover:text-amber-600 hover:bg-amber-50/60 transition-all duration-normal ease-default rounded-full p-2 md:p-3 border-2 border-transparent hover:border-amber-300 hover:shadow-md active:scale-95 min-w-[44px] min-h-[44px] relative z-30"
                 title="Admin Access - Click to access SuperExplorer"
               >
                 <Settings className="w-5 h-5 md:w-6 md:h-6" />
@@ -91,6 +110,7 @@ export function AppHeader({ onAdminClick }: AppHeaderProps) {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
+              style={{ zIndex: 10 }}
             >
               <Image
                 src="/emmanuelos/emmanuelos-logo.png"
