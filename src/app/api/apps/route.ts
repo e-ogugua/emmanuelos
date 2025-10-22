@@ -5,6 +5,24 @@ import { mergeAppAssets } from '@/lib/assets'
 
 export async function GET() {
   try {
+    // Prioritize local data for development - comment out Supabase for now
+    console.log('Using local app data (development mode)')
+
+    // Transform local data to match App type by adding missing properties
+    const transformedAppsData = appsData.map((app, index) => ({
+      ...app,
+      id: `local-${index + 1}`, // Generate deterministic IDs for local data
+      created_at: new Date('2024-01-01T00:00:00Z').toISOString(), // Fixed date for SSR compatibility
+      last_updated: new Date('2024-01-15T10:30:00Z').toISOString(), // Fixed date for SSR compatibility
+      status: app.status as 'Live' | 'Finalizing' | 'In Development', // Type assertion for status
+      traffic: 0,
+      featured: false
+    }))
+
+    return NextResponse.json(mergeAppAssets(transformedAppsData))
+
+    // Uncomment below if you want to use Supabase in production:
+    /*
     // Try to fetch from Supabase first
     const { data: supabaseApps, error } = await supabase
       .from('apps')
@@ -62,6 +80,7 @@ export async function GET() {
       featured: false
     }))
     return NextResponse.json(mergeAppAssets(transformedAppsData))
+    */
 
   } catch (error) {
     console.error('Error fetching apps:', error)
