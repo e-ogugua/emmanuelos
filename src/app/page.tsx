@@ -323,11 +323,13 @@ export default function HomePage() {
 
         {/* Apps Grid */}
         {filteredApps.length > 0 ? (
-          <AppGrid
-            apps={filteredApps}
-            onAppView={handleAppView}
-            onAppClick={handleAppClick}
-          />
+          <div id="applications-section">
+            <AppGrid
+              apps={filteredApps}
+              onAppView={handleAppView}
+              onAppClick={handleAppClick}
+            />
+          </div>
         ) : (
           <motion.div
             className="text-center py-16"

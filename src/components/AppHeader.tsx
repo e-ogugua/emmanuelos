@@ -10,6 +10,15 @@ interface AppHeaderProps {
 }
 
 export function AppHeader({ onAdminClick }: AppHeaderProps) {
+  const scrollToApplications = () => {
+    const element = document.getElementById('applications-section')
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
   return (
     <header className="relative overflow-hidden bg-gradient-to-r from-sky-100/80 via-blue-100/60 to-indigo-100/80 backdrop-blur-sm">
       <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
@@ -47,16 +56,12 @@ export function AppHeader({ onAdminClick }: AppHeaderProps) {
                 <Button
                   asChild
                   className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-semibold shadow-sky-md hover:shadow-sky-md transition-all duration-normal ease-default rounded-2xl px-5 md:px-6 py-2.5 md:py-3 text-xs md:text-sm"
+                  onClick={scrollToApplications}
                 >
-                  <a
-                    href="https://ceodev.vercel.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2"
-                  >
+                  <span className="flex items-center gap-2">
                     <span className="animate-pulse"></span>
                     Explore Portfolio
-                  </a>
+                  </span>
                 </Button>
               </motion.div>
             </motion.div>
