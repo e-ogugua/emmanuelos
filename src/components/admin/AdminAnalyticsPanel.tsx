@@ -79,7 +79,7 @@ export function AdminAnalyticsPanel() {
               <div className="flex-1">
                 <h4 className="font-medium text-blue-900 mb-1">Admin Controls</h4>
                 <p className="text-sm text-blue-700">
-                  As an admin, you can control analytics modes for each application, switch between demo and live data, and monitor real-time performance across your entire portfolio.
+                  As an admin, you can control analytics modes for each application, switch between demo and live data, and monitor real-time performance across EmmanuelOS entire portfolio.
                 </p>
               </div>
             </div>

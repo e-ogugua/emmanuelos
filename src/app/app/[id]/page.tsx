@@ -776,47 +776,97 @@ export default function AppDetailPage() {
             <div className="absolute inset-0 bg-black/20 backdrop-blur-sm rounded-3xl -z-10"></div>
 
             {/* Portfolio Call to Action */}
-            <div className="space-y-6">
-              <h3 className="text-3xl font-bold text-white mb-4 drop-shadow-lg">Ready to Connect?</h3>
-              <p className="text-slate-100 max-w-lg mx-auto text-lg leading-relaxed drop-shadow-md font-medium">
-                Explore my complete portfolio and let&apos;s discuss how we can work together on your next project.
-              </p>
-            </div>
-
-            {/* Glowing Portfolio Button */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button
-                asChild
-                size="lg"
-                className={`bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-bold shadow-2xl hover:shadow-[0_0_40px_rgba(14,165,233,0.9),0_0_80px_rgba(99,102,241,0.7),0_0_120px_rgba(14,165,233,0.5)] transition-all duration-500 rounded-2xl px-10 py-5 text-xl`}
-              >
-                <a
-                  href="https://ceodev.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4"
-                  onClick={(e) => {
-                    // Ensure the link opens properly
-                    e.preventDefault()
-                    if (typeof window !== 'undefined') {
-                      window.open('https://ceodev.vercel.app', '_blank', 'noopener,noreferrer')
-                    }
-                  }}
+            <div className="space-y-8">
+              {/* Main CTA Section */}
+              <div className="text-center space-y-6">
+                <motion.div
+                  className="inline-flex items-center gap-2 px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
                 >
-                  <span className="animate-bounce text-2xl">🌟</span>
-                  Explore My Portfolio
-                  <span className="animate-pulse text-xl">→</span>
-                </a>
-              </Button>
-            </motion.div>
+                  <div className="w-2 h-2 bg-sky-400 rounded-full animate-pulse"></div>
+                  <span className="text-white/90 text-sm font-medium tracking-wide uppercase">Available for Projects</span>
+                  <div className="w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></div>
+                </motion.div>
+
+                <h3 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg bg-gradient-to-r from-white via-sky-100 to-indigo-100 bg-clip-text text-transparent">
+                  Ready to Transform Ideas into Reality?
+                </h3>
+
+                <p className="text-slate-100 max-w-2xl mx-auto text-xl leading-relaxed drop-shadow-md font-medium mb-8">
+                  Let&apos;s collaborate on innovative solutions that drive results. From concept to deployment, I bring expertise in modern web technologies and strategic thinking to every project.
+                </p>
+
+                {/* Professional Stats */}
+                <motion.div
+                  className="grid grid-cols-3 gap-8 max-w-lg mx-auto mb-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                >
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-sky-300 mb-1">15+</div>
+                    <div className="text-sm text-slate-200">Projects Delivered</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-indigo-300 mb-1">100%</div>
+                    <div className="text-sm text-slate-200">Client Satisfaction</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-300 mb-1">24/7</div>
+                    <div className="text-sm text-slate-200">Support Available</div>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Glowing Portfolio Button */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  asChild
+                  size="lg"
+                  className={`bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-bold shadow-2xl hover:shadow-[0_0_50px_rgba(14,165,233,0.9),0_0_100px_rgba(99,102,241,0.7),0_0_150px_rgba(14,165,233,0.5)] transition-all duration-500 rounded-2xl px-12 py-6 text-xl group`}
+                >
+                  <a
+                    href="https://ceodev.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4"
+                    onClick={(e) => {
+                      // Ensure the link opens properly
+                      e.preventDefault()
+                      if (typeof window !== 'undefined') {
+                        window.open('https://ceodev.vercel.app', '_blank', 'noopener,noreferrer')
+                      }
+                    }}
+                  >
+                    <span className="animate-bounce text-2xl group-hover:animate-pulse">🚀</span>
+                    <span className="font-semibold">View Full Portfolio</span>
+                    <span className="animate-pulse text-xl group-hover:animate-bounce">→</span>
+                  </a>
+                </Button>
+              </motion.div>
+
+              {/* Professional CTA */}
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
+                <p className="text-slate-200 text-sm">
+                  Ready to discuss your project? <span className="text-sky-300 font-medium hover:text-sky-200 cursor-pointer transition-colors">Let&apos;s schedule a call</span>
+                </p>
+              </motion.div>
+            </div>
 
             {/* Enhanced Decorative elements */}
             <div className={`flex items-center gap-4 text-slate-200 text-base font-medium`}>
               <div className={`w-3 h-3 bg-${appColors.accent}-400 rounded-full animate-pulse shadow-lg`}></div>
-              <span className="drop-shadow-md">Built with ❤️ using EmmanuelOS</span>
+              <span className="drop-shadow-md">© 2025 EmmanuelOS</span>
               <div className={`w-3 h-3 bg-${appColors.accent}-400 rounded-full animate-pulse shadow-lg`}></div>
             </div>
           </motion.div>

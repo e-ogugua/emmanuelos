@@ -46,6 +46,7 @@
   },
   "ceowrites-emmanuelBlogHub": {
     "cover": "/apps/ceowrites-emmanuelBlogHub/ceowrites-emmanuelBlogHubScreenshot1.png",
+    "logo": "/ceowrites-emmanuelBlogHub/ceowrites-emmanuelBlogHubLogo.png",
     "screenshots": [
       "/apps/ceowrites-emmanuelBlogHub/ceowrites-emmanuelBlogHubScreenshot1.png",
       "/apps/ceowrites-emmanuelBlogHub/ceowrites-emmanuelBlogHubScreenshot2.png",
@@ -100,9 +101,6 @@
       "/apps/workflow-hub/workflowScreenshot3.png",
       "/apps/workflow-hub/workflowScreenshot4.png"
     ]
-  },
-  "CEO Writes": {
-    "logo": "/ceowrites-emmanuelBlogHub/ceowrites-emmanuelBlogHubLogo.png"
   },
   "EmmanuelOS": {
     "logo": "/ceoPortfolio/eogugua_emmanuelOSLogo.png"

@@ -90,24 +90,6 @@ const appsData = [
     tags: ["Coding Education", "AI Learning", "React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "Interactive Lessons", "Progress Tracking", "Coding Quiz", "Community Learning", "Web Development", "Programming Education", "Personalized Learning"]
   },
   {
-    name: "FinEdge-Pro v2",
-    description: "A comprehensive cryptocurrency trading simulation platform with advanced portfolio management, market analysis, and strategy development tools for risk-free trading education and practice.",
-    category: "Finance & Investment",
-    status: "In Development",
-    live_url: "coming soon",
-    github_url: "/Users/ceo/e.ogugua.dev/done/finEdge-pro",
-    tags: ["Cryptocurrency", "Trading Simulation", "Portfolio Management", "Financial Education", "Investment Strategy", "Market Analysis", "Risk Management", "Next.js", "TypeScript", "React", "Financial Technology", "Trading Platform", "Investment Tracking", "Glass UI Design"]
-  },
-  {
-    name: "FinEdge Global",
-    description: "An open-source fintech platform under development, providing sandboxed financial services for multi-market operations with contribution opportunities for developers.",
-    category: "Finance & Fintech",
-    status: "In Development",
-    live_url: "Coming soon",
-    github_url: "https://github.com/your-username/finedge-global",
-    tags: ["Fintech", "Open Source", "Banking", "Payments", "Multi-Currency", "Merchant Services", "Lending", "Cryptocurrency", "KYC/AML", "Next.js", "NestJS", "TypeScript", "PostgreSQL", "Sandbox", "Financial Services", "Cross-Border", "API Platform", "Developer Community"]
-  },
-  {
     name: "EmmanuelOS",
     description: "System-Wide Analytics, Reporting & Tracking dashboard for all personal and business apps.",
     category: "Portfolio",
@@ -126,13 +108,31 @@ const appsData = [
     tags: ["Agriculture", "Farm Management", "Farming Technology", "Crop Tracking", "Inventory Management", "Financial Tracking", "Labor Management", "Weather Integration", "Offline-First", "Next.js", "React", "TypeScript", "Tailwind CSS", "Farm Analytics", "Agricultural Software"]
   },
   {
-    name: "CEO.dev - Emmanuel Chukwuka Ogugua Portfolio",
+    name: "ceodev - Chukwuka Emmanuel Ogugua",
     description: "A professional portfolio and business website showcasing web development services, consulting expertise, and strategic business solutions for modern enterprises.",
     category: "Professional Services & Web Development Portfolio",
     status: "Live",
-    live_url: "https://ceo-dev-emmanuel-chukwuka-ogugua.vercel.app/",
+    live_url: "https://ceodev.vercel.app",
     github_url: "https://github.com/e-ogugua/ceo-dev-portfolio",
     tags: ["Professional Services", "Web Development", "Portfolio", "Business Strategy", "Consulting", "Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Responsive Design", "Professional Branding"]
+  },
+  {
+    name: "FinEdge-Pro v2",
+    description: "A comprehensive cryptocurrency trading simulation platform with advanced portfolio management, market analysis, and strategy development tools for risk-free trading education and practice.",
+    category: "Finance & Investment",
+    status: "In Development",
+    live_url: "coming soon",
+    github_url: "https://github.com/e-ogugua/finEdge-pro",
+    tags: ["Cryptocurrency", "Trading Simulation", "Portfolio Management", "Financial Education", "Investment Strategy", "Market Analysis", "Risk Management", "Next.js", "TypeScript", "React", "Financial Technology", "Trading Platform", "Investment Tracking", "Glass UI Design"]
+  },
+  {
+    name: "FinEdge Global",
+    description: "An open-source fintech platform under development, providing sandboxed financial services for multi-market operations with contribution opportunities for developers.",
+    category: "Finance & Fintech",
+    status: "In Development",
+    live_url: "Coming soon",
+    github_url: "https://github.com/e-ogugua/finedge-global",
+    tags: ["Fintech", "Open Source", "Banking", "Payments", "Multi-Currency", "Merchant Services", "Lending", "Cryptocurrency", "KYC/AML", "Next.js", "NestJS", "TypeScript", "PostgreSQL", "Sandbox", "Financial Services", "Cross-Border", "API Platform", "Developer Community"]
   }
 ]
 
