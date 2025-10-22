@@ -412,20 +412,20 @@ export default function AppDetailPage() {
                       </div>
 
                       {/* Screenshot Navigation Info - More compact for mobile */}
-                      <div className="p-3 md:p-4 lg:p-5 bg-slate-900/30 backdrop-blur-md border-t border-white/20 rounded-b-lg">
+                      <div className="p-2 md:p-3 lg:p-4 bg-slate-900/40 backdrop-blur-md border-t border-white/20 rounded-b-lg">
                         <div className="flex items-center justify-between text-xs md:text-sm">
-                          <div className="flex items-center gap-2 md:gap-4">
-                            <span className="text-slate-300 font-medium hidden md:inline">
+                          <div className="flex items-center gap-1 md:gap-2">
+                            <span className="text-slate-300 font-medium hidden md:inline text-xs">
                               Use arrow keys or click thumbnails to navigate
                             </span>
-                            <span className="text-slate-300 font-medium md:hidden">
+                            <span className="text-slate-300 font-medium md:hidden text-xs">
                               Tap thumbnails to navigate
                             </span>
                             <Badge variant="outline" className="bg-white/90 backdrop-blur-sm text-slate-700 border-slate-300/50 shadow-md text-xs font-medium hover:bg-white hover:border-slate-400 transition-all duration-200">
                               Interactive Gallery
                             </Badge>
                           </div>
-                          <div className="text-slate-300 font-medium">
+                          <div className="text-slate-300 font-medium text-xs">
                             {currentScreenshotIndex + 1} / {app.screenshots.length}
                           </div>
                         </div>
@@ -849,17 +849,21 @@ export default function AppDetailPage() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="relative z-20"
               >
                 <Button
                   asChild
                   size="lg"
-                  className={`portfolio-button bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-bold shadow-2xl hover:shadow-[0_0_50px_rgba(14,165,233,0.9),0_0_100px_rgba(99,102,241,0.7),0_0_150px_rgba(14,165,233,0.5)] transition-all duration-500 rounded-2xl px-12 py-6 text-xl group`}
+                  className={`portfolio-button bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-bold shadow-2xl hover:shadow-[0_0_50px_rgba(14,165,233,0.9),0_0_100px_rgba(99,102,241,0.7),0_0_150px_rgba(14,165,233,0.5)] transition-all duration-500 rounded-2xl px-12 py-6 text-xl group relative z-20`}
                 >
                   <a
                     href="https://ceodev.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4"
+                    className="flex items-center gap-4 relative z-20"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                    }}
                   >
                     <span className="font-semibold">View Full Portfolio</span>
                   </a>

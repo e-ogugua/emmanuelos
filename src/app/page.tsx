@@ -272,7 +272,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
       {/* Header */}
-      <AppHeader />
+      <AppHeader onAdminClick={() => setShowAdminModal(true)} />
 
       {/* Main Content */}
       <main className="relative max-w-7xl mx-auto px-6 py-8">
@@ -420,17 +420,18 @@ export default function HomePage() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="relative z-20"
               >
                 <Button
                   asChild
                   size="lg"
-                  className="portfolio-button bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-bold shadow-sky-lg hover:shadow-sky-lg transition-all duration-normal ease-default rounded-2xl px-12 py-6 text-xl group"
+                  className="portfolio-button bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-bold shadow-sky-lg hover:shadow-sky-lg transition-all duration-normal ease-default rounded-2xl px-12 py-6 text-xl group relative z-20"
                 >
                   <a
                     href="https://ceodev.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4"
+                    className="flex items-center gap-4 relative z-20"
                     onClick={(e) => {
                       e.stopPropagation()
                     }}

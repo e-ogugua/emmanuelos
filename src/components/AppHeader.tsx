@@ -3,8 +3,13 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+import { Settings } from 'lucide-react'
 
-export function AppHeader() {
+interface AppHeaderProps {
+  onAdminClick?: () => void
+}
+
+export function AppHeader({ onAdminClick }: AppHeaderProps) {
   return (
     <header className="relative overflow-hidden bg-gradient-to-r from-sky-100/80 via-blue-100/60 to-indigo-100/80 backdrop-blur-sm">
       <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
@@ -67,17 +72,15 @@ export function AppHeader() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => {
-                  // This will be handled by parent component
-                }}
+                onClick={onAdminClick}
                 className="text-slate-600 hover:text-amber-600 hover:bg-amber-50/60 transition-all duration-normal ease-default rounded-full p-3 md:p-4 border-2 border-transparent hover:border-amber-300 hover:shadow-md active:scale-95"
                 title="Admin Access - Click to access SuperExplorer"
               >
-                {/* Settings icon will be passed from parent */}
+                <Settings className="w-5 h-5" />
               </Button>
             </motion.div>
 
-            {/* EmmanuelOS Logo - Responsive sizing */}
+            {/* EmmanuelOS Logo - Responsive sizing with curved edges */}
             <motion.div
               className="relative"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -89,7 +92,7 @@ export function AppHeader() {
                 alt="EmmanuelOS Logo"
                 width={200}
                 height={200}
-                className="w-32 h-32 md:w-48 md:h-48 object-contain drop-shadow-md rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-slow ease-default hover:bg-white/20 hover:shadow-sky-md hover:scale-105"
+                className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 object-contain drop-shadow-md rounded-full bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-slow ease-default hover:bg-white/20 hover:shadow-sky-md hover:scale-105"
                 priority={true}
                 onError={(e) => {
                   e.currentTarget.style.display = 'none'

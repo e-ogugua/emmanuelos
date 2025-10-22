@@ -60,7 +60,7 @@ const appsData = [
     category: "Business & ERP",
     status: "Live",
     live_url: "https://ceotr-ltd-erp-suite.vercel.app/",
-    github_url: "https://github.com/e-ogugua/ceotr-ltd-erp-suite",
+    github_url: "https://github.com/e-ogugua/ceotrLtdErpSuite",
     tags: ["Business Management", "ERP", "Portfolio Showcase", "Client Engagement", "Construction", "IT Solutions", "Consulting", "Software Development", "React", "Vite", "Tailwind CSS", "Business Analytics", "Lead Management", "Invoice System", "Professional Services", "Multi-Currency", "Responsive Design", "Glass Morphism UI"]
   },
   {
@@ -105,7 +105,7 @@ const appsData = [
     category: "Agriculture & Farm Management",
     status: "Live",
     live_url: "https://farm-track-gamma.vercel.app/dashboard/",
-    github_url: "https://github.com/e-ogugua/farm-track",
+    github_url: "https://github.com/e-ogugua/FarmTrack",
     tags: ["Agriculture", "Farm Management", "Farming Technology", "Crop Tracking", "Inventory Management", "Financial Tracking", "Labor Management", "Weather Integration", "Offline-First", "Next.js", "React", "TypeScript", "Tailwind CSS", "Farm Analytics", "Agricultural Software"]
   },
   {
