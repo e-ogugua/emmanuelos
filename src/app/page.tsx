@@ -15,22 +15,98 @@ import dynamic from 'next/dynamic'
 
 // Dynamically import heavy components to reduce initial bundle size
 const AnalyticsSection = dynamic(() => import('@/components/AnalyticsSection').then(mod => ({ default: mod.AnalyticsSection })), {
-  loading: () => <div className="animate-pulse bg-gray-200 rounded-lg h-48 mb-8"></div>,
+  loading: () => (
+    <div className="mb-8 animate-fade-in">
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-white/40">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-8 h-8 bg-slate-200 rounded-lg shimmer"></div>
+          <div className="h-6 bg-slate-200 rounded-lg w-48 shimmer"></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="bg-slate-100 rounded-xl p-4">
+              <div className="h-4 bg-slate-200 rounded w-3/4 mb-2 shimmer"></div>
+              <div className="h-6 bg-slate-200 rounded w-1/2 shimmer"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
   ssr: false
 })
 
 const FiltersSection = dynamic(() => import('@/components/FiltersSection').then(mod => ({ default: mod.FiltersSection })), {
-  loading: () => <div className="animate-pulse bg-gray-200 rounded-lg h-16 mb-8"></div>,
+  loading: () => (
+    <div className="mb-8 animate-fade-in">
+      <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-white/30">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1 h-10 bg-slate-200 rounded-xl shimmer"></div>
+          <div className="flex gap-3">
+            <div className="w-32 h-10 bg-slate-200 rounded-xl shimmer"></div>
+            <div className="w-36 h-10 bg-slate-200 rounded-xl shimmer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
   ssr: false
 })
 
 const AppGrid = dynamic(() => import('@/components/AppGrid').then(mod => ({ default: mod.AppGrid })), {
-  loading: () => <div className="animate-pulse bg-gray-200 rounded-lg h-96 mb-8"></div>,
+  loading: () => (
+    <div className="animate-fade-in">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-clamp-8-16 mb-8">
+        {[1, 2, 3, 4, 5, 6].map(i => (
+          <div key={i} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/40 overflow-hidden min-h-[450px]">
+            <div className="h-48 bg-slate-200 shimmer"></div>
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
+                  <div className="h-6 bg-slate-200 rounded-lg w-3/4 shimmer"></div>
+                  <div className="flex gap-2">
+                    <div className="h-6 bg-slate-200 rounded-full w-16 shimmer"></div>
+                    <div className="h-6 bg-slate-200 rounded-full w-20 shimmer"></div>
+                  </div>
+                </div>
+                <div className="w-12 h-12 bg-slate-200 rounded-xl shimmer"></div>
+              </div>
+              <div className="space-y-2">
+                <div className="h-4 bg-slate-200 rounded w-full shimmer"></div>
+                <div className="h-4 bg-slate-200 rounded w-5/6 shimmer"></div>
+                <div className="h-4 bg-slate-200 rounded w-4/5 shimmer"></div>
+              </div>
+              <div className="flex gap-2 pt-2">
+                <div className="h-8 bg-slate-200 rounded-xl flex-1 shimmer"></div>
+                <div className="h-8 bg-slate-200 rounded-xl flex-1 shimmer"></div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
   ssr: false
 })
 
 const AppHeader = dynamic(() => import('@/components/AppHeader').then(mod => ({ default: mod.AppHeader })), {
-  loading: () => <div className="animate-pulse bg-gray-200 rounded-lg h-16 mb-8"></div>,
+  loading: () => (
+    <div className="animate-fade-in">
+      <div className="bg-gradient-to-r from-sky-100/80 via-blue-100/60 to-indigo-100/80 backdrop-blur-sm p-8 md:p-12">
+        <div className="flex items-start justify-between">
+          <div className="flex-1 space-y-4">
+            <div className="h-12 bg-slate-200 rounded w-64 shimmer"></div>
+            <div className="h-6 bg-slate-200 rounded w-96 shimmer"></div>
+            <div className="h-5 bg-slate-200 rounded w-80 shimmer"></div>
+            <div className="h-10 bg-slate-200 rounded-xl w-40 shimmer"></div>
+          </div>
+          <div className="ml-8">
+            <div className="w-48 h-48 bg-slate-200 rounded-[2rem] shimmer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
   ssr: false
 })
 
@@ -199,7 +275,7 @@ export default function HomePage() {
       <AppHeader />
 
       {/* Main Content */}
-      <main className="relative max-w-7xl mx-auto p-6">
+      <main className="relative max-w-7xl mx-auto px-6 py-8">
         {/* Analytics Dashboard */}
         <AnalyticsSection analyticsData={analyticsData} />
 
@@ -208,13 +284,13 @@ export default function HomePage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: 'easeOut' }}
             className="mb-8 relative"
           >
             {/* Admin Panel Header */}
             <div className="flex items-center justify-between mb-4 p-4 bg-gradient-to-r from-amber-50/50 to-orange-50/50 rounded-2xl border border-amber-200/50 backdrop-blur-sm">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-amber-100 rounded-full">
+                <div className="p-2 bg-amber-100 rounded-lg">
                   <Settings className="w-5 h-5 text-amber-600" />
                 </div>
                 <div>
@@ -257,15 +333,15 @@ export default function HomePage() {
             className="text-center py-16"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
           >
-            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-white/40 max-w-md mx-auto">
+            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-md border border-white/40 max-w-md mx-auto">
               <p className="text-slate-700 text-lg mb-3 font-medium">No applications found</p>
               <p className="text-sm text-slate-600 mb-6">
                 Your database is ready! Populate it with your applications data.
               </p>
               <Button
-                className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-normal ease-default"
                 onClick={() => {
                   fetch('/api/seed-database').catch(console.error)
                 }}
@@ -281,19 +357,19 @@ export default function HomePage() {
       <AdminModal isOpen={showAdminModal} onClose={() => setShowAdminModal(false)} />
 
       {/* Footer with Portfolio Link */}
-      <footer className="relative bg-gradient-to-r from-slate-900/80 via-blue-900/60 to-indigo-900/80 backdrop-blur-md border-t border-white/20 py-16 mt-16">
+      <footer className="relative bg-gradient-to-r from-slate-900/90 via-blue-900/70 to-indigo-900/90 backdrop-blur-md border-t border-white/20 py-16 mt-16">
         {/* Enhanced background overlay for better text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-black/30"></div>
 
         <div className="relative max-w-7xl mx-auto px-6 text-center">
           <motion.div
             className="flex flex-col items-center gap-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.5, ease: 'easeOut' }}
           >
             {/* Text background panel for maximum readability */}
-            <div className="absolute inset-0 bg-black/20 backdrop-blur-sm rounded-3xl -z-10"></div>
+            <div className="absolute inset-0 bg-black/20 backdrop-blur-sm rounded-2xl -z-10"></div>
 
             {/* Portfolio Call to Action */}
             <div className="space-y-8">
@@ -303,7 +379,7 @@ export default function HomePage() {
                   className="inline-flex items-center gap-2 px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
+                  transition={{ duration: 0.5, delay: 0.6, ease: 'easeOut' }}
                 >
                   <div className="w-2 h-2 bg-sky-400 rounded-full animate-pulse"></div>
                   <span className="text-white/90 text-sm font-medium tracking-wide uppercase">Available for Projects</span>
@@ -323,7 +399,7 @@ export default function HomePage() {
                   className="grid grid-cols-3 gap-8 max-w-lg mx-auto mb-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
+                  transition={{ duration: 0.5, delay: 0.7, ease: 'easeOut' }}
                 >
                   <div className="text-center">
                     <div className="text-2xl font-bold text-sky-300 mb-1">15+</div>
@@ -348,7 +424,7 @@ export default function HomePage() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-bold shadow-2xl hover:shadow-[0_0_50px_rgba(14,165,233,0.9),0_0_100px_rgba(99,102,241,0.7),0_0_150px_rgba(14,165,233,0.5)] transition-all duration-500 rounded-2xl px-12 py-6 text-xl group"
+                  className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-bold shadow-sky-lg hover:shadow-sky-lg transition-all duration-normal ease-default rounded-2xl px-12 py-6 text-xl group"
                 >
                   <a
                     href="https://ceodev.vercel.app"
@@ -368,10 +444,10 @@ export default function HomePage() {
                 className="text-center"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
+                transition={{ duration: 0.5, delay: 0.8, ease: 'easeOut' }}
               >
                 <p className="text-slate-200 text-sm">
-                  Ready to discuss your project? <span className="text-sky-300 font-medium hover:text-sky-200 cursor-pointer transition-colors">Let&apos;s schedule a call</span>
+                  Ready to discuss your project? <span className="text-sky-300 font-medium hover:text-sky-200 cursor-pointer transition-colors duration-normal ease-default">Let&apos;s schedule a call</span>
                 </p>
               </motion.div>
             </div>

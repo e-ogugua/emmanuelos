@@ -19,37 +19,41 @@ interface AppGridProps {
 export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
   return (
     <motion.div
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-clamp-8-16"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
+      transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
     >
       {apps.map((app, index) => (
         <motion.div
           key={app.id}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: index * 0.05 }}
+          transition={{ duration: 0.3, delay: index * 0.05, ease: 'easeOut' }}
           whileHover={{
-            scale: 1.03,
-            y: -8,
-            boxShadow: "0 25px 50px -12px rgba(14, 165, 233, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.8)"
+            scale: 1.015,
+            boxShadow: "shadow-sky-lg"
           }}
           whileTap={{ scale: 0.98 }}
           className="group relative"
-          onMouseEnter={() => onAppView(app.name, app.category)}
+          onMouseEnter={() => {
+            // Only track if analytics are loaded to avoid unnecessary calls during initial load
+            if (typeof window !== 'undefined' && onAppView) {
+              onAppView(app.name, app.category)
+            }
+          }}
         >
-          <Card className={`relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 border-0 min-h-[450px] ${
+          <Card className={`relative overflow-hidden rounded-2xl shadow-lg transition-all duration-normal ease-default border-0 min-h-[450px] ${
             app.cover ? 'bg-white' : 'bg-gradient-to-br from-sky-100/90 to-blue-100/90'
           }`}>
             {/* Top section - Image only */}
             {app.cover && (
-              <div className="relative h-48 overflow-hidden rounded-t-3xl">
+              <div className="relative h-48 overflow-hidden rounded-t-2xl">
                 <Image
                   src={app.cover}
                   alt={`${app.name} cover`}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-normal ease-default group-hover:scale-[1.02]"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'
@@ -62,7 +66,7 @@ export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
 
             {/* Top section for cards without images - Header area */}
             {!app.cover && (
-              <div className="h-48 rounded-t-3xl bg-gradient-to-br from-sky-200/50 via-blue-200/30 to-indigo-200/50 flex items-center justify-center">
+              <div className="h-48 rounded-t-2xl bg-gradient-to-br from-sky-200/50 via-blue-200/30 to-indigo-200/50 flex items-center justify-center">
                 <div className="text-center">
                   <div className="w-16 h-16 mx-auto mb-2 bg-white/40 rounded-2xl backdrop-blur-sm border border-white/60 flex items-center justify-center">
                     <Star className="w-8 h-8 text-slate-600" />
@@ -78,7 +82,7 @@ export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
                 <div className="flex-1">
                   {/* App Logo */}
                   {app.logo && (
-                    <div className="w-14 h-14 mb-4 bg-slate-100 rounded-2xl border border-slate-200 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300">
+                    <div className="w-14 h-14 mb-4 bg-slate-100 rounded-2xl border border-slate-200 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-normal ease-default">
                       <Image
                         src={app.logo}
                         alt={`${app.name} logo`}
@@ -94,13 +98,13 @@ export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
                     </div>
                   )}
 
-                  <h3 className="text-xl font-medium text-slate-800 mb-3 line-clamp-1 group-hover:text-slate-900 transition-colors duration-300">
+                  <h3 className="text-xl font-medium text-slate-800 mb-3 line-clamp-1 group-hover:text-slate-900 transition-colors duration-normal ease-default">
                     {app.name}
                   </h3>
                   <div className="flex items-center gap-2 mb-3">
                     <Badge
                       variant={app.status === 'Live' ? 'default' : app.status === 'Finalizing' ? 'secondary' : 'destructive'}
-                      className={`text-xs font-medium px-3 py-1 rounded-full shadow-sm transition-all duration-300 ${
+                      className={`text-xs font-medium px-3 py-1 rounded-full shadow-sm transition-all duration-normal ease-default ${
                         app.status === 'Live'
                           ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200'
                           : app.status === 'Finalizing'
@@ -110,31 +114,31 @@ export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
                     >
                       {app.status}
                     </Badge>
-                    <Badge variant="outline" className="text-xs bg-slate-50 text-slate-700 border-slate-300 rounded-full px-3 py-1 font-medium hover:bg-slate-100 transition-all duration-300">
+                    <Badge variant="outline" className="text-xs bg-slate-50 text-slate-700 border-slate-300 rounded-full px-3 py-1 font-medium hover:bg-slate-100 transition-all duration-normal ease-default">
                       {app.category}
                     </Badge>
                   </div>
                 </div>
 
                 {/* Preview indicator */}
-                <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center group-hover:bg-slate-200 transition-all duration-300 shadow-sm border border-slate-200 group-hover:scale-110">
+                <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center group-hover:bg-slate-200 transition-all duration-normal ease-default shadow-sm border border-slate-200 group-hover:scale-110">
                   <Eye className="w-6 h-6 text-slate-700" />
                 </div>
               </div>
 
               <div className="flex-1 flex flex-col">
-                <p className="text-slate-600 text-sm mb-4 line-clamp-3 leading-relaxed group-hover:text-slate-700 transition-colors duration-300">
+                <p className="text-slate-600 text-sm mb-4 line-clamp-3 leading-relaxed group-hover:text-slate-700 transition-colors duration-normal ease-default">
                   {app.description}
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {app.tags.slice(0, 3).map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs bg-slate-50 text-slate-600 border-slate-300 rounded-full px-2 py-1 font-medium hover:bg-slate-100 transition-all duration-300">
+                    <Badge key={tag} variant="outline" className="text-xs bg-slate-50 text-slate-600 border-slate-300 rounded-full px-2 py-1 font-medium hover:bg-slate-100 transition-all duration-normal ease-default">
                       {tag}
                     </Badge>
                   ))}
                   {app.tags.length > 3 && (
-                    <Badge variant="outline" className="text-xs bg-slate-50 text-slate-600 border-slate-300 rounded-full px-2 py-1 font-medium hover:bg-slate-100 transition-all duration-300">
+                    <Badge variant="outline" className="text-xs bg-slate-50 text-slate-600 border-slate-300 rounded-full px-2 py-1 font-medium hover:bg-slate-100 transition-all duration-normal ease-default">
                       +{app.tags.length - 3}
                     </Badge>
                   )}
@@ -145,7 +149,7 @@ export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
                     <Button
                       asChild
                       size="sm"
-                      className="flex-1 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl"
+                      className="flex-1 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-normal ease-default rounded-xl"
                       onClick={() => onAppClick(app.name, 'live_url')}
                     >
                       <a
@@ -162,7 +166,7 @@ export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
                   {app.live_url && (app.live_url.toLowerCase() === 'coming soon' || app.live_url.toLowerCase() === 'coming soon') && (
                     <Button
                       size="sm"
-                      className="flex-1 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl cursor-not-allowed opacity-75"
+                      className="flex-1 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-normal ease-default rounded-xl cursor-not-allowed opacity-75"
                       disabled
                     >
                       <Timer className="w-4 h-4 mr-2" />
@@ -174,7 +178,7 @@ export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
                       asChild
                       variant="outline"
                       size="sm"
-                      className="flex-1 border-slate-300 bg-white hover:bg-slate-50 hover:border-slate-400 text-slate-700 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+                      className="flex-1 border-slate-300 bg-white hover:bg-slate-50 hover:border-slate-400 text-slate-700 rounded-xl shadow-sm hover:shadow-md transition-all duration-normal ease-default"
                       onClick={() => onAppClick(app.name, 'github_url')}
                     >
                       <a
@@ -202,7 +206,7 @@ export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex-1 hover:bg-slate-100 hover:text-slate-800 text-slate-700 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+                    className="flex-1 hover:bg-slate-100 hover:text-slate-800 text-slate-700 rounded-xl shadow-sm hover:shadow-md transition-all duration-normal ease-default"
                     asChild
                     onClick={() => onAppClick(app.name, 'details')}
                   >

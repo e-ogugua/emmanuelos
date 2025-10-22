@@ -15,7 +15,7 @@ export function AppHeader() {
               className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-sky-800 via-blue-800 to-indigo-800 bg-clip-text text-transparent mb-4 tracking-tight drop-shadow-sm"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
             >
               EmmanuelOS
             </motion.h1>
@@ -23,7 +23,7 @@ export function AppHeader() {
               className="space-y-3"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
             >
               <p className="text-lg md:text-xl text-slate-700 font-medium leading-relaxed">
                 System-Wide Analytics, Reporting & Tracking Dashboard
@@ -36,12 +36,12 @@ export function AppHeader() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                transition={{ duration: 0.5, delay: 0.4, ease: 'easeOut' }}
                 className="pt-4"
               >
                 <Button
                   asChild
-                  className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-semibold shadow-lg hover:shadow-[0_0_30px_rgba(14,165,233,0.8),0_0_60px_rgba(99,102,241,0.6)] transition-all duration-300 rounded-xl px-6 py-3 text-sm"
+                  className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-semibold shadow-sky-md hover:shadow-sky-md transition-all duration-normal ease-default rounded-2xl px-6 py-3 text-sm"
                 >
                   <a
                     href="https://ceodev.vercel.app"
@@ -70,7 +70,7 @@ export function AppHeader() {
                 onClick={() => {
                   // This will be handled by parent component
                 }}
-                className="text-slate-600 hover:text-amber-600 hover:bg-amber-50/60 transition-all duration-300 rounded-full p-4 border-2 border-transparent hover:border-amber-300 hover:shadow-lg active:scale-95"
+                className="text-slate-600 hover:text-amber-600 hover:bg-amber-50/60 transition-all duration-normal ease-default rounded-full p-4 border-2 border-transparent hover:border-amber-300 hover:shadow-md active:scale-95"
                 title="Admin Access - Click to access SuperExplorer"
               >
                 {/* Settings icon will be passed from parent */}
@@ -82,14 +82,14 @@ export function AppHeader() {
               className="relative"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
             >
               <Image
                 src="/emmanuelos/emmanuelos-logo.png"
                 alt="EmmanuelOS Logo"
                 width={200}
                 height={200}
-                className="w-48 h-48 object-contain drop-shadow-lg rounded-[2rem] bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-500 hover:bg-white/20 hover:shadow-[0_0_60px_rgba(251,191,36,0.6),0_0_120px_rgba(14,165,233,0.4),0_0_180px_rgba(251,191,36,0.3)] hover:scale-105"
+                className="w-48 h-48 object-contain drop-shadow-md rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-slow ease-default hover:bg-white/20 hover:shadow-sky-md hover:scale-105"
                 priority={true}
                 onError={(e) => {
                   e.currentTarget.style.display = 'none'
