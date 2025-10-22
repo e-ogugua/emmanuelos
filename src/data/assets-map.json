@@ -103,9 +103,21 @@
     ]
   },
   "EmmanuelOS": {
-    "logo": "/ceoPortfolio/eogugua_emmanuelOSLogo.png"
+    "logo": "/ceoPortfolio/eogugua_emmanuelOSLogo.png",
+    "screenshots": [
+      "/emmanuelos/emmanuelosScreenshot1.png",
+      "/emmanuelos/emmanuelosScreenshot2.png",
+      "/emmanuelos/emmanuelosScreenshot3.png",
+      "/emmanuelos/emmanuelosScreenshot4.png"
+    ]
   },
-  "FarmTrack": {
-    "logo": "/farmTrack/farmtrackLogo1.png .png"
+  "ceodev": {
+    "logo": "/ceoPortfolio/ceodevLogo.png",
+    "screenshots": [
+      "/ceoPortfolio/ceodevScreenshot1.png",
+      "/ceoPortfolio/ceodevScreenshot2.png",
+      "/ceoPortfolio/ceodevScreenshot3.png",
+      "/ceoPortfolio/ceodevScreenshot4.png"
+    ]
   }
 }

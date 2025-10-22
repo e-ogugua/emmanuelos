@@ -103,7 +103,7 @@ const appsData = [
     description: "A comprehensive farm management system designed for modern farmers to track activities, manage finances, and optimize agricultural operations.",
     category: "Agriculture & Farm Management",
     status: "Live",
-    live_url: "https://farm-track-gamma.vercel.app/",
+    live_url: "https://farm-track-gamma.vercel.app/dashboard/",
     github_url: "https://github.com/e-ogugua/FarmTrack",
     tags: ["Agriculture", "Farm Management", "Farming Technology", "Crop Tracking", "Inventory Management", "Financial Tracking", "Labor Management", "Weather Integration", "Offline-First", "Next.js", "React", "TypeScript", "Tailwind CSS", "Farm Analytics", "Agricultural Software"]
   },

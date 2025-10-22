@@ -300,29 +300,6 @@ export default function HomePage() {
           </motion.div>
         )}
 
-        {/* Admin Access Hint */}
-        {!isAdmin && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mb-8"
-          >
-            <div className="bg-gradient-to-r from-blue-50/50 to-indigo-50/50 rounded-2xl p-4 border border-blue-200/50 backdrop-blur-sm">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-100 rounded-full">
-                  <Settings className="w-4 h-4 text-blue-600" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm text-blue-700">
-                    <strong>Admin Access:</strong> Click the settings gear (⚙️) in the header to access advanced analytics controls and switch between demo/live data modes.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-
         {/* Filters and Search */}
         <motion.div
           className="mb-8 space-y-4"
@@ -535,7 +512,7 @@ export default function HomePage() {
                             Coming Soon
                           </Button>
                         )}
-                        {app.github_url && (
+                        {app.github_url && (app.live_url?.toLowerCase() !== 'coming soon' && app.live_url?.toLowerCase() !== 'coming soon') && (
                           <Button
                             asChild
                             variant="outline"
@@ -552,6 +529,17 @@ export default function HomePage() {
                               <Github className="w-4 h-4" />
                               GitHub
                             </a>
+                          </Button>
+                        )}
+                        {app.github_url && (app.live_url?.toLowerCase() === 'coming soon' || app.live_url?.toLowerCase() === 'coming soon') && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex-1 border-slate-300 bg-slate-100 text-slate-500 rounded-xl shadow-sm cursor-not-allowed opacity-60"
+                            disabled
+                          >
+                            <Github className="w-4 h-4 mr-2" />
+                            GitHub
                           </Button>
                         )}
                         <Button

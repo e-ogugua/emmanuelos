@@ -155,6 +155,18 @@ export default function AppDetailPage() {
     }
   }, [params.id])
 
+  useEffect(() => {
+    if (app?.screenshots && app.screenshots.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentScreenshotIndex((prev: number) =>
+          prev === app.screenshots!.length - 1 ? 0 : prev + 1
+        )
+      }, 4000 + Math.random() * 2000) // Random interval between 4-6 seconds
+
+      return () => clearInterval(interval)
+    }
+  }, [app?.screenshots])
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 flex items-center justify-center">

@@ -22,7 +22,7 @@ export function mergeAppAssets(apps: App[]): App[] {
     'Bible Game Hub': 'Bible-game-hub',
     'PoshPOULE Farms Website & ERP Suite': 'PoshPOULEfarmsErpSuite',
     'FarmTrack': 'farmTrack',
-    'ceodev - Chukwuka Emmanuel Ogugua': 'ceoPortfolio'
+    'ceodev - Chukwuka Emmanuel Ogugua': 'ceodev'
   }
 
   return apps.map(app => {
