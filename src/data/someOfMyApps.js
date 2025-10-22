@@ -113,7 +113,7 @@ const appsData = [
     category: "Professional Services & Web Development Portfolio",
     status: "Live",
     live_url: "https://ceodev.vercel.app",
-    github_url: "https://github.com/e-ogugua/ceo-dev-portfolio",
+    github_url: "https://github.com/e-ogugua/ceodev-portfolio",
     tags: ["Professional Services", "Web Development", "Portfolio", "Business Strategy", "Consulting", "Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Responsive Design", "Professional Branding"]
   },
   {

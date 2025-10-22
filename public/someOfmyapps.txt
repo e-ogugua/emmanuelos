@@ -404,7 +404,7 @@ Key Features:
 * SEO Optimization: Proper metadata, structured data, and performance optimization
 * International Accessibility: Multi-currency pricing and global service offerings
 Live URL: https://ceodev.vercel.app 
-GitHub Repo: https://github.com/e-ogugua/ceo.dev
+GitHub Repo: https://github.com/e-ogugua/ceodev-portfolio
 Social Handles: Phone: +234 8064508595, Email: emmachuka@gmail.com, Location: Nigeria
 Tags: "Web Development", "Custom Software Development", "Technical Consulting", "Business Strategy", "Professional Training", "Portfolio Website", "Next.js", "TypeScript", "Tailwind CSS", "Professional Services", "Dark Mode", "Responsive Design", "Contact Forms", "Multi-Currency Support"
 Screenshots: ceoDevScreenshot1 to ceoDevScreenshot4

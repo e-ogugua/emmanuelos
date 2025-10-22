@@ -193,15 +193,17 @@ export default function AppDetailPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
-      {/* Hero Section with Home Page Style - Light Background with Glass Header */}
-      <header className="relative h-96 bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
-        {/* Multiple gradient overlays for depth */}
-        <div className="absolute inset-0 bg-gradient-to-r from-sky-100/80 via-blue-100/60 to-indigo-100/80 backdrop-blur-sm"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
+      {/* Hero Section with Enhanced Professional Styling */}
+      <header className="relative h-[500px] bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
+        {/* Enhanced gradient overlays for depth and professionalism */}
+        <div className="absolute inset-0 bg-gradient-to-r from-sky-100/90 via-blue-100/70 to-indigo-100/90 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-white/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/10"></div>
 
-        {/* Decorative floating elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-sky-200/30 to-transparent rounded-full blur-3xl -translate-y-48 translate-x-48"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-blue-200/20 to-transparent rounded-full blur-3xl translate-y-32 -translate-x-32"></div>
+        {/* Enhanced decorative floating elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-sky-200/40 to-transparent rounded-full blur-3xl -translate-y-64 translate-x-64"></div>
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-blue-200/30 to-transparent rounded-full blur-3xl translate-y-40 -translate-x-40"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-indigo-200/20 to-transparent rounded-full blur-3xl"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <motion.div
@@ -209,22 +211,22 @@ export default function AppDetailPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {/* App Logo with glass card styling */}
+            {/* App Logo with enhanced glass card styling */}
             {app.logo && (
               <motion.div
-                className="w-24 h-24 mx-auto mb-6 bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-lg rounded-[2rem] transition-all duration-500 hover:bg-white/20 hover:shadow-[0_0_60px_rgba(251,191,36,0.6),0_0_120px_rgba(14,165,233,0.4),0_0_180px_rgba(251,191,36,0.3)] hover:scale-105"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                className="w-28 h-28 mx-auto mb-8 bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-2xl rounded-3xl transition-all duration-500 hover:bg-white/30 hover:shadow-[0_0_80px_rgba(255,255,255,0.8),0_0_120px_rgba(14,165,233,0.6)] hover:scale-105 hover:border-white/50"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 100 }}
               >
                 <Image
                   src={app.logo}
                   alt={`${app.name} logo`}
-                  width={64}
-                  height={64}
-                  className="w-16 h-16 object-contain"
+                  width={80}
+                  height={80}
+                  className="w-20 h-20 object-contain drop-shadow-lg"
                   priority={true}
-                  sizes="64px"
+                  sizes="80px"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'
                   }}
@@ -232,45 +234,45 @@ export default function AppDetailPage() {
               </motion.div>
             )}
 
-            <h1 className={`text-3xl md:text-4xl lg:text-5xl font-semibold bg-gradient-to-r ${appColors.textGradient} bg-clip-text text-transparent mb-4 tracking-tight drop-shadow-sm leading-tight`}>
+            <h1 className={`text-4xl md:text-5xl lg:text-6xl font-semibold bg-gradient-to-r ${appColors.textGradient} bg-clip-text text-transparent mb-6 tracking-tight drop-shadow-lg leading-tight text-center`}>
               {app.name}
             </h1>
 
-            <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
               <Badge
                 variant={app.status === 'Live' ? 'default' : app.status === 'Finalizing' ? 'secondary' : 'destructive'}
-                className={`text-sm px-4 py-2 bg-white/70 backdrop-blur-sm text-slate-700 border-slate-300 shadow-sm`}
+                className={`text-sm px-5 py-2.5 bg-white/80 backdrop-blur-sm text-slate-800 border-slate-300/50 shadow-lg font-medium rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-xl`}
               >
                 {app.status === 'Live' ? '🟢' : app.status === 'Finalizing' ? '🟡' : '🔴'} {app.status}
               </Badge>
-              <Badge variant="outline" className={`text-sm px-4 py-2 bg-white/70 backdrop-blur-sm text-slate-700 border-slate-300 shadow-sm`}>
+              <Badge variant="outline" className={`text-sm px-5 py-2.5 bg-white/80 backdrop-blur-sm text-slate-800 border-slate-300/50 shadow-lg font-medium rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-xl`}>
                 {app.category}
               </Badge>
             </div>
 
-            <p className="text-lg md:text-xl text-slate-700 max-w-4xl mx-auto leading-relaxed font-normal drop-shadow-sm text-center">
+            <p className="text-lg md:text-xl lg:text-2xl text-slate-800 max-w-5xl mx-auto leading-relaxed font-normal drop-shadow-md text-center px-4">
               {app.description}
             </p>
 
             {/* Action Buttons */}
             <motion.div
-              className="flex gap-4 justify-center mt-8"
+              className="flex gap-6 justify-center mt-10 flex-wrap"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               {app.live_url && (
-                <Button asChild size="lg" className={`bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-semibold shadow-lg hover:shadow-[0_0_30px_rgba(14,165,233,0.8),0_0_60px_rgba(99,102,241,0.6)] transition-all duration-300 rounded-xl px-6 py-3 text-sm`}>
+                <Button asChild size="lg" className={`bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-semibold shadow-2xl hover:shadow-[0_0_40px_rgba(14,165,233,0.9),0_0_80px_rgba(99,102,241,0.7)] transition-all duration-300 rounded-2xl px-8 py-4 text-lg hover:scale-105`}>
                   <a href={app.live_url} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-5 h-5 mr-2" />
+                    <ExternalLink className="w-5 h-5 mr-3" />
                     Live Demo
                   </a>
                 </Button>
               )}
               {app.github_url && (
-                <Button asChild variant="outline" size="lg" className="bg-white/70 backdrop-blur-sm border-slate-300 text-slate-700 hover:bg-white hover:border-slate-400 shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl px-6 py-3 text-sm">
+                <Button asChild variant="outline" size="lg" className="bg-white/90 backdrop-blur-sm border-slate-300/60 text-slate-800 hover:bg-white hover:border-slate-400/80 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-2xl px-8 py-4 text-lg font-semibold hover:scale-105">
                   <a href={app.github_url} target="_blank" rel="noopener noreferrer">
-                    <Github className="w-5 h-5 mr-2" />
+                    <Github className="w-5 h-5 mr-3" />
                     Source Code
                   </a>
                 </Button>
@@ -279,9 +281,9 @@ export default function AppDetailPage() {
           </motion.div>
         </div>
 
-        {/* Back button - Smaller size */}
+        {/* Back button - Enhanced styling */}
         <motion.div
-          className="absolute top-16 left-6 z-20"
+          className="absolute top-20 left-8 z-20"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -289,9 +291,9 @@ export default function AppDetailPage() {
           <Button
             variant="ghost"
             onClick={() => window.history.back()}
-            className="text-white font-medium hover:text-white hover:bg-black/30 backdrop-blur-lg transition-all duration-300 rounded-xl px-4 py-2 border border-white/40 hover:border-white/70 hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] active:scale-95 bg-black/20 text-sm"
+            className="text-white font-medium hover:text-white hover:bg-white/20 backdrop-blur-lg transition-all duration-300 rounded-2xl px-6 py-3 border border-white/40 hover:border-white/70 hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] active:scale-95 bg-black/30 text-base shadow-lg"
           >
-            ← Back
+            ← Back to Portfolio
           </Button>
         </motion.div>
       </header>
@@ -328,18 +330,7 @@ export default function AppDetailPage() {
             <div className="space-y-6">
               {/* Screenshots Gallery - Enhanced Interactive Experience */}
               {app.screenshots && app.screenshots.length > 0 && (
-                <Card className="glass-card overflow-hidden">
-                  <CardHeader className="pb-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <CardTitle className="text-slate-800 font-medium text-xl">Interactive Screenshots</CardTitle>
-                        <p className="text-slate-300 text-sm mt-1">Explore the application interface and features</p>
-                      </div>
-                      <Badge variant="outline" className="bg-white/70 backdrop-blur-sm text-slate-700 border-slate-300 shadow-sm">
-                        {app.screenshots.length} Screenshots
-                      </Badge>
-                    </div>
-                  </CardHeader>
+                <Card className="glass-card overflow-hidden shadow-2xl hover:shadow-[0_25px_60px_-12px_rgba(14,165,233,0.3)] transition-all duration-500 border-0">
                   <CardContent className="p-0">
                     <div className="relative group">
                       {/* Main Screenshot Display */}
@@ -347,13 +338,13 @@ export default function AppDetailPage() {
                         <Image
                           src={app.screenshots[currentScreenshotIndex]}
                           alt={`${app.name} screenshot ${currentScreenshotIndex + 1} - ${app.description}`}
-                          width={1200}
-                          height={675}
-                          className="w-full h-full object-contain transition-all duration-500 group-hover:scale-105"
+                          width={1400}
+                          height={788}
+                          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                           loading="lazy"
                           placeholder="blur"
-                          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2NzUiIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjc1IiBmaWxsPSIjMUUyOTM5Ii8+Cjwvc3ZnPgo="
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwMCIgaGVpZ2h0PSI3ODgiIHZpZXdCb3g9IjAgMCAxNDAwIDc4OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjE0MDAiIGhlaWdodD0iNzg4IiBmaWxsPSIjMUUyOTM5Ii8+Cjwvc3ZnPgo="
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
                           onError={(e) => {
                             e.currentTarget.style.display = 'none'
                           }}
@@ -365,7 +356,7 @@ export default function AppDetailPage() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white border border-white/20 backdrop-blur-sm opacity-80 hover:opacity-100 transition-all duration-300"
+                              className="absolute left-6 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white border border-white/30 backdrop-blur-md opacity-90 hover:opacity-100 transition-all duration-300 rounded-full w-12 h-12 shadow-lg hover:shadow-xl hover:scale-110"
                               onClick={prevScreenshot}
                             >
                               ←
@@ -373,7 +364,7 @@ export default function AppDetailPage() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white border border-white/20 backdrop-blur-sm opacity-80 hover:opacity-100 transition-all duration-300"
+                              className="absolute right-6 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white border border-white/30 backdrop-blur-md opacity-90 hover:opacity-100 transition-all duration-300 rounded-full w-12 h-12 shadow-lg hover:shadow-xl hover:scale-110"
                               onClick={nextScreenshot}
                             >
                               →
@@ -382,14 +373,14 @@ export default function AppDetailPage() {
                         )}
 
                         {/* Thumbnail Strip */}
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-black/40 backdrop-blur-sm rounded-full px-4 py-2">
+                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 bg-black/50 backdrop-blur-md rounded-full px-5 py-3 border border-white/20 shadow-xl">
                           {app.screenshots.map((screenshot: string, index: number) => (
                             <button
                               key={index}
-                              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                              className={`w-4 h-4 rounded-full transition-all duration-300 border-2 ${
                                 index === currentScreenshotIndex
-                                  ? 'bg-sky-400 scale-125 shadow-lg ring-2 ring-sky-300/50'
-                                  : 'bg-white/50 hover:bg-white/80'
+                                  ? 'bg-sky-400 scale-125 shadow-lg ring-2 ring-sky-300/50 border-sky-300'
+                                  : 'bg-white/60 hover:bg-white/90 border-white/30 hover:border-white/50 hover:scale-110'
                               }`}
                               onClick={() => setCurrentScreenshotIndex(index)}
                               title={`View screenshot ${index + 1}`}
@@ -399,26 +390,27 @@ export default function AppDetailPage() {
 
                         {/* Auto-advance indicator */}
                         {app.screenshots.length > 1 && (
-                          <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-sm rounded-lg px-2 py-1">
-                            <div className="flex items-center gap-1 text-white/90 text-xs">
-                              ▶ Auto
+                          <div className="absolute top-6 right-6 bg-black/60 backdrop-blur-md rounded-full px-4 py-2 border border-white/30 shadow-lg">
+                            <div className="flex items-center gap-2 text-white/90 text-sm font-medium">
+                              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                              Auto-advance
                             </div>
                           </div>
                         )}
                       </div>
 
                       {/* Screenshot Navigation Info */}
-                      <div className="p-4 bg-slate-900/20 backdrop-blur-sm border-t border-white/10">
+                      <div className="p-5 bg-slate-900/30 backdrop-blur-md border-t border-white/20 rounded-b-lg">
                         <div className="flex items-center justify-between text-sm">
                           <div className="flex items-center gap-4">
-                            <span className="text-slate-300">
-                              Use arrow keys or click dots to navigate
+                            <span className="text-slate-300 font-medium">
+                              Use arrow keys or click thumbnails to navigate
                             </span>
-                            <Badge variant="outline" className="bg-white/70 backdrop-blur-sm text-slate-700 border-slate-300 text-xs">
+                            <Badge variant="outline" className="bg-white/80 backdrop-blur-sm text-slate-700 border-slate-300/50 shadow-md text-xs font-medium">
                               Interactive Gallery
                             </Badge>
                           </div>
-                          <div className="text-slate-400">
+                          <div className="text-slate-300 font-medium">
                             {currentScreenshotIndex + 1} / {app.screenshots.length}
                           </div>
                         </div>
@@ -429,9 +421,9 @@ export default function AppDetailPage() {
               )}
 
               {/* Tech Stack */}
-              <Card className="glass-card">
+              <Card className="glass-card shadow-xl hover:shadow-2xl transition-all duration-500 border-0">
                 <CardHeader>
-                  <CardTitle className="text-slate-800 font-medium text-xl">Technology Stack</CardTitle>
+                  <CardTitle className="text-slate-800 font-semibold text-xl">Technology Stack</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -446,9 +438,9 @@ export default function AppDetailPage() {
               </Card>
 
               {/* Key Features */}
-              <Card className="glass-card">
+              <Card className="glass-card shadow-xl hover:shadow-2xl transition-all duration-500 border-0">
                 <CardHeader>
-                  <CardTitle className="text-slate-800 font-medium text-xl">Key Features</CardTitle>
+                  <CardTitle className="text-slate-800 font-semibold text-xl">Key Features</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
@@ -473,9 +465,9 @@ export default function AppDetailPage() {
               </Card>
 
               {/* Tags */}
-              <Card className="glass-card">
+              <Card className="glass-card shadow-xl hover:shadow-2xl transition-all duration-500 border-0">
                 <CardHeader>
-                  <CardTitle className="text-slate-800 font-medium text-xl">Tags & Categories</CardTitle>
+                  <CardTitle className="text-slate-800 font-semibold text-xl">Tags & Categories</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
@@ -885,8 +877,9 @@ export default function AppDetailPage() {
         </div>
 
         {/* Background decorative elements */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-sky-500/15 to-transparent rounded-full blur-3xl -translate-y-48"></div>
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-tl from-indigo-500/15 to-transparent rounded-full blur-3xl translate-y-32"></div>
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-sky-500/20 to-transparent rounded-full blur-3xl -translate-y-80"></div>
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-tl from-indigo-500/20 to-transparent rounded-full blur-3xl translate-y-40"></div>
+        <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-gradient-to-l from-purple-500/15 to-transparent rounded-full blur-3xl translate-x-40"></div>
       </footer>
     </div>
   )
