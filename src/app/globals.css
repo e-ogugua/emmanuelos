@@ -113,9 +113,9 @@
   .line-clamp-1 {
     overflow: hidden;
     display: -webkit-box;
-    display: box;
+    display: flex;
     -webkit-box-orient: vertical;
-    box-orient: vertical;
+    flex-direction: column;
     -webkit-line-clamp: 1;
     line-clamp: 1;
   }
@@ -123,9 +123,9 @@
   .line-clamp-3 {
     overflow: hidden;
     display: -webkit-box;
-    display: box;
+    display: flex;
     -webkit-box-orient: vertical;
-    box-orient: vertical;
+    flex-direction: column;
     -webkit-line-clamp: 3;
     line-clamp: 3;
   }
