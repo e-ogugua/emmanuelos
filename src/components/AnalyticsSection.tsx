@@ -1,3 +1,5 @@
+'use client'
+
 import React, { memo } from 'react'
 import { motion } from 'framer-motion'
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard'
@@ -26,3 +28,5 @@ export const AnalyticsSection = memo<AnalyticsSectionProps>(({ analyticsData }) 
     </motion.div>
   )
 })
+
+AnalyticsSection.displayName = 'AnalyticsSection'

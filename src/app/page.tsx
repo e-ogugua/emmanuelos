@@ -1,3 +1,5 @@
+'use client'
+
 // EmmanuelOS Dashboard - Main Application Page
 // Implements aggressive bundle optimization through dynamic imports
 // Main bundle: 110KB (achieved <120KB target through code splitting)
@@ -32,6 +34,12 @@ const AppHeader = dynamic(() => import('@/components/AppHeader').then(mod => ({ 
   ssr: false
 })
 
+// Set display names for dynamic imports
+AnalyticsSection.displayName = 'AnalyticsSection'
+FiltersSection.displayName = 'FiltersSection'
+AppGrid.displayName = 'AppGrid'
+AppHeader.displayName = 'AppHeader'
+
 // Dynamically import admin components to reduce initial bundle size
 const AdminModal = dynamic(() => import('@/components/admin/AdminModal').then(mod => ({ default: mod.AdminModal })), {
   loading: () => null,
@@ -42,6 +50,10 @@ const AdminAnalyticsPanel = dynamic(() => import('@/components/admin/AdminAnalyt
   loading: () => null,
   ssr: false
 })
+
+// Set display names for admin dynamic imports
+AdminModal.displayName = 'AdminModal'
+AdminAnalyticsPanel.displayName = 'AdminAnalyticsPanel'
 
 import { Settings } from '@/lib/icons'
 import { Button } from '@/components/ui/button'

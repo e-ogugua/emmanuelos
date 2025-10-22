@@ -1,3 +1,5 @@
+'use client'
+
 import React, { memo } from 'react'
 import { motion } from 'framer-motion'
 import { App } from '@/lib/types'
@@ -218,3 +220,5 @@ export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
     </motion.div>
   )
 })
+
+AppGrid.displayName = 'AppGrid'
