@@ -384,14 +384,14 @@ Developer Notes: Developed with a deep understanding of agricultural challenges,
 
 
 16. Portfolio Website - Emmanuel Chukwuka Ogugua
-Name: "CEO.dev - Emmanuel Chukwuka Ogugua Portfolio"
-One-liner: "A professional portfolio and business website showcasing web development services, consulting expertise, and strategic business solutions for modern enterprises."
-Description: `CEO.dev is a comprehensive professional portfolio and business platform designed for Emmanuel Chukwuka Ogugua, a seasoned web developer, technical consultant, and business strategist. The website serves as a digital showcase for professional services including custom software development, web development, technical consulting, business strategy consulting, and professional training programs.
+Name: "ceodev - Chukwuka Emmanuel Ogugua Portfolio"
+One-liner: "A professional portfolio and business website showcasing web development services, consulting expertise, and strategic business solutions for modern enterprises."
+Description: `ceodev is a comprehensive professional portfolio and business platform designed for Emmanuel Chukwuka Ogugua, a seasoned web developer, technical consultant, and business strategist. The website serves as a digital showcase for professional services including custom software development, web development, technical consulting, business strategy consulting, and professional training programs.
 Built with modern web technologies, the platform features an intuitive service booking system, multi-currency pricing support, professional contact forms, and responsive design optimized for all devices. The website provides potential clients with detailed service information, portfolio showcases, and direct communication channels for project inquiries.
 The platform emphasizes professional presentation with dark/light mode support, smooth animations, and a clean, modern aesthetic that reflects the quality and expertise of the services offered. It serves businesses and individuals seeking high-quality web development, strategic consulting, and technical training solutions.`
-Category: "Professional Services & Web Development Portfolio"
-Current Status: "Production Ready (v3.6.1) - Enhanced Service Pages"
-Tech Stack: Next.js 14.0.4, React 18.2.0, TypeScript 5.3.3, Tailwind CSS 3.4.0, Framer Motion 10.16.0, Lucide React 0.300.0, Supabase (Database), Vercel (Deployment Platform)
+Category: "Professional Services & Web Development Portfolio"
+Current Status: "Production Ready (v3.6.1) - Enhanced Service Pages"
+Tech Stack: Next.js 14.0.4, React 18.2.0, TypeScript 5.3.3, Tailwind CSS 3.4.0, Framer Motion 10.16.0, Lucide React 0.300.0, Supabase (Database), Vercel (Deployment Platform)
 Key Features:
 * Multi-Service Platform: Web Development, Custom Development, Business Strategy Consulting, Technical Consulting, Professional Training
 * Interactive Service Booking System: Comprehensive contact forms with multi-currency support (₦, $, £)

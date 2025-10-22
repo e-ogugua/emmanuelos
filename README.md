@@ -96,7 +96,7 @@ Vercel CLI         // Deployment and environment management
 ### **🌐 Professional Services (2 apps)**
 | Application | Status | Description | Tech Stack |
 |-------------|--------|-------------|------------|
-| **CEO.dev Portfolio** | 🟢 Live | Professional services | Next.js, Framer Motion |
+| **ceodev Portfolio** | 🟢 Live | Professional services | Next.js, Framer Motion |
 | **Workflow Hub** | 🟡 In Development | AI tools directory | React, TypeScript, Vite |
 
 ### **✍️ Content & Community (2 apps)**
@@ -297,7 +297,7 @@ This project is **private and proprietary**. All rights reserved.
 ### **Connect & Collaborate**
 - **📧 Email**: emmachuka@gmail.com
 - **💼 LinkedIn**: [Emmanuel Ogugua](https://linkedin.com/in/emmanuel-ogugua)
-- **🌐 Portfolio**: [ceo.dev](https://ceo-dev-emmanuel-chukwuka-ogugua.vercel.app/)
+- **🌐 Portfolio**: [ceodev](https://ceodev.vercel.app/)
 - **📝 Blog**: [CEO Writes](https://ceowrites-emmanuel-blog-hub.vercel.app/)
 
 ---

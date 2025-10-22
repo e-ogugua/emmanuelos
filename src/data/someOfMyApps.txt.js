@@ -109,7 +109,7 @@ const appsData = [
   },
   {
     name: "ceodev - Chukwuka Emmanuel Ogugua",
-    description: "A professional portfolio and business website showcasing web development services, consulting expertise, and strategic business solutions for modern enterprises.",
+    description: "A professional portfolio and business website showcasing web development services, consulting expertise, and strategic business solutions for modern enterprises. Built with ceodev - Chukwuka Emmanuel Ogugua.",
     category: "Professional Services & Web Development Portfolio",
     status: "Live",
     live_url: "https://ceodev.vercel.app",
