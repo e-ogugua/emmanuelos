@@ -1,2 +1,4 @@
-// src/hooks - Custom React hooks for reusable logic
-// Shared hooks for data fetching, state management, and utilities
+// Custom Hooks - Reusable Logic and Side Effects
+// Contains custom React hooks for data fetching and state management
+// Hooks encapsulate complex logic to improve component readability
+// Shared utilities reduce code duplication across components

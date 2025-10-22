@@ -1,5 +1,5 @@
-// EmmanuelOS State Management - React Context Architecture
-// Optimized for performance with minimal re-renders and efficient state updates
-// Context providers manage global application state across components
-// Analytics and admin contexts provide centralized state management
-// Context splitting prevents unnecessary re-renders of unrelated components
+// State Management - React Context Architecture
+// Context providers manage application-wide state and shared data
+// Admin and analytics contexts handle user permissions and tracking state
+// Context splitting ensures components only re-render when relevant state changes
+// Providers are organized to minimize unnecessary re-renders

@@ -1,5 +1,5 @@
-// EmmanuelOS UI Components - React Component Architecture
-// Optimized for performance with dynamic imports and memoization
-// Components loaded on-demand to reduce initial bundle size
-// Skeleton loading states provide smooth user experience during component loading
-// Each component is memoized to prevent unnecessary re-renders
+// UI Components - Modular React Component Architecture
+// Components are organized by feature and functionality
+// Dynamic imports reduce initial bundle size by loading components on demand
+// Memoization prevents unnecessary re-renders of components with stable props
+// Skeleton loading components provide smooth transitions during data fetching

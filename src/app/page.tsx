@@ -1,9 +1,9 @@
 'use client'
 
-// EmmanuelOS Dashboard - Main Application Page
-// Implements aggressive bundle optimization through dynamic imports
-// Main bundle: 110KB (achieved <120KB target through code splitting)
-// Components loaded progressively to improve initial page performance
+// Main Dashboard - Application Portfolio Management
+// Displays portfolio applications with analytics and filtering capabilities
+// Uses dynamic imports to reduce initial bundle size to 112KB
+// Implements progressive loading with skeleton states for smooth user experience
 
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { trackEvent, trackAppView, trackSearch, trackFilter, trackAppClick } from '@/lib/analytics'

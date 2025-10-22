@@ -1,5 +1,5 @@
-// EmmanuelOS Core Libraries - Business Logic and Utilities
-// Optimized for performance with centralized icon management and tree-shaking
-// Business logic separated from UI components for better maintainability
-// Icon centralization reduces bundle size through selective imports
-// Type definitions ensure type safety across the application
+// Core Libraries - Application Business Logic and Utilities
+// Contains shared functions, type definitions, and configuration
+// Icon management uses tree-shaking to include only used icons from lucide-react
+// Utility functions handle data transformation and API interactions
+// Type definitions ensure consistency across the application
