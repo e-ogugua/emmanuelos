@@ -99,6 +99,16 @@
       "/apps/workflow-hub/workflowScreenshot4.png"
     ]
   },
+  "EmmanuelOS": {
+    "cover": "/emmanuelos/emmanuelosScreenshot1.png",
+    "logo": "/emmanuelos/emmanuelos-logo.png",
+    "screenshots": [
+      "/emmanuelos/emmanuelosScreenshot1.png",
+      "/emmanuelos/emmanuelosScreenshot2.png",
+      "/emmanuelos/emmanuelosScreenshot3.png",
+      "/emmanuelos/emmanuelosScreenshot4.png"
+    ]
+  },
   "ceodev": {
     "cover": "/ceoPortfolio/ceodevScreenshot1.png",
     "logo": "/ceoPortfolio/ceodevLogo.png",
