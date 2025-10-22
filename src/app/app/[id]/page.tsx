@@ -857,7 +857,7 @@ export default function AppDetailPage() {
                 <Button
                   asChild
                   size="lg"
-                  className={`portfolio-button bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-bold shadow-2xl hover:shadow-[0_0_50px_rgba(14,165,233,0.9),0_0_100px_rgba(99,102,241,0.7),0_0_150px_rgba(14,165,233,0.5)] transition-all duration-500 rounded-2xl px-12 py-6 text-xl group relative z-20`}
+                  className={`portfolio-button bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-bold shadow-2xl hover:shadow-[0_0_50px_rgba(14,165,233,0.9),0_0_100px_rgba(99,102,241,0.7),0_0_150px_rgba(14,165,233,0.5)] transition-all duration-500 rounded-2xl px-8 md:px-12 py-4 md:py-6 text-lg md:text-xl group relative z-20`}
                 >
                   <a
                     href="https://ceodev.vercel.app"

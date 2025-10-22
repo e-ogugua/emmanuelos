@@ -78,10 +78,10 @@ export function AppHeader({ onAdminClick }: AppHeaderProps) {
                 variant="ghost"
                 size="sm"
                 onClick={onAdminClick}
-                className="text-slate-600 hover:text-amber-600 hover:bg-amber-50/60 transition-all duration-normal ease-default rounded-full p-3 md:p-4 border-2 border-transparent hover:border-amber-300 hover:shadow-md active:scale-95"
+                className="text-slate-600 hover:text-amber-600 hover:bg-amber-50/60 transition-all duration-normal ease-default rounded-full p-2 md:p-3 border-2 border-transparent hover:border-amber-300 hover:shadow-md active:scale-95 min-w-[44px] min-h-[44px]"
                 title="Admin Access - Click to access SuperExplorer"
               >
-                <Settings className="w-5 h-5" />
+                <Settings className="w-5 h-5 md:w-6 md:h-6" />
               </Button>
             </motion.div>
 

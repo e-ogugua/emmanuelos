@@ -427,21 +427,23 @@ export default function HomePage() {
                 <Button
                   asChild
                   size="lg"
-                  className="portfolio-button bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-bold shadow-sky-lg hover:shadow-sky-lg transition-all duration-normal ease-default rounded-2xl px-12 py-6 text-xl group relative z-20"
+                  className="portfolio-button bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-bold shadow-sky-lg hover:shadow-sky-lg transition-all duration-normal ease-default rounded-2xl px-8 md:px-12 py-4 md:py-6 text-lg md:text-xl group relative z-20"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    const element = document.getElementById('applications-section')
+                    if (element) {
+                      element.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                      })
+                    }
+                  }}
                 >
-                  <a
-                    href="https://ceodev.vercel.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-4 relative z-20"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                    }}
-                  >
+                  <span className="flex items-center gap-4 relative z-20">
                     <span className="animate-bounce text-2xl group-hover:animate-pulse"></span>
                     <span className="font-semibold">View Full Portfolio</span>
                     <span className="animate-pulse text-xl group-hover:animate-bounce"></span>
-                  </a>
+                  </span>
                 </Button>
               </motion.div>
 
