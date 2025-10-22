@@ -92,7 +92,7 @@ export function AppHeader({ onAdminClick }: AppHeaderProps) {
                 alt="EmmanuelOS Logo"
                 width={200}
                 height={200}
-                className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 object-contain drop-shadow-md rounded-full bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-slow ease-default hover:bg-white/20 hover:shadow-sky-md hover:scale-105"
+                className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 object-contain drop-shadow-md rounded-3xl bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-slow ease-default hover:bg-white/20 hover:shadow-sky-md hover:scale-105"
                 priority={true}
                 onError={(e) => {
                   e.currentTarget.style.display = 'none'
