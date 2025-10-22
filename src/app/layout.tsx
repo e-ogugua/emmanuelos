@@ -14,6 +14,10 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'EmmanuelOS - SWART Dashboard',
   description: 'System-Wide Analytics, Reporting & Tracking dashboard for all personal and business apps',
+  icons: {
+    icon: '/emmanuelos/emmanuelos-logo.png',
+    shortcut: '/emmanuelos/emmanuelos-logo.png',
+  },
 }
 
 export default function RootLayout({
@@ -22,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <head>
         <Script
           async

@@ -159,6 +159,11 @@ class AssetMapper {
       return getScreenshotNumber(a) - getScreenshotNumber(b)
     })
 
+    // Set cover image as first screenshot if no explicit cover
+    if (!assets.cover && assets.screenshots.length > 0) {
+      assets.cover = assets.screenshots[0]
+    }
+
     this.assetMap[appName] = assets
 
     console.log(`✅ Mapped assets for ${appName}:`)
@@ -187,6 +192,12 @@ class AssetMapper {
       if (!this.assetMap[appName].screenshots) this.assetMap[appName].screenshots = []
       this.assetMap[appName].screenshots!.push(imagePath)
       console.log(`   📍 Orphaned screenshot mapped: ${imagePath}`)
+
+      // Set cover as first screenshot if no cover exists
+      if (!this.assetMap[appName].cover && this.assetMap[appName].screenshots!.length === 1) {
+        this.assetMap[appName].cover = imagePath
+        console.log(`   📍 Set as cover image: ${imagePath}`)
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 {
   "Bible-game-hub": {
+    "cover": "/apps/Bible-game-hub/BibleGameHubScreenshot1.png",
     "screenshots": [
       "/apps/Bible-game-hub/BibleGameHubScreenshot1.png",
       "/apps/Bible-game-hub/BibleGameHubScreenshot2.png",
@@ -8,6 +9,7 @@
     ]
   },
   "JepligomMinistryPortal": {
+    "cover": "/apps/JepligomMinistryPortal/JepligomMinistryPortalScreenshot1.png",
     "screenshots": [
       "/apps/JepligomMinistryPortal/JepligomMinistryPortalScreenshot1.png",
       "/apps/JepligomMinistryPortal/JepligomMinistryPortalScreenshot2.png",
@@ -16,6 +18,7 @@
     ]
   },
   "PoshPOULEfarmsErpSuite": {
+    "cover": "/apps/PoshPOULEfarmsErpSuite/poshpouleFarmsErpSuiteScreenshot1.png",
     "screenshots": [
       "/apps/PoshPOULEfarmsErpSuite/poshpouleFarmsErpSuiteScreenshot1.png",
       "/apps/PoshPOULEfarmsErpSuite/poshpouleFarmsErpSuiteScreenshot2.png",
@@ -24,6 +27,7 @@
     ]
   },
   "Zereth_CakesHubImages": {
+    "cover": "/apps/Zereth_CakesHubImages/ZerethScreenshot1.png",
     "screenshots": [
       "/apps/Zereth_CakesHubImages/ZerethScreenshot1.png",
       "/apps/Zereth_CakesHubImages/ZerethScreenshot2.png",
@@ -32,6 +36,7 @@
     ]
   },
   "ceotr-erp-suite": {
+    "cover": "/apps/ceotr-erp-suite/ceotrScreenshot1.png",
     "screenshots": [
       "/apps/ceotr-erp-suite/ceotrScreenshot1.png",
       "/apps/ceotr-erp-suite/ceotrScreenshot2.png",
@@ -40,6 +45,7 @@
     ]
   },
   "ceowrites-emmanuelBlogHub": {
+    "cover": "/apps/ceowrites-emmanuelBlogHub/ceowrites-emmanuelBlogHubScreenshot1.png",
     "screenshots": [
       "/apps/ceowrites-emmanuelBlogHub/ceowrites-emmanuelBlogHubScreenshot1.png",
       "/apps/ceowrites-emmanuelBlogHub/ceowrites-emmanuelBlogHubScreenshot2.png",
@@ -48,6 +54,7 @@
     ]
   },
   "codementor-academy": {
+    "cover": "/apps/codementor-academy/codementorScreenshot1.png",
     "screenshots": [
       "/apps/codementor-academy/codementorScreenshot1.png",
       "/apps/codementor-academy/codementorScreenshot2.png",
@@ -59,6 +66,7 @@
     "screenshots": []
   },
   "emmdraEmpireImages": {
+    "cover": "/apps/emmdraEmpireImages/EmmdraScreenshot1.png",
     "screenshots": [
       "/apps/emmdraEmpireImages/EmmdraScreenshot1.png",
       "/apps/emmdraEmpireImages/EmmdraScreenshot2.png",
@@ -67,6 +75,7 @@
     ]
   },
   "farmTrack": {
+    "cover": "/apps/farmTrack/farmtrackScreenshot1.png",
     "screenshots": [
       "/apps/farmTrack/farmtrackScreenshot1.png",
       "/apps/farmTrack/farmtrackScreenshot2.png",
@@ -75,6 +84,7 @@
     ]
   },
   "financeflow-pro": {
+    "cover": "/apps/financeflow-pro/finaceflowScreenshot1.png",
     "screenshots": [
       "/apps/financeflow-pro/finaceflowScreenshot1.png",
       "/apps/financeflow-pro/finaceflowScreenshot2.png",
@@ -83,6 +93,7 @@
     ]
   },
   "workflow-hub": {
+    "cover": "/apps/workflow-hub/workflowScreenshot1.png",
     "screenshots": [
       "/apps/workflow-hub/workflowScreenshot1.png",
       "/apps/workflow-hub/workflowScreenshot2.png",
@@ -91,12 +102,12 @@
     ]
   },
   "CEO Writes": {
-    "logo": "ceowrites-emmanuelBlogHub/ceowrites-emmanuelBlogHubLogo.png"
+    "logo": "/ceowrites-emmanuelBlogHub/ceowrites-emmanuelBlogHubLogo.png"
   },
   "EmmanuelOS": {
-    "logo": "ceoPortfolio/eogugua_emmanuelOSLogo.png"
+    "logo": "/ceoPortfolio/eogugua_emmanuelOSLogo.png"
   },
   "FarmTrack": {
-    "logo": "farmTrack/farmtrackLogo1.png .png"
+    "logo": "/farmTrack/farmtrackLogo1.png .png"
   }
 }

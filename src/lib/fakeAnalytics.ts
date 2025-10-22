@@ -25,16 +25,24 @@ export interface FakeAnalyticsData {
   }>
 }
 
-// Generate realistic fake analytics data
-export function generateFakeAnalytics(baseMultiplier: number = 1): FakeAnalyticsData {
-  const baseViews = Math.floor(Math.random() * 1000 * baseMultiplier) + 100
+// Generate deterministic fake analytics data (for SSR compatibility)
+export function generateFakeAnalytics(baseMultiplier: number = 1, seed?: string): FakeAnalyticsData {
+  // Use deterministic calculations instead of Math.random()
+  const seedValue = seed || 'default-seed'
+  const seedHash = seedValue.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+  const random = (min: number, max: number) => {
+    const hash = (seedHash * 9301 + 49297) % 233280
+    return min + (hash % (max - min))
+  }
+
+  const baseViews = Math.floor(random(100, 1100) * baseMultiplier)
   const baseVisitors = Math.floor(baseViews * 0.7)
 
   return {
     pageViews: baseViews,
     uniqueVisitors: baseVisitors,
-    bounceRate: Math.floor(Math.random() * 30) + 20,
-    avgSessionDuration: Math.floor(Math.random() * 300) + 60,
+    bounceRate: Math.floor(random(20, 50)),
+    avgSessionDuration: Math.floor(random(60, 360)),
     topPages: [
       { path: '/', views: Math.floor(baseViews * 0.4), percentage: 40 },
       { path: '/about', views: Math.floor(baseViews * 0.25), percentage: 25 },
@@ -64,31 +72,38 @@ export function generateFakeAnalytics(baseMultiplier: number = 1): FakeAnalytics
   }
 }
 
-// Simulate real-time updates
-export function simulateRealTimeUpdate(currentData: FakeAnalyticsData, intensity: 'low' | 'medium' | 'high' = 'low'): FakeAnalyticsData {
+// Simulate real-time updates with deterministic values (for SSR compatibility)
+export function simulateRealTimeUpdate(currentData: FakeAnalyticsData, intensity: 'low' | 'medium' | 'high' = 'low', timestamp?: number): FakeAnalyticsData {
   const multiplier = intensity === 'low' ? 1.02 : intensity === 'medium' ? 1.05 : 1.1
+  const timeSeed = timestamp || (typeof window !== 'undefined' ? Date.now() : 1000000000000) // Use fallback for SSR
+
+  // Use deterministic calculation based on timestamp
+  const deterministicRandom = (min: number, max: number, seed: number) => {
+    const hash = (seed * 9301 + 49297) % 233280
+    return min + (hash % (max - min))
+  }
 
   return {
     ...currentData,
     pageViews: Math.floor(currentData.pageViews * multiplier),
     uniqueVisitors: Math.floor(currentData.uniqueVisitors * multiplier),
-    bounceRate: Math.max(10, Math.min(80, currentData.bounceRate + (Math.random() - 0.5) * 5)),
-    avgSessionDuration: Math.max(30, Math.min(600, currentData.avgSessionDuration + (Math.random() - 0.5) * 20)),
-    topPages: currentData.topPages.map(page => ({
+    bounceRate: Math.max(10, Math.min(80, currentData.bounceRate + deterministicRandom(-2.5, 2.5, timeSeed))),
+    avgSessionDuration: Math.max(30, Math.min(600, currentData.avgSessionDuration + deterministicRandom(-10, 10, timeSeed + 1))),
+    topPages: currentData.topPages.map((page, index) => ({
       ...page,
-      views: Math.floor(page.views * (0.95 + Math.random() * 0.1))
+      views: Math.floor(page.views * (0.95 + deterministicRandom(0, 0.1, timeSeed + index) * 0.1))
     })),
-    referrerData: currentData.referrerData.map(ref => ({
+    referrerData: currentData.referrerData.map((ref, index) => ({
       ...ref,
-      visits: Math.floor(ref.visits * (0.95 + Math.random() * 0.1))
+      visits: Math.floor(ref.visits * (0.95 + deterministicRandom(0, 0.1, timeSeed + 10 + index) * 0.1))
     })),
-    deviceData: currentData.deviceData.map(device => ({
+    deviceData: currentData.deviceData.map((device, index) => ({
       ...device,
-      visits: Math.floor(device.visits * (0.95 + Math.random() * 0.1))
+      visits: Math.floor(device.visits * (0.95 + deterministicRandom(0, 0.1, timeSeed + 20 + index) * 0.1))
     })),
-    locationData: currentData.locationData.map(location => ({
+    locationData: currentData.locationData.map((location, index) => ({
       ...location,
-      visits: Math.floor(location.visits * (0.95 + Math.random() * 0.1))
+      visits: Math.floor(location.visits * (0.95 + deterministicRandom(0, 0.1, timeSeed + 30 + index) * 0.1))
     }))
   }
 }

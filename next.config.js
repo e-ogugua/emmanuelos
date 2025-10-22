@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // App directory is now the default in Next.js 15
-  // No experimental configuration needed
+  // Fix for framer-motion SSR hydration issues
+  experimental: {
+    optimizePackageImports: ['framer-motion'],
+  },
+  // Enable React strict mode but suppress hydration warnings
+  reactStrictMode: true,
 };
 
 module.exports = nextConfig;

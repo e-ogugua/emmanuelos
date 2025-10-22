@@ -7,7 +7,7 @@ interface AppAnalytics {
   [appName: string]: {
     mode: 'fake' | 'real'
     data: FakeAnalyticsData
-    lastUpdated: Date
+    lastUpdated: string // Use string instead of Date for SSR compatibility
   }
 }
 
@@ -26,13 +26,13 @@ interface AnalyticsContextType {
   }
 }
 
+export type { AppAnalytics }
+
 const AnalyticsContext = createContext<AnalyticsContextType | undefined>(undefined)
 
 export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
-  const [appAnalytics, setAppAnalytics] = useState<AppAnalytics>({})
-
-  // Initialize analytics for all apps - DEFAULT TO FAKE MODE
-  const initializeAnalytics = () => {
+  // Initialize analytics data immediately (SSR-safe)
+  const [appAnalytics, setAppAnalytics] = useState<AppAnalytics>(() => {
     const apps = [
       'emmdra-empire', 'zereth-cakes-hub', 'jepligom-ministry', 'financeflow-pro',
       'workflow-hub', 'bible-game-hub', 'ceotr-ltd', 'poshpoule-farms',
@@ -45,17 +45,13 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
     apps.forEach(appName => {
       initialAnalytics[appName] = {
         mode: 'fake', // START WITH FAKE MODE FOR ALL USERS
-        data: generateFakeAnalytics(),
-        lastUpdated: new Date()
+        data: generateFakeAnalytics(1, appName), // Use app name as seed for consistency
+        lastUpdated: new Date().toISOString() // Use ISO string for SSR compatibility
       }
     })
 
-    setAppAnalytics(initialAnalytics)
-  }
-
-  useEffect(() => {
-    initializeAnalytics()
-  }, [])
+    return initialAnalytics
+  })
 
   // Real-time updates for fake data (only for fake mode)
   useEffect(() => {
@@ -63,12 +59,16 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
       setAppAnalytics(prev => {
         const updated = { ...prev }
 
+        // Use deterministic timestamp (round to 30-second intervals for consistency)
+        const now = new Date()
+        const deterministicTimestamp = now.getTime() - (now.getTime() % 30000)
+
         Object.keys(updated).forEach(appName => {
           if (updated[appName].mode === 'fake') {
             updated[appName] = {
               ...updated[appName],
-              data: simulateRealTimeUpdate(updated[appName].data),
-              lastUpdated: new Date()
+              data: simulateRealTimeUpdate(updated[appName].data, 'low', deterministicTimestamp),
+              lastUpdated: new Date(deterministicTimestamp).toISOString()
             }
           }
         })
@@ -86,7 +86,7 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
       [appName]: {
         ...prev[appName],
         mode,
-        lastUpdated: new Date()
+        lastUpdated: new Date().toISOString() // Use ISO string for SSR compatibility
       }
     }))
   }
@@ -96,8 +96,8 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
       ...prev,
       [appName]: {
         ...prev[appName],
-        data: generateFakeAnalytics(),
-        lastUpdated: new Date()
+        data: generateFakeAnalytics(1, appName + '-updated'), // Use app name + suffix as seed
+        lastUpdated: new Date().toISOString() // Use ISO string for SSR compatibility
       }
     }))
   }
@@ -120,7 +120,7 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
         updated[appName] = {
           ...updated[appName],
           mode,
-          lastUpdated: new Date()
+          lastUpdated: new Date().toISOString() // Use ISO string for SSR compatibility
         }
       })
       return updated

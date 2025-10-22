@@ -33,16 +33,30 @@ export function AdminModal({ isOpen, onClose }: AdminModalProps) {
     }
   }
 
-  if (!isOpen) return null
+  if (!isOpen) {
+    return null
+  }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
-      <Card className="w-full max-w-md mx-4 glass-card border-slate-200 shadow-2xl">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-md" onClick={onClose}>
+      <Card
+        className="w-full max-w-md mx-4 glass-card border-slate-200 shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200"
+        onClick={(e) => e.stopPropagation()}
+      >
         <CardHeader className="text-center pb-4">
-          <div className="flex items-center justify-center mb-2">
+          <div className="flex items-center justify-between mb-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className="text-slate-400 hover:text-slate-600 p-1 h-8 w-8"
+            >
+              ✕
+            </Button>
             <div className="p-3 bg-slate-100 rounded-full">
               <Settings className="w-6 h-6 text-slate-600" />
             </div>
+            <div className="w-8"></div> {/* Spacer for centering */}
           </div>
           <CardTitle className="text-xl text-slate-800">SuperExplorer Access</CardTitle>
           <p className="text-sm text-slate-600 mt-1">

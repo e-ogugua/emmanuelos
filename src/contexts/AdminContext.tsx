@@ -15,15 +15,31 @@ const AdminContext = createContext<AdminContextType | undefined>(undefined)
 const ADMIN_PASSWORD = 'emmanuelos2025'
 
 export function AdminProvider({ children }: { children: React.ReactNode }) {
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [adminPassword, setAdminPassword] = useState('')
+  // Initialize state based on localStorage availability (SSR-safe)
+  const [isAdmin, setIsAdmin] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('emmanuelos-admin')
+      return stored === 'true'
+    }
+    return false
+  })
+
+  const [adminPassword, setAdminPassword] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('emmanuelos-admin')
+      return stored === 'true' ? ADMIN_PASSWORD : ''
+    }
+    return ''
+  })
 
   useEffect(() => {
-    // Check localStorage for admin status
-    const stored = localStorage.getItem('emmanuelos-admin')
-    if (stored === 'true') {
-      setIsAdmin(true)
-      setAdminPassword(ADMIN_PASSWORD)
+    // Only run on client side and only if not already initialized
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('emmanuelos-admin')
+      if (stored === 'true') {
+        setIsAdmin(true)
+        setAdminPassword(ADMIN_PASSWORD)
+      }
     }
   }, [])
 
@@ -31,7 +47,9 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
     if (password === ADMIN_PASSWORD) {
       setIsAdmin(true)
       setAdminPassword(password)
-      localStorage.setItem('emmanuelos-admin', 'true')
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('emmanuelos-admin', 'true')
+      }
       return true
     }
     return false
@@ -40,7 +58,9 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
   const logoutAdmin = () => {
     setIsAdmin(false)
     setAdminPassword('')
-    localStorage.removeItem('emmanuelos-admin')
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('emmanuelos-admin')
+    }
   }
 
   return (

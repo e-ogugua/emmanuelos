@@ -1,14 +1,14 @@
 // Mock GitHub API integration
 export async function fetchGithubData() {
   // In a real app, you would make actual API calls to GitHub
-  // For demo purposes, returning mock data
+  // For demo purposes, returning deterministic mock data
 
   const mockData = {
-    stars: Math.floor(Math.random() * 100) + 10,
-    forks: Math.floor(Math.random() * 20) + 1,
-    lastCommit: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
-    contributors: Math.floor(Math.random() * 10) + 1,
-    issues: Math.floor(Math.random() * 50),
+    stars: 42,
+    forks: 8,
+    lastCommit: '2024-01-15T10:30:00Z', // Fixed string for SSR compatibility
+    contributors: 3,
+    issues: 12,
     language: 'TypeScript'
   }
 
@@ -21,17 +21,17 @@ export async function fetchGithubData() {
 // Mock Umami Analytics integration
 export async function fetchAnalyticsData() {
   // In a real app, you would fetch from Umami API
-  // For demo purposes, returning mock data
+  // For demo purposes, returning deterministic mock data
 
   const mockData = {
-    visitors: Math.floor(Math.random() * 1000) + 100,
-    pageViews: Math.floor(Math.random() * 3000) + 500,
-    bounceRate: Math.floor(Math.random() * 30) + 20,
-    avgSessionDuration: Math.floor(Math.random() * 300) + 60,
+    visitors: 247,
+    pageViews: 892,
+    bounceRate: 28,
+    avgSessionDuration: 145,
     topPages: [
-      { path: '/', views: Math.floor(Math.random() * 500) + 100 },
-      { path: '/about', views: Math.floor(Math.random() * 200) + 50 },
-      { path: '/contact', views: Math.floor(Math.random() * 100) + 20 }
+      { path: '/', views: 247 },
+      { path: '/about', views: 89 },
+      { path: '/contact', views: 43 }
     ]
   }
 
@@ -46,15 +46,19 @@ export function generateTrafficData(days: number = 7) {
   const data = []
   const baseVisitors = 50
 
+  // Use fixed seed for deterministic results
   for (let i = 0; i < days; i++) {
-    const date = new Date()
-    date.setDate(date.getDate() - (days - 1 - i))
+    // Use deterministic date calculation instead of new Date()
+    const baseDate = new Date('2024-01-15T00:00:00Z')
+    const targetDate = new Date(baseDate.getTime() - (days - 1 - i) * 24 * 60 * 60 * 1000)
 
-    const visitors = baseVisitors + Math.floor(Math.random() * 40) - 20
-    const pageViews = visitors * 2 + Math.floor(Math.random() * 100)
+    // Use deterministic calculation instead of Math.random()
+    const daySeed = i * 7 + 42 // Fixed seed based on day
+    const visitors = baseVisitors + (daySeed % 40) - 20
+    const pageViews = visitors * 2 + (daySeed % 100)
 
     data.push({
-      date: date.toISOString().split('T')[0],
+      date: targetDate.toISOString().split('T')[0],
       visitors: Math.max(0, visitors),
       pageViews: Math.max(0, pageViews)
     })

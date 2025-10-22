@@ -1,17 +1,67 @@
 'use client'
 
+import { fetchGithubData, fetchAnalyticsData, generateTrafficData } from '@/lib/analytics'
+import { mergeAppAssets } from '@/lib/assets'
+import { App } from '@/lib/types'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useParams } from 'next/navigation'
+import { Github, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { AreaChart, Area, BarChart, Bar, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
-import { Github, ExternalLink, Share2, MessageCircle, TrendingUp, Star, GitCommit, Users, Clock, Eye, ChevronLeft, ChevronRight } from 'lucide-react'
-import { fetchGithubData, fetchAnalyticsData, generateTrafficData } from '@/lib/analytics'
-import { mergeAppAssets } from '@/lib/assets'
-import { App } from '@/lib/types'
+// Helper function to get hover colors
+function getHoverColors(primary: string) {
+  if (primary.includes('emerald')) {
+    return 'from-emerald-600/90 via-green-700/80 to-teal-800/90'
+  }
+  if (primary.includes('red')) {
+    return 'from-red-600/90 via-rose-700/80 to-pink-800/90'
+  }
+  return 'from-sky-600/90 via-blue-700/80 to-indigo-800/90'
+}
+// App-specific color schemes
+function getAppColorScheme(appName: string) {
+  const name = appName.toLowerCase()
+
+  // Brand colors as specified
+  if (name.includes('emmdra')) {
+    return {
+      primary: 'from-emerald-500/80 via-green-600/70 to-teal-700/80',
+      secondary: 'from-emerald-400/30 via-green-500/25 to-teal-500/30',
+      accent: 'emerald',
+      textGradient: 'from-emerald-800 via-green-800 to-teal-800'
+    }
+  }
+
+  if (name.includes('zereth')) {
+    return {
+      primary: 'from-red-500/80 via-rose-600/70 to-pink-700/80',
+      secondary: 'from-red-400/30 via-rose-500/25 to-pink-500/30',
+      accent: 'red',
+      textGradient: 'from-red-800 via-rose-800 to-pink-800'
+    }
+  }
+
+  if (name.includes('poshpoulefarms') || name.includes('posh')) {
+    return {
+      primary: 'from-emerald-500/80 via-green-600/70 to-teal-700/80',
+      secondary: 'from-emerald-400/30 via-green-500/25 to-teal-500/30',
+      accent: 'emerald',
+      textGradient: 'from-emerald-800 via-green-800 to-teal-800'
+    }
+  }
+
+  // Default sky-blue-indigo scheme for other apps
+  return {
+    primary: 'from-sky-100/80 via-blue-100/60 to-indigo-100/80',
+    secondary: 'from-sky-200/30 to-blue-200/20',
+    accent: 'sky',
+    textGradient: 'from-sky-800 via-blue-800 to-indigo-800'
+  }
+}
 
 export default function AppDetailPage() {
   const params = useParams()
@@ -42,7 +92,7 @@ export default function AppDetailPage() {
 
   const nextScreenshot = () => {
     if (app?.screenshots && app.screenshots.length > 0) {
-      setCurrentScreenshotIndex((prev) =>
+      setCurrentScreenshotIndex((prev: number) =>
         prev === app.screenshots!.length - 1 ? 0 : prev + 1
       )
     }
@@ -50,7 +100,7 @@ export default function AppDetailPage() {
 
   const prevScreenshot = () => {
     if (app?.screenshots && app.screenshots.length > 0) {
-      setCurrentScreenshotIndex((prev) =>
+      setCurrentScreenshotIndex((prev: number) =>
         prev === 0 ? app.screenshots!.length - 1 : prev - 1
       )
     }
@@ -70,7 +120,6 @@ export default function AppDetailPage() {
         const appData = apps.find((app: App) => app.id === params.id)
 
         if (!appData) {
-          console.error('App not found:', params.id)
           setLoading(false)
           return
         }
@@ -93,8 +142,9 @@ export default function AppDetailPage() {
         const traffic = generateTrafficData(14) // 14 days of data
         setTrafficData(traffic)
 
-      } catch (error) {
-        console.error('Error loading data:', error)
+      } catch {
+        // Error loading data - silently handle for SSR compatibility
+        setApp(null)
       }
 
       setLoading(false)
@@ -107,34 +157,39 @@ export default function AppDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-400"></div>
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-slate-700 font-medium">Loading Application Details...</p>
+        </div>
       </div>
     )
   }
 
   if (!app) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-red-400 mb-4">App Not Found</h1>
-          <p className="text-muted-foreground">The requested application could not be found.</p>
+          <p className="text-slate-700">The requested application could not be found.</p>
         </div>
       </div>
     )
   }
 
-  return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section with Cover Background */}
-      <header className={`relative h-96 flex items-center justify-center overflow-hidden ${
-        app.cover ? 'bg-cover bg-center bg-no-repeat' : 'glass'
-      }`} style={app.cover ? { backgroundImage: `url(${app.cover})` } : {}}>
-        {/* Gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
+  const appColors = getAppColorScheme(app.name)
 
-        {/* Animated gradient border */}
-        <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 via-yellow-500/20 to-yellow-400/20 animate-pulse opacity-50" />
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
+      {/* Hero Section with Home Page Style - Light Background with Glass Header */}
+      <header className="relative h-96 bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
+        {/* Multiple gradient overlays for depth */}
+        <div className="absolute inset-0 bg-gradient-to-r from-sky-100/80 via-blue-100/60 to-indigo-100/80 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
+
+        {/* Decorative floating elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-sky-200/30 to-transparent rounded-full blur-3xl -translate-y-48 translate-x-48"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-blue-200/20 to-transparent rounded-full blur-3xl translate-y-32 -translate-x-32"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <motion.div
@@ -142,10 +197,10 @@ export default function AppDetailPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {/* App Logo */}
+            {/* App Logo with glass card styling */}
             {app.logo && (
               <motion.div
-                className="w-24 h-24 mx-auto mb-6 bg-white/20 rounded-2xl backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-2xl"
+                className="w-24 h-24 mx-auto mb-6 bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-lg rounded-[2rem] transition-all duration-500 hover:bg-white/20 hover:shadow-[0_0_60px_rgba(251,191,36,0.6),0_0_120px_rgba(14,165,233,0.4),0_0_180px_rgba(251,191,36,0.3)] hover:scale-105"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -157,8 +212,6 @@ export default function AppDetailPage() {
                   height={64}
                   className="w-16 h-16 object-contain"
                   priority={true}
-                  placeholder="blur"
-                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjNGNEY2Ii8+Cjwvc3ZnPgo="
                   sizes="64px"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'
@@ -167,23 +220,23 @@ export default function AppDetailPage() {
               </motion.div>
             )}
 
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+            <h1 className={`text-5xl md:text-6xl font-bold bg-gradient-to-r ${appColors.textGradient} bg-clip-text text-transparent mb-4 tracking-tight drop-shadow-sm`}>
               {app.name}
             </h1>
 
             <div className="flex items-center justify-center gap-3 mb-4">
               <Badge
                 variant={app.status === 'Live' ? 'default' : app.status === 'Finalizing' ? 'secondary' : 'destructive'}
-                className="text-sm px-4 py-2 bg-white/20 backdrop-blur-sm text-white border-white/30"
+                className={`text-sm px-4 py-2 bg-white/70 backdrop-blur-sm text-slate-700 border-slate-300 shadow-sm`}
               >
                 {app.status === 'Live' ? '🟢' : app.status === 'Finalizing' ? '🟡' : '🔴'} {app.status}
               </Badge>
-              <Badge variant="outline" className="text-sm px-4 py-2 bg-white/20 backdrop-blur-sm text-white border-white/30">
+              <Badge variant="outline" className={`text-sm px-4 py-2 bg-white/70 backdrop-blur-sm text-slate-700 border-slate-300 shadow-sm`}>
                 {app.category}
               </Badge>
             </div>
 
-            <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed drop-shadow-sm">
+            <p className="text-xl text-slate-700 max-w-3xl mx-auto leading-relaxed font-medium drop-shadow-sm">
               {app.description}
             </p>
 
@@ -195,7 +248,7 @@ export default function AppDetailPage() {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               {app.live_url && (
-                <Button asChild size="lg" className="glass-button bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30">
+                <Button asChild size="lg" className={`bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-semibold shadow-lg hover:shadow-[0_0_30px_rgba(14,165,233,0.8),0_0_60px_rgba(99,102,241,0.6)] transition-all duration-300 rounded-xl px-6 py-3 text-sm`}>
                   <a href={app.live_url} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-5 h-5 mr-2" />
                     Live Demo
@@ -203,7 +256,7 @@ export default function AppDetailPage() {
                 </Button>
               )}
               {app.github_url && (
-                <Button asChild variant="outline" size="lg" className="glass-button bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30">
+                <Button asChild variant="outline" size="lg" className="bg-white/70 backdrop-blur-sm border-slate-300 text-slate-700 hover:bg-white hover:border-slate-400 shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl px-6 py-3 text-sm">
                   <a href={app.github_url} target="_blank" rel="noopener noreferrer">
                     <Github className="w-5 h-5 mr-2" />
                     Source Code
@@ -214,15 +267,19 @@ export default function AppDetailPage() {
           </motion.div>
         </div>
 
-        {/* Back button */}
+        {/* Back button - Smaller size */}
         <motion.div
-          className="absolute top-6 left-6 z-20"
+          className="absolute top-16 left-6 z-20"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <Button variant="ghost" onClick={() => window.history.back()} className="glass-button bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30">
-            ← Back to Dashboard
+          <Button
+            variant="ghost"
+            onClick={() => window.history.back()}
+            className="text-white font-medium hover:text-white hover:bg-black/30 backdrop-blur-lg transition-all duration-300 rounded-xl px-4 py-2 border border-white/40 hover:border-white/70 hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] active:scale-95 bg-black/20 text-sm"
+          >
+            ← Back
           </Button>
         </motion.div>
       </header>
@@ -257,63 +314,103 @@ export default function AppDetailPage() {
         >
           {activeTab === 'overview' && (
             <div className="space-y-6">
-              {/* Screenshots Gallery */}
+              {/* Screenshots Gallery - Enhanced Interactive Experience */}
               {app.screenshots && app.screenshots.length > 0 && (
-                <Card className="glass-card">
-                  <CardHeader>
-                    <CardTitle className="gold-text">Screenshots</CardTitle>
+                <Card className="glass-card overflow-hidden">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle className="gold-text text-2xl">Interactive Screenshots</CardTitle>
+                        <p className="text-slate-300 text-sm mt-1">Explore the application interface and features</p>
+                      </div>
+                      <Badge variant="outline" className="bg-white/70 backdrop-blur-sm text-slate-700 border-slate-300 shadow-sm">
+                        {app.screenshots.length} Screenshots
+                      </Badge>
+                    </div>
                   </CardHeader>
-                  <CardContent>
-                    <div className="relative">
-                      <div className="aspect-video bg-gray-900 rounded-lg overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="relative group">
+                      {/* Main Screenshot Display */}
+                      <div className="relative aspect-video bg-gradient-to-br from-slate-900 to-slate-800 rounded-t-lg overflow-hidden">
                         <Image
                           src={app.screenshots[currentScreenshotIndex]}
-                          alt={`${app.name} screenshot ${currentScreenshotIndex + 1}`}
-                          width={800}
-                          height={450}
-                          className="w-full h-full object-contain"
+                          alt={`${app.name} screenshot ${currentScreenshotIndex + 1} - ${app.description}`}
+                          width={1200}
+                          height={675}
+                          className="w-full h-full object-contain transition-all duration-500 group-hover:scale-105"
                           loading="lazy"
                           placeholder="blur"
-                          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgdmlld0JveD0iMCAwIDgwMCA0NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjMkEyQTNBIi8+Cjwvc3ZnPgo="
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2NzUiIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjc1IiBmaWxsPSIjMUUyOTM5Ii8+Cjwvc3ZnPgo="
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
                           onError={(e) => {
                             e.currentTarget.style.display = 'none'
                           }}
                         />
+
+                        {/* Navigation Arrows - Enhanced */}
+                        {app.screenshots.length > 1 && (
+                          <>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white border border-white/20 backdrop-blur-sm opacity-80 hover:opacity-100 transition-all duration-300"
+                              onClick={prevScreenshot}
+                            >
+                              ←
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white border border-white/20 backdrop-blur-sm opacity-80 hover:opacity-100 transition-all duration-300"
+                              onClick={nextScreenshot}
+                            >
+                              →
+                            </Button>
+                          </>
+                        )}
+
+                        {/* Thumbnail Strip */}
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-black/40 backdrop-blur-sm rounded-full px-4 py-2">
+                          {app.screenshots.map((screenshot: string, index: number) => (
+                            <button
+                              key={index}
+                              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                                index === currentScreenshotIndex
+                                  ? 'bg-sky-400 scale-125 shadow-lg ring-2 ring-sky-300/50'
+                                  : 'bg-white/50 hover:bg-white/80'
+                              }`}
+                              onClick={() => setCurrentScreenshotIndex(index)}
+                              title={`View screenshot ${index + 1}`}
+                            />
+                          ))}
+                        </div>
+
+                        {/* Auto-advance indicator */}
+                        {app.screenshots.length > 1 && (
+                          <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-sm rounded-lg px-2 py-1">
+                            <div className="flex items-center gap-1 text-white/90 text-xs">
+                              ▶ Auto
+                            </div>
+                          </div>
+                        )}
                       </div>
 
-                      {app.screenshots.length > 1 && (
-                        <>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white hover:bg-black/70"
-                            onClick={prevScreenshot}
-                          >
-                            <ChevronLeft className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white hover:bg-black/70"
-                            onClick={nextScreenshot}
-                          >
-                            <ChevronRight className="w-4 h-4" />
-                          </Button>
-
-                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                            {app.screenshots.map((_, index) => (
-                              <button
-                                key={index}
-                                className={`w-2 h-2 rounded-full transition-colors ${
-                                  index === currentScreenshotIndex ? 'bg-white' : 'bg-white/50'
-                                }`}
-                                onClick={() => setCurrentScreenshotIndex(index)}
-                              />
-                            ))}
+                      {/* Screenshot Navigation Info */}
+                      <div className="p-4 bg-slate-900/20 backdrop-blur-sm border-t border-white/10">
+                        <div className="flex items-center justify-between text-sm">
+                          <div className="flex items-center gap-4">
+                            <span className="text-slate-300">
+                              Use arrow keys or click dots to navigate
+                            </span>
+                            <Badge variant="outline" className="bg-white/70 backdrop-blur-sm text-slate-700 border-slate-300 text-xs">
+                              Interactive Gallery
+                            </Badge>
                           </div>
-                        </>
-                      )}
+                          <div className="text-slate-400">
+                            {currentScreenshotIndex + 1} / {app.screenshots.length}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -389,7 +486,7 @@ export default function AppDetailPage() {
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4">
                       <div className="p-3 bg-blue-500/20 rounded-lg">
-                        <Users className="w-6 h-6 text-blue-400" />
+                        👥
                       </div>
                       <div>
                         <p className="text-muted-foreground text-sm">Total Visitors</p>
@@ -405,7 +502,7 @@ export default function AppDetailPage() {
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4">
                       <div className="p-3 bg-green-500/20 rounded-lg">
-                        <Eye className="w-6 h-6 text-green-400" />
+                        👁
                       </div>
                       <div>
                         <p className="text-muted-foreground text-sm">Page Views</p>
@@ -421,7 +518,7 @@ export default function AppDetailPage() {
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4">
                       <div className="p-3 bg-purple-500/20 rounded-lg">
-                        <TrendingUp className="w-6 h-6 text-purple-400" />
+                        📈
                       </div>
                       <div>
                         <p className="text-muted-foreground text-sm">Bounce Rate</p>
@@ -437,7 +534,7 @@ export default function AppDetailPage() {
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4">
                       <div className="p-3 bg-orange-500/20 rounded-lg">
-                        <Clock className="w-6 h-6 text-orange-400" />
+                        ⏱
                       </div>
                       <div>
                         <p className="text-muted-foreground text-sm">Avg. Session</p>
@@ -462,7 +559,12 @@ export default function AppDetailPage() {
                       <XAxis
                         dataKey="date"
                         stroke="rgba(255,255,255,0.7)"
-                        tickFormatter={(value: string) => new Date(value).toLocaleDateString()}
+                        tickFormatter={(value: string) => {
+                          if (typeof window !== 'undefined') {
+                            return new Date(value).toLocaleDateString()
+                          }
+                          return value // Fallback for SSR
+                        }}
                       />
                       <YAxis stroke="rgba(255,255,255,0.7)" />
                       <Tooltip
@@ -471,7 +573,12 @@ export default function AppDetailPage() {
                           border: '1px solid rgba(255,255,255,0.1)',
                           borderRadius: '8px'
                         }}
-                        labelFormatter={(value: string) => new Date(value).toLocaleDateString()}
+                        labelFormatter={(value: string) => {
+                          if (typeof window !== 'undefined') {
+                            return new Date(value).toLocaleDateString()
+                          }
+                          return value // Fallback for SSR
+                        }}
                       />
                       <Area
                         type="monotone"
@@ -524,7 +631,7 @@ export default function AppDetailPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Card className="glass-card">
                   <CardContent className="p-4 text-center">
-                    <Star className="w-8 h-8 mx-auto mb-2 text-yellow-400" />
+                    ⭐
                     <p className="text-2xl font-bold gold-text">{githubData?.stars || 0}</p>
                     <p className="text-sm text-muted-foreground">Stars</p>
                   </CardContent>
@@ -532,9 +639,11 @@ export default function AppDetailPage() {
 
                 <Card className="glass-card">
                   <CardContent className="p-4 text-center">
-                    <GitCommit className="w-8 h-8 mx-auto mb-2 text-blue-400" />
+                    📝
                     <p className="text-sm font-bold gold-text">
-                      {githubData?.lastCommit ? new Date(githubData.lastCommit).toLocaleDateString() : 'N/A'}
+                      {githubData?.lastCommit ?
+                        (typeof window !== 'undefined' ? new Date(githubData.lastCommit).toLocaleDateString() : 'Loading...')
+                        : 'N/A'}
                     </p>
                     <p className="text-sm text-muted-foreground">Last Commit</p>
                   </CardContent>
@@ -542,7 +651,7 @@ export default function AppDetailPage() {
 
                 <Card className="glass-card">
                   <CardContent className="p-4 text-center">
-                    <Users className="w-8 h-8 mx-auto mb-2 text-green-400" />
+                    👥
                     <p className="text-2xl font-bold gold-text">{githubData?.contributors || 0}</p>
                     <p className="text-sm text-muted-foreground">Contributors</p>
                   </CardContent>
@@ -575,7 +684,9 @@ export default function AppDetailPage() {
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Last Updated:</span>
                       <span className="gold-text">
-                        {githubData?.lastCommit ? new Date(githubData.lastCommit).toLocaleDateString() : 'N/A'}
+                        {githubData?.lastCommit ?
+                          (typeof window !== 'undefined' ? new Date(githubData.lastCommit).toLocaleDateString() : 'Loading...')
+                          : 'N/A'}
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -597,25 +708,25 @@ export default function AppDetailPage() {
                 <CardContent>
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Button className="flex-1 glass-button" onClick={() => {
-                      if (navigator.share) {
-                        navigator.share({
-                          title: app.name,
-                          text: app.description,
-                          url: window.location.href,
-                        })
-                      } else {
-                        // Fallback: copy to clipboard
-                        navigator.clipboard.writeText(window.location.href)
-                        alert('Link copied to clipboard!')
+                      if (typeof window !== 'undefined') {
+                        if (navigator.share) {
+                          navigator.share({
+                            title: app.name,
+                            text: app.description,
+                            url: window.location.href,
+                          })
+                        } else {
+                          // Fallback: copy to clipboard
+                          navigator.clipboard.writeText(window.location.href)
+                          alert('Link copied to clipboard!')
+                        }
                       }
                     }}>
-                      <Share2 className="w-4 h-4 mr-2" />
-                      Share App
+                      🔗 Share App
                     </Button>
 
                     <Button variant="outline" className="flex-1 glass-button">
-                      <MessageCircle className="w-4 h-4 mr-2" />
-                      Leave Feedback
+                      💬 Leave Feedback
                     </Button>
                   </div>
 
@@ -628,8 +739,19 @@ export default function AppDetailPage() {
                       className="w-full p-3 bg-background border border-white/10 rounded-md text-sm resize-none"
                       rows={4}
                       placeholder="Your feedback..."
+                      disabled={typeof window === 'undefined'}
                     />
-                    <Button className="mt-2 glass-button">Submit Feedback</Button>
+                    <Button
+                      className="mt-2 glass-button"
+                      disabled={typeof window === 'undefined'}
+                      onClick={() => {
+                        if (typeof window !== 'undefined') {
+                          alert('Feedback submitted! Thank you for your input.')
+                        }
+                      }}
+                    >
+                      Submit Feedback
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -638,22 +760,71 @@ export default function AppDetailPage() {
         </motion.div>
       </main>
 
-      {/* Footer Story */}
-      <footer className="glass border-t border-white/10 py-8">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+      {/* Footer with Home Page Style */}
+      <footer className="relative bg-gradient-to-r from-slate-900/80 via-blue-900/60 to-indigo-900/80 backdrop-blur-md border-t border-white/20 py-16 mt-16">
+        {/* Enhanced background overlay for better text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10"></div>
+
+        <div className="relative max-w-7xl mx-auto px-6 text-center">
           <motion.div
-            className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
+            className="flex flex-col items-center gap-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">EO</span>
+            {/* Text background panel for maximum readability */}
+            <div className="absolute inset-0 bg-black/20 backdrop-blur-sm rounded-3xl -z-10"></div>
+
+            {/* Portfolio Call to Action */}
+            <div className="space-y-6">
+              <h3 className="text-3xl font-bold text-white mb-4 drop-shadow-lg">Ready to Connect?</h3>
+              <p className="text-slate-100 max-w-lg mx-auto text-lg leading-relaxed drop-shadow-md font-medium">
+                Explore my complete portfolio and let&apos;s discuss how we can work together on your next project.
+              </p>
             </div>
-            <span className="text-white font-medium">Built by EmmanuelOS</span>
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+
+            {/* Glowing Portfolio Button */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button
+                asChild
+                size="lg"
+                className={`bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-bold shadow-2xl hover:shadow-[0_0_40px_rgba(14,165,233,0.9),0_0_80px_rgba(99,102,241,0.7),0_0_120px_rgba(14,165,233,0.5)] transition-all duration-500 rounded-2xl px-10 py-5 text-xl`}
+              >
+                <a
+                  href="https://ceodev.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4"
+                  onClick={(e) => {
+                    // Ensure the link opens properly
+                    e.preventDefault()
+                    if (typeof window !== 'undefined') {
+                      window.open('https://ceodev.vercel.app', '_blank', 'noopener,noreferrer')
+                    }
+                  }}
+                >
+                  <span className="animate-bounce text-2xl">🌟</span>
+                  Explore My Portfolio
+                  <span className="animate-pulse text-xl">→</span>
+                </a>
+              </Button>
+            </motion.div>
+
+            {/* Enhanced Decorative elements */}
+            <div className={`flex items-center gap-4 text-slate-200 text-base font-medium`}>
+              <div className={`w-3 h-3 bg-${appColors.accent}-400 rounded-full animate-pulse shadow-lg`}></div>
+              <span className="drop-shadow-md">Built with ❤️ using EmmanuelOS</span>
+              <div className={`w-3 h-3 bg-${appColors.accent}-400 rounded-full animate-pulse shadow-lg`}></div>
+            </div>
           </motion.div>
         </div>
+
+        {/* Background decorative elements */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-sky-500/15 to-transparent rounded-full blur-3xl -translate-y-48"></div>
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-tl from-indigo-500/15 to-transparent rounded-full blur-3xl translate-y-32"></div>
       </footer>
     </div>
   )

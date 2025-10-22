@@ -9,15 +9,56 @@ import assetsMapData from '@/data/assets-map.json'
 export function mergeAppAssets(apps: App[]): App[] {
   const assetsMap: AssetMap = assetsMapData
 
+  // Create a mapping for apps with different naming conventions
+  const nameMappings: { [key: string]: string } = {
+    'Emmdra Empire & Lifestyle': 'emmdraEmpireImages',
+    'Zereth Cakes Hub': 'Zereth_CakesHubImages',
+    'Jepligom Ministry Portal': 'JepligomMinistryPortal',
+    'CEOTR Ltd ERP Suite': 'ceotr-erp-suite',
+    'CEO Writes': 'ceowrites-emmanuelBlogHub',
+    'CodeMentor Academy': 'codementor-academy',
+    'FinanceFlow Pro': 'financeflow-pro',
+    'Workflow Hub': 'workflow-hub',
+    'Bible Game Hub': 'Bible-game-hub',
+    'PoshPOULE Farms Website & ERP Suite': 'PoshPOULEfarmsErpSuite',
+    'FarmTrack': 'farmTrack',
+    'CEO.dev - Emmanuel Chukwuka Ogugua Portfolio': 'ceoPortfolio'
+  }
+
   return apps.map(app => {
-    const appAssets = assetsMap[app.name] || assetsMap[app.name.toLowerCase()]
+    // Try direct mapping first
+    let appAssets = assetsMap[nameMappings[app.name]] || assetsMap[app.name]
+
+    if (!appAssets) {
+      // Try lowercase version
+      appAssets = assetsMap[app.name.toLowerCase()]
+    }
+
+    if (!appAssets) {
+      // Try common variations from the assets map
+      const variations = [
+        app.name.replace(/\s+/g, '').toLowerCase(),
+        app.name.replace(/[^a-zA-Z0-9]/g, ''),
+        app.name.split(' ')[0].toLowerCase(),
+        app.name.replace(/\s+/g, '-').toLowerCase(),
+        app.name.replace(/\s+/g, '_').toLowerCase()
+      ]
+
+      for (const variation of variations) {
+        appAssets = assetsMap[variation]
+        if (appAssets) break
+      }
+    }
 
     if (appAssets) {
+      // Ensure we have a cover image - use first screenshot if no cover specified
+      const cover = appAssets.cover || (appAssets.screenshots && appAssets.screenshots.length > 0 ? appAssets.screenshots[0] : undefined)
+
       return {
         ...app,
         logo: appAssets.logo,
-        cover: appAssets.cover,
-        screenshots: appAssets.screenshots
+        cover: cover,
+        screenshots: appAssets.screenshots || []
       }
     }
 

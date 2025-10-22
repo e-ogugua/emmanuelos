@@ -155,7 +155,7 @@ export function AdminAnalyticsPanel() {
                       </Badge>
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      Last updated: {appData.lastUpdated.toLocaleTimeString()}
+                      Last updated: {typeof window !== 'undefined' ? new Date(appData.lastUpdated).toLocaleTimeString() : 'Loading...'}
                     </div>
                   </div>
                 ))}

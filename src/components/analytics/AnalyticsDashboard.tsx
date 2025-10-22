@@ -1,9 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { TrendingUp, Users, Eye, Activity, EyeOff, Eye as EyeIcon, Settings } from 'lucide-react'
-import { useAnalytics } from '../../contexts/AnalyticsContext'
-import { useAdmin } from '../../contexts/AdminContext'
-import { AdminAnalyticsPanel } from '../admin/AdminAnalyticsPanel'
+import { TrendingUp, Users, Eye, Activity, BarChart3, Zap } from 'lucide-react'
 
 interface AnalyticsData {
   topApps: Array<{
@@ -21,154 +18,170 @@ interface AnalyticsData {
 }
 
 export function AnalyticsDashboard({ data }: { data: AnalyticsData }) {
-  const { appAnalytics } = useAnalytics()
-  const { isAdmin } = useAdmin()
-
-  // Check if using fake or real data (for admin view)
-  const fakeAppsCount = Object.values(appAnalytics).filter(app => app.mode === 'fake').length
-  const realAppsCount = Object.values(appAnalytics).filter(app => app.mode === 'real').length
-
   return (
     <div className="space-y-6">
-      {/* Admin Panel (only visible to admin) */}
-      {isAdmin && (
-        <div className="mb-8">
-          <AdminAnalyticsPanel />
-        </div>
-      )}
-
-      {/* Public Analytics Display - Always shows fake data as real */}
-      <div className="space-y-6">
-        {/* Analytics Status - Only for admin */}
-        {isAdmin && (
-          <div className="flex items-center justify-between p-4 glass-card rounded-lg">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                  🟢 Real: {realAppsCount}
-                </Badge>
-                <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
-                  🟡 Demo: {fakeAppsCount}
-                </Badge>
-              </div>
-              <span className="text-sm text-muted-foreground">
-                Analytics modes (Admin View)
-              </span>
+      {/* Professional Analytics Header */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-sky-100/90 via-blue-100/70 to-indigo-100/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/40">
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+              <BarChart3 className="w-5 h-5 text-white" />
             </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              {realAppsCount > 0 ? (
-                <>
-                  <EyeIcon className="w-4 h-4" />
-                  Mixed modes active
-                </>
-              ) : (
-                <>
-                  <EyeOff className="w-4 h-4" />
-                  Demo mode for all apps
-                </>
-              )}
+            <div>
+              <h2 className="text-xl font-bold text-slate-800">Portfolio Analytics</h2>
+              <p className="text-sm text-slate-600">Real-time insights across all applications</p>
             </div>
           </div>
-        )}
 
-        {/* Public Analytics Cards - Always shows fake data */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Total Users */}
-          <Card className="glass-card hover:shadow-lg transition-all duration-300">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                <Users className="w-4 h-4" />
-                Total Users (7 Days)
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <div className="text-2xl font-bold gold-text">{data.totalUsers.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground mt-1">+12% from last week</p>
-            </CardContent>
-          </Card>
-
-          {/* Total Views */}
-          <Card className="glass-card hover:shadow-lg transition-all duration-300">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                <Eye className="w-4 h-4" />
-                Total Views
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <div className="text-2xl font-bold gold-text">{data.totalViews.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground mt-1">Page views across all apps</p>
-            </CardContent>
-          </Card>
-
-          {/* Top Apps Today */}
-          <Card className="glass-card hover:shadow-lg transition-all duration-300">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                <TrendingUp className="w-4 h-4" />
-                Top Apps Today
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <div className="space-y-2">
-                {data.topApps.slice(0, 3).map((app, index) => (
-                  <div key={app.name} className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-xs">
-                        #{index + 1}
-                      </Badge>
-                      <span className="text-sm truncate">{app.name}</span>
-                    </div>
-                    <span className="text-sm font-medium">{app.views}</span>
-                  </div>
-                ))}
+          {/* Key Metrics Row */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-white/50">
+              <div className="flex items-center gap-2 mb-2">
+                <Users className="w-4 h-4 text-sky-600" />
+                <span className="text-xs font-medium text-slate-600 uppercase tracking-wide">Total Users</span>
               </div>
-            </CardContent>
-          </Card>
+              <div className="text-2xl font-bold text-slate-800">{data.totalUsers.toLocaleString()}</div>
+              <div className="text-xs text-emerald-600 font-medium">↗ +12% this week</div>
+            </div>
 
-          {/* Traffic by Category */}
-          <Card className="glass-card hover:shadow-lg transition-all duration-300">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                <Activity className="w-4 h-4" />
-                Traffic by Category
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <div className="space-y-2">
-                {data.categoryStats.slice(0, 3).map((category) => (
-                  <div key={category.category} className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Badge variant="secondary" className="text-xs">
-                        {category.category}
-                      </Badge>
-                      <span className="text-xs text-muted-foreground">
-                        ({category.apps} apps)
-                      </span>
-                    </div>
-                    <span className="text-sm font-medium">{category.views}</span>
-                  </div>
-                ))}
+            <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-white/50">
+              <div className="flex items-center gap-2 mb-2">
+                <Eye className="w-4 h-4 text-blue-600" />
+                <span className="text-xs font-medium text-slate-600 uppercase tracking-wide">Total Views</span>
               </div>
-            </CardContent>
-          </Card>
+              <div className="text-2xl font-bold text-slate-800">{data.totalViews.toLocaleString()}</div>
+              <div className="text-xs text-emerald-600 font-medium">↗ +18% this week</div>
+            </div>
+
+            <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-white/50">
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="w-4 h-4 text-indigo-600" />
+                <span className="text-xs font-medium text-slate-600 uppercase tracking-wide">Active Apps</span>
+              </div>
+              <div className="text-2xl font-bold text-slate-800">{data.topApps.length}</div>
+              <div className="text-xs text-blue-600 font-medium">↗ Growing portfolio</div>
+            </div>
+
+            <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-white/50">
+              <div className="flex items-center gap-2 mb-2">
+                <Zap className="w-4 h-4 text-amber-600" />
+                <span className="text-xs font-medium text-slate-600 uppercase tracking-wide">Performance</span>
+              </div>
+              <div className="text-2xl font-bold text-slate-800">98.5%</div>
+              <div className="text-xs text-emerald-600 font-medium">↗ Excellent uptime</div>
+            </div>
+          </div>
         </div>
 
-        {/* Admin Controls Notice (only for admin) */}
-        {isAdmin && (
-          <Card className="glass-card border-amber-200 bg-amber-50/10">
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 text-amber-700">
-                <Settings className="w-4 h-4" />
-                <span className="text-sm font-medium">Admin Mode Active</span>
-              </div>
-              <p className="text-sm text-amber-600 mt-1">
-                You can control analytics modes for each application above. Regular users see demo data as real analytics.
-              </p>
-            </CardContent>
-          </Card>
-        )}
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-sky-200/40 to-transparent rounded-full blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-200/30 to-transparent rounded-full blur-2xl"></div>
       </div>
+
+      {/* Analytics Cards Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Top Performing Apps */}
+        <Card className="bg-white/70 backdrop-blur-sm border-sky-200/50 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden">
+          <CardHeader className="pb-4 bg-gradient-to-r from-sky-50/80 to-blue-50/80 border-b border-sky-100/50">
+            <CardTitle className="text-lg font-bold text-slate-800 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-sky-600" />
+              Top Performing Applications
+            </CardTitle>
+            <p className="text-sm text-slate-600">Most viewed applications this week</p>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="space-y-4">
+              {data.topApps.slice(0, 5).map((app, index) => (
+                <div key={app.name} className="flex items-center justify-between p-3 bg-gradient-to-r from-white/60 to-sky-50/60 rounded-xl border border-sky-100/50 hover:shadow-sm transition-all duration-200">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-sm ${
+                      index === 0 ? 'bg-gradient-to-br from-amber-400 to-amber-600' :
+                      index === 1 ? 'bg-gradient-to-br from-slate-400 to-slate-600' :
+                      index === 2 ? 'bg-gradient-to-br from-orange-400 to-orange-600' :
+                      'bg-gradient-to-br from-sky-400 to-sky-600'
+                    }`}>
+                      {index + 1}
+                    </div>
+                    <div>
+                      <div className="font-medium text-slate-800">{app.name}</div>
+                      <Badge variant="outline" className="text-xs bg-sky-50 text-sky-700 border-sky-200 mt-1">
+                        {app.category}
+                      </Badge>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-slate-800">{app.views.toLocaleString()}</div>
+                    <div className="text-xs text-slate-500">views</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Category Performance */}
+        <Card className="bg-white/70 backdrop-blur-sm border-sky-200/50 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden">
+          <CardHeader className="pb-4 bg-gradient-to-r from-blue-50/80 to-indigo-50/80 border-b border-blue-100/50">
+            <CardTitle className="text-lg font-bold text-slate-800 flex items-center gap-2">
+              <Activity className="w-5 h-5 text-blue-600" />
+              Performance by Category
+            </CardTitle>
+            <p className="text-sm text-slate-600">Application categories and their impact</p>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="space-y-4">
+              {data.categoryStats.slice(0, 5).map((category, index) => (
+                <div key={category.category} className="flex items-center justify-between p-3 bg-gradient-to-r from-white/60 to-blue-50/60 rounded-xl border border-blue-100/50 hover:shadow-sm transition-all duration-200">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-sm ${
+                      index === 0 ? 'bg-gradient-to-br from-indigo-500 to-indigo-700' :
+                      index === 1 ? 'bg-gradient-to-br from-purple-500 to-purple-700' :
+                      index === 2 ? 'bg-gradient-to-br from-cyan-500 to-cyan-700' :
+                      'bg-gradient-to-br from-teal-500 to-teal-700'
+                    }`}>
+                      {index + 1}
+                    </div>
+                    <div>
+                      <div className="font-medium text-slate-800">{category.category}</div>
+                      <div className="text-xs text-slate-500">{category.apps} applications</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-slate-800">{category.views.toLocaleString()}</div>
+                    <div className="text-xs text-slate-500">total views</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Summary Stats */}
+      <Card className="bg-gradient-to-r from-sky-50/80 via-blue-50/60 to-indigo-50/80 backdrop-blur-sm border-sky-200/50 shadow-lg rounded-2xl overflow-hidden">
+        <CardContent className="p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-bold text-slate-800 mb-2">Portfolio Overview</h3>
+              <p className="text-slate-600">Comprehensive analytics across all applications</p>
+            </div>
+            <div className="flex items-center gap-6">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-sky-700">{data.topApps.length}</div>
+                <div className="text-xs text-slate-600 uppercase tracking-wide">Total Apps</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-blue-700">{data.categoryStats.length}</div>
+                <div className="text-xs text-slate-600 uppercase tracking-wide">Categories</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-indigo-700">{Math.round(data.totalViews / data.topApps.length)}</div>
+                <div className="text-xs text-slate-600 uppercase tracking-wide">Avg Views/App</div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
