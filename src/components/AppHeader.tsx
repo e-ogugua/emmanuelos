@@ -10,7 +10,7 @@ interface AppHeaderProps {
 }
 
 export function AppHeader({ onAdminClick }: AppHeaderProps) {
-  const scrollToApplications = (e: React.MouseEvent) => {
+  const handleButtonClick = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault()
     e.stopPropagation()
 
@@ -63,11 +63,8 @@ export function AppHeader({ onAdminClick }: AppHeaderProps) {
                 <Button
                   asChild
                   className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-semibold shadow-sky-md hover:shadow-sky-md transition-all duration-normal ease-default rounded-2xl px-5 md:px-6 py-2.5 md:py-3 text-xs md:text-sm relative z-30"
-                  onClick={scrollToApplications}
-                  onTouchStart={(e) => {
-                    e.preventDefault()
-                    scrollToApplications(e as any)
-                  }}
+                  onClick={handleButtonClick}
+                  onTouchStart={handleButtonClick}
                 >
                   <span className="flex items-center gap-2">
                     <span className="animate-pulse"></span>

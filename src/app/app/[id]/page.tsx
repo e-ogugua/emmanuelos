@@ -346,21 +346,32 @@ export default function AppDetailPage() {
                   <CardContent className="p-0">
                     <div className="relative group">
                       {/* Main Screenshot Display */}
-                      <div className="relative aspect-video bg-gradient-to-br from-slate-900 to-slate-800 rounded-t-lg overflow-hidden">
-                        <Image
-                          src={app.screenshots[currentScreenshotIndex]}
-                          alt={`${app.name} screenshot ${currentScreenshotIndex + 1} - ${app.description}`}
-                          width={1400}
-                          height={788}
-                          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-                          loading="lazy"
-                          placeholder="blur"
-                          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwMCIgaGVpZ2h0PSI3ODgiIHZpZXdCb3g9IjAgMCAxNDAwIDc4OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjE0MDAiIGhlaWdodD0iNzg4IiBmaWxsPSIjMUUyOTM5Ii8+Cjwvc3ZnPgo="
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none'
-                          }}
-                        />
+                      <div className="relative aspect-video bg-gradient-to-br from-slate-900 to-slate-800 rounded-t-lg overflow-hidden screenshot-gallery">
+                        <div className="relative w-full h-full perspective-1000">
+                          <Image
+                            src={app.screenshots[currentScreenshotIndex]}
+                            alt={`${app.name} screenshot ${currentScreenshotIndex + 1} - ${app.description}`}
+                            width={1400}
+                            height={788}
+                            className="w-full h-full object-cover screenshot-image transition-gpu"
+                            style={{
+                              transform: `rotateY(0deg) scale(1)`,
+                              transition: 'transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                              backfaceVisibility: 'hidden',
+                              willChange: 'transform'
+                            }}
+                            loading="lazy"
+                            placeholder="blur"
+                            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwMCIgaGVpZ2h0PSI3ODgiIHZpZXdCb3g9IjAgMCAxNDAwIDc4OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjE0MDAiIGhlaWdodD0iNzg4IiBmaWxsPSIjMUUyOTM5Ii8+Cjwvc3ZnPgo="
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none'
+                            }}
+                          />
+                          {/* Dramatic overlay effect */}
+                          <div className="absolute inset-0 bg-gradient-to-tr from-sky-500/10 via-transparent to-indigo-500/10 opacity-0 screenshot-overlay transition-opacity duration-700 pointer-events-none"></div>
+                          <div className="absolute inset-0 bg-gradient-to-bl from-white/5 via-transparent to-black/10 opacity-0 screenshot-overlay transition-opacity duration-700 pointer-events-none"></div>
+                        </div>
 
                         {/* Navigation Arrows - Enhanced responsive positioning */}
                         {app.screenshots.length > 1 && (
@@ -368,7 +379,7 @@ export default function AppDetailPage() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="absolute left-2 md:left-4 lg:left-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white border border-white/30 backdrop-blur-md opacity-90 hover:opacity-100 transition-all duration-300 rounded-full w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 shadow-lg hover:shadow-xl hover:scale-110"
+                              className="absolute left-2 md:left-4 lg:left-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white border border-white/30 backdrop-blur-md opacity-90 hover:opacity-100 transition-all duration-300 rounded-full w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 shadow-lg hover:shadow-xl hover:scale-110 hover:rotate-12 nav-arrow-hover"
                               onClick={prevScreenshot}
                             >
                               ←
@@ -376,7 +387,7 @@ export default function AppDetailPage() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="absolute right-2 md:right-4 lg:right-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white border border-white/30 backdrop-blur-md opacity-90 hover:opacity-100 transition-all duration-300 rounded-full w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 shadow-lg hover:shadow-xl hover:scale-110"
+                              className="absolute right-2 md:right-4 lg:right-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white border border-white/30 backdrop-blur-md opacity-90 hover:opacity-100 transition-all duration-300 rounded-full w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 shadow-lg hover:shadow-xl hover:scale-110 hover:-rotate-12 nav-arrow-hover"
                               onClick={nextScreenshot}
                             >
                               →
@@ -389,7 +400,7 @@ export default function AppDetailPage() {
                           {app.screenshots.map((screenshot: string, index: number) => (
                             <button
                               key={index}
-                              className={`w-2 h-2 md:w-3 md:h-3 lg:w-4 lg:h-4 rounded-full transition-all duration-300 border ${
+                              className={`w-2 h-2 md:w-3 md:h-3 lg:w-4 lg:h-4 rounded-full transition-all duration-300 border thumbnail-hover ${
                                 index === currentScreenshotIndex
                                   ? 'bg-sky-400 scale-125 shadow-lg ring-1 ring-sky-300/50 border-sky-300'
                                   : 'bg-white/60 hover:bg-white/90 border-white/30 hover:border-white/50 hover:scale-110'
