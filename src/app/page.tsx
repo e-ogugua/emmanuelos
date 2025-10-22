@@ -437,7 +437,7 @@ export default function HomePage() {
                           </div>
                         )}
 
-                        <h3 className="text-xl font-bold mb-3 line-clamp-1 text-slate-800 group-hover:text-slate-900 transition-colors duration-300">
+                        <h3 className="text-xl font-medium text-slate-800 mb-3 line-clamp-1 group-hover:text-slate-900 transition-colors duration-300">
                           {app.name}
                         </h3>
                         <div className="flex items-center gap-2 mb-3">
@@ -466,7 +466,7 @@ export default function HomePage() {
                     </div>
 
                     <div className="flex-1 flex flex-col">
-                      <p className="text-slate-700 text-sm mb-4 line-clamp-3 leading-relaxed group-hover:text-slate-800 transition-colors duration-300">
+                      <p className="text-slate-600 text-sm mb-4 line-clamp-3 leading-relaxed group-hover:text-slate-700 transition-colors duration-300">
                         {app.description}
                       </p>
 
@@ -619,11 +619,11 @@ export default function HomePage() {
                   <div className="w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></div>
                 </motion.div>
 
-                <h3 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg bg-gradient-to-r from-white via-sky-100 to-indigo-100 bg-clip-text text-transparent">
+                <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-6 drop-shadow-lg bg-gradient-to-r from-white via-sky-100 to-indigo-100 bg-clip-text text-transparent">
                   Ready to Transform Ideas into Reality?
                 </h3>
 
-                <p className="text-slate-100 max-w-2xl mx-auto text-xl leading-relaxed drop-shadow-md font-medium mb-8">
+                <p className="text-slate-100 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed drop-shadow-md font-normal mb-8">
                   Let&apos;s collaborate on innovative solutions that drive results. From concept to deployment, I bring expertise in modern web technologies and strategic thinking to every project.
                 </p>
 

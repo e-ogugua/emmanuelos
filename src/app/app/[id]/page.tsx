@@ -232,7 +232,7 @@ export default function AppDetailPage() {
               </motion.div>
             )}
 
-            <h1 className={`text-5xl md:text-6xl font-bold bg-gradient-to-r ${appColors.textGradient} bg-clip-text text-transparent mb-4 tracking-tight drop-shadow-sm`}>
+            <h1 className={`text-3xl md:text-4xl lg:text-5xl font-semibold bg-gradient-to-r ${appColors.textGradient} bg-clip-text text-transparent mb-4 tracking-tight drop-shadow-sm leading-tight`}>
               {app.name}
             </h1>
 
@@ -248,7 +248,7 @@ export default function AppDetailPage() {
               </Badge>
             </div>
 
-            <p className="text-xl text-slate-700 max-w-3xl mx-auto leading-relaxed font-medium drop-shadow-sm">
+            <p className="text-lg md:text-xl text-slate-700 max-w-4xl mx-auto leading-relaxed font-normal drop-shadow-sm text-center">
               {app.description}
             </p>
 
@@ -332,7 +332,7 @@ export default function AppDetailPage() {
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle className="gold-text text-2xl">Interactive Screenshots</CardTitle>
+                        <CardTitle className="text-slate-800 font-medium text-xl">Interactive Screenshots</CardTitle>
                         <p className="text-slate-300 text-sm mt-1">Explore the application interface and features</p>
                       </div>
                       <Badge variant="outline" className="bg-white/70 backdrop-blur-sm text-slate-700 border-slate-300 shadow-sm">
@@ -431,7 +431,7 @@ export default function AppDetailPage() {
               {/* Tech Stack */}
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle className="gold-text">Technology Stack</CardTitle>
+                  <CardTitle className="text-slate-800 font-medium text-xl">Technology Stack</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -448,7 +448,7 @@ export default function AppDetailPage() {
               {/* Key Features */}
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle className="gold-text">Key Features</CardTitle>
+                  <CardTitle className="text-slate-800 font-medium text-xl">Key Features</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
@@ -475,7 +475,7 @@ export default function AppDetailPage() {
               {/* Tags */}
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle className="gold-text">Tags & Categories</CardTitle>
+                  <CardTitle className="text-slate-800 font-medium text-xl">Tags & Categories</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
@@ -562,7 +562,7 @@ export default function AppDetailPage() {
               {/* Traffic Chart */}
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle className="gold-text">Traffic Trends (Last 14 Days)</CardTitle>
+                  <CardTitle className="text-slate-800 font-medium text-xl">Traffic Trends (Last 14 Days)</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -614,7 +614,7 @@ export default function AppDetailPage() {
               {/* Top Pages */}
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle className="gold-text">Top Pages</CardTitle>
+                  <CardTitle className="text-slate-800 font-medium text-xl">Top Pages</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={200}>
@@ -683,7 +683,7 @@ export default function AppDetailPage() {
               {/* Repository Info */}
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle className="gold-text">Repository Information</CardTitle>
+                  <CardTitle className="text-slate-800 font-medium text-xl">Repository Information</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
@@ -715,7 +715,7 @@ export default function AppDetailPage() {
             <div className="space-y-6">
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle className="gold-text">Share & Feedback</CardTitle>
+                  <CardTitle className="text-slate-800 font-medium text-xl">Share & Feedback</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-col sm:flex-row gap-4">
