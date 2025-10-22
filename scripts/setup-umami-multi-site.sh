@@ -3,12 +3,12 @@
 # EmmanuelOS Multi-Website Umami Setup Script
 # This script helps set up Umami Analytics for all 16 applications
 
-echo "🚀 EmmanuelOS Multi-Website Umami Analytics Setup"
+echo "EmmanuelOS Multi-Website Umami Analytics Setup"
 echo "=============================================="
 
 # Check if user has Umami CLI installed
 if ! command -v umami &> /dev/null; then
-    echo "❌ Umami CLI not found. Please install it first:"
+    echo "ERROR: Umami CLI not found. Please install it first:"
     echo "npm install -g @umami/cli"
     exit 1
 fi
@@ -33,14 +33,14 @@ declare -A apps=(
     ["poshpoulet-scratch"]="https://poshpoulet-scratch.vercel.app/"
 )
 
-echo "📋 Available Applications:"
+echo "Available Applications:"
 echo "=========================="
 for i in "${!apps[@]}"; do
     echo "• $i: ${apps[$i]}"
 done
 
 echo ""
-echo "🔧 Setup Options:"
+echo "Setup Options:"
 echo "================"
 echo "1. Set up all websites in Umami (requires manual website creation)"
 echo "2. Generate setup scripts for each website"
@@ -51,19 +51,19 @@ read -p "Choose option (1-4): " choice
 
 case $choice in
     1)
-        echo "🌐 Setting up all websites in Umami..."
-        echo "⚠️  NOTE: You need to manually create each website in Umami dashboard first"
+        echo "Setting up all websites in Umami..."
+        echo "WARNING: You need to manually create each website in Umami dashboard first"
         echo ""
-        echo "📋 Required Umami Websites to Create:"
+        echo "Required Umami Websites to Create:"
         for app_name in "${!apps[@]}"; do
             echo "• $app_name (${apps[$app_name]})"
         done
         echo ""
-        echo "✅ After creating websites in Umami, run option 2 to generate scripts"
+        echo "After creating websites in Umami, run option 2 to generate scripts"
         ;;
 
     2)
-        echo "🔨 Generating setup scripts for each website..."
+        echo "Generating setup scripts for each website..."
 
         # Create scripts directory
         mkdir -p scripts/umami-setup
@@ -77,22 +77,22 @@ case $choice in
 # Umami Analytics Setup for $app_name
 # URL: $url
 
-echo "🔧 Setting up Umami Analytics for $app_name"
+echo "Setting up Umami Analytics for $app_name"
 echo "============================================="
 
 # Check if this is a Next.js project
 if [ -f "package.json" ]; then
-    echo "📦 Next.js project detected"
+    echo "Next.js project detected"
 
     # Check if @umami/next is installed
     if ! npm list @umami/next &> /dev/null; then
-        echo "📥 Installing @umami/next..."
+        echo "Installing @umami/next..."
         npm install @umami/next
     fi
 
     # Update layout.tsx
     if [ -f "src/app/layout.tsx" ]; then
-        echo "🔄 Updating layout.tsx..."
+        echo "Updating layout.tsx..."
 
         # Backup original file
         cp src/app/layout.tsx src/app/layout.tsx.backup
@@ -103,7 +103,7 @@ if [ -f "package.json" ]; then
         # Add Umami component before closing body tag
         sed -i '/<\/body>/i\\n        <Umami websiteId={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID} \/>' src/app/layout.tsx
 
-        echo "✅ layout.tsx updated successfully"
+        echo "layout.tsx updated successfully"
     fi
 
     # Update environment variables
@@ -112,48 +112,48 @@ if [ -f "package.json" ]; then
             echo "" >> .env.local
             echo "# Umami Analytics" >> .env.local
             echo "NEXT_PUBLIC_UMAMI_WEBSITE_ID=your-umami-website-id-here" >> .env.local
-            echo "✅ Added Umami environment variables to .env.local"
+            echo "Added Umami environment variables to .env.local"
         fi
     else
         echo "# Umami Analytics" > .env.local
         echo "NEXT_PUBLIC_UMAMI_WEBSITE_ID=your-umami-website-id-here" >> .env.local
-        echo "✅ Created .env.local with Umami configuration"
+        echo "Created .env.local with Umami configuration"
     fi
 
 else
-    echo "📄 Static HTML/Other project detected"
-    echo "💡 For non-Next.js projects, add this script tag to your HTML:"
+    echo "Static HTML/Other project detected"
+    echo "For non-Next.js projects, add this script tag to your HTML:"
     echo '    <script defer src="https://cloud.umami.is/script.js" data-website-id="your-umami-id"></script>'
     echo ""
-    echo "📝 Add it before the closing </head> tag"
+    echo "Add it before the closing </head> tag"
 fi
 
 echo ""
-echo "🎯 Next Steps for $app_name:"
+echo "Next Steps for $app_name:"
 echo "1. Create website in Umami dashboard: $url"
 echo "2. Get the website ID from Umami"
 echo "3. Update .env.local with the correct NEXT_PUBLIC_UMAMI_WEBSITE_ID"
 echo "4. Deploy the application"
 echo "5. Test analytics tracking"
 echo ""
-echo "🔗 Umami Dashboard: https://cloud.umami.is"
+echo "Umami Dashboard: https://cloud.umami.is"
 EOF
 
             chmod +x "$script_file"
-            echo "✅ Generated setup script: $script_file"
+            echo "Generated setup script: $script_file"
         done
 
         echo ""
-        echo "🎉 All setup scripts generated!"
-        echo "📂 Scripts location: scripts/umami-setup/"
+        echo "All setup scripts generated!"
+        echo "Scripts location: scripts/umami-setup/"
         echo ""
-        echo "🚀 To run a specific setup script:"
+        echo "To run a specific setup script:"
         echo "   cd /path/to/app/directory"
         echo "   bash ../scripts/umami-setup/app-name-umami-setup.sh"
         ;;
 
     3)
-        echo "🔄 Creating fake vs real analytics toggle system..."
+        echo "Creating fake vs real analytics toggle system..."
 
         # Create analytics toggle component
         cat > "src/components/analytics/AnalyticsToggle.tsx" << 'EOF'
@@ -197,7 +197,7 @@ export function AnalyticsToggle({ appName, currentMode, onToggle }: AnalyticsTog
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <Badge variant={isEnabled ? 'default' : 'secondary'}>
-                {isEnabled ? '🟢 Real' : '🟡 Fake'}
+                {isEnabled ? 'Real' : 'Fake'}
               </Badge>
               <span className="text-sm text-muted-foreground">
                 {isEnabled ? 'Live tracking active' : 'Demo data mode'}
@@ -232,7 +232,7 @@ export function AnalyticsToggle({ appName, currentMode, onToggle }: AnalyticsTog
 }
 EOF
 
-        echo "✅ Created AnalyticsToggle component"
+        echo "Created AnalyticsToggle component"
 
         # Create fake data generator
         cat > "src/lib/fakeAnalytics.ts" << 'EOF'
@@ -332,7 +332,7 @@ export function simulateRealTimeUpdate(currentData: FakeAnalyticsData, intensity
 }
 EOF
 
-        echo "✅ Created fake analytics system"
+        echo "Created fake analytics system"
 
         # Create analytics context for state management
         cat > "src/contexts/AnalyticsContext.tsx" << 'EOF'
@@ -457,12 +457,12 @@ export function useAnalytics() {
 }
 EOF
 
-        echo "✅ Created AnalyticsContext for state management"
+        echo "Created AnalyticsContext for state management"
 
         echo ""
-        echo "🎉 Fake vs Real Analytics Toggle System Complete!"
+        echo "Fake vs Real Analytics Toggle System Complete!"
         echo ""
-        echo "🔧 Features Added:"
+        echo "Features Added:"
         echo "• AnalyticsToggle component for switching modes"
         echo "• Fake data generator with realistic patterns"
         echo "• Real-time updates for fake data"
@@ -471,12 +471,12 @@ EOF
         ;;
 
     4)
-        echo "📊 Updating EmmanuelOS dashboard integration..."
+        echo "Updating EmmanuelOS dashboard integration..."
 
         # Update the main dashboard to use the new analytics system
-        echo "✅ Updated dashboard with analytics integration"
+        echo "Updated dashboard with analytics integration"
         echo ""
-        echo "🔗 Next Steps:"
+        echo "Next Steps:"
         echo "1. Import AnalyticsProvider in your layout.tsx"
         echo "2. Wrap your app with <AnalyticsProvider>"
         echo "3. Use AnalyticsToggle component in app detail pages"
@@ -484,17 +484,17 @@ EOF
         ;;
 
     *)
-        echo "❌ Invalid option selected"
+        echo "ERROR: Invalid option selected"
         exit 1
         ;;
 esac
 
 echo ""
-echo "🎯 Summary:"
+echo "Summary:"
 echo "=========="
-echo "✅ Umami Analytics setup scripts generated"
-echo "✅ Fake vs Real analytics toggle system created"
-echo "✅ Analytics context and components ready"
-echo "✅ Individual website setup scripts available"
+echo "Umami Analytics setup scripts generated"
+echo "Fake vs Real analytics toggle system created"
+echo "Analytics context and components ready"
+echo "Individual website setup scripts available"
 echo ""
-echo "🚀 Ready to implement across all 16 applications!"
+echo "Ready to implement across all 16 applications!"

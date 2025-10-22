@@ -38,7 +38,7 @@ class AssetMapper {
     const appsDir = path.join(PUBLIC_DIR, 'apps')
 
     if (!fs.existsSync(appsDir)) {
-      console.log('⚠️  /public/apps directory not found')
+      console.log('WARNING: /public/apps directory not found')
       return
     }
 
@@ -48,7 +48,7 @@ class AssetMapper {
         return fs.statSync(itemPath).isDirectory()
       })
 
-    console.log(`📁 Found ${appDirectories.length} app directories`)
+    console.log(`Found ${appDirectories.length} app directories`)
 
     appDirectories.forEach(appName => {
       this.mapAppAssets(appName, path.join(appsDir, appName))
@@ -59,7 +59,7 @@ class AssetMapper {
    * Scans entire /public/ directory for orphaned images that match app names
    */
   private async scanEntirePublicDirectory(): Promise<void> {
-    console.log('🔍 Scanning entire /public/ directory for orphaned images...')
+    console.log('Scanning entire /public/ directory for orphaned images...')
 
     this.scanDirectoryRecursive(PUBLIC_DIR)
 
@@ -109,7 +109,7 @@ class AssetMapper {
           filenameLower.includes(appNameLower.replace(/[^a-z0-9]/g, '')) ||
           this.calculateSimilarity(filenameLower, appNameLower) > 0.6
         ) {
-          console.log(`🎯 Found potential match for "${app.name}": ${filepath}`)
+          console.log(`Found potential match for "${app.name}": ${filepath}`)
           this.mapOrphanedAsset(app.name, filepath)
           break
         }
@@ -166,7 +166,7 @@ class AssetMapper {
 
     this.assetMap[appName] = assets
 
-    console.log(`✅ Mapped assets for ${appName}:`)
+    console.log(`Mapped assets for ${appName}:`)
     if (assets.logo) console.log(`   Logo: ${assets.logo}`)
     if (assets.cover) console.log(`   Cover: ${assets.cover}`)
     if (assets.screenshots.length > 0) console.log(`   Screenshots: ${assets.screenshots.length} files`)
@@ -182,21 +182,21 @@ class AssetMapper {
     if (baseName === 'logo' || filename.includes('logo')) {
       this.assetMap[appName] = this.assetMap[appName] || {}
       this.assetMap[appName].logo = imagePath
-      console.log(`   📍 Orphaned logo mapped: ${imagePath}`)
+      console.log(`   Orphaned logo mapped: ${imagePath}`)
     } else if (baseName === 'cover' || filename.includes('cover')) {
       this.assetMap[appName] = this.assetMap[appName] || {}
       this.assetMap[appName].cover = imagePath
-      console.log(`   📍 Orphaned cover mapped: ${imagePath}`)
+      console.log(`   Orphaned cover mapped: ${imagePath}`)
     } else if (baseName.startsWith('screenshot-') || filename.includes('screenshot')) {
       this.assetMap[appName] = this.assetMap[appName] || {}
       if (!this.assetMap[appName].screenshots) this.assetMap[appName].screenshots = []
       this.assetMap[appName].screenshots!.push(imagePath)
-      console.log(`   📍 Orphaned screenshot mapped: ${imagePath}`)
+      console.log(`   Orphaned screenshot mapped: ${imagePath}`)
 
       // Set cover as first screenshot if no cover exists
       if (!this.assetMap[appName].cover && this.assetMap[appName].screenshots!.length === 1) {
         this.assetMap[appName].cover = imagePath
-        console.log(`   📍 Set as cover image: ${imagePath}`)
+        console.log(`   Set as cover image: ${imagePath}`)
       }
     }
   }
@@ -271,7 +271,7 @@ class AssetMapper {
    * Auto-allocates placeholder assets for missing visuals
    */
   private autoAllocateMissingAssets(): void {
-    console.log('🔧 Auto-allocating placeholder assets for missing visuals...')
+    console.log('Auto-allocating placeholder assets for missing visuals...')
 
     const appsData = this.loadAppsDataSync()
     const unusedAssets = this.generateUnusedAssetsReport()
@@ -290,7 +290,7 @@ class AssetMapper {
           this.assetMap[app.name].logo = logoPlaceholder
           missingReport.used = logoPlaceholder
           missingReport.reason = 'Auto-assigned placeholder'
-          console.log(`   🎯 Auto-assigned logo for "${app.name}": ${logoPlaceholder}`)
+          console.log(`   Auto-assigned logo for "${app.name}": ${logoPlaceholder}`)
         }
       }
 
@@ -302,7 +302,7 @@ class AssetMapper {
           this.assetMap[app.name].cover = coverPlaceholder
           missingReport.used = coverPlaceholder
           missingReport.reason = 'Auto-assigned placeholder'
-          console.log(`   🎯 Auto-assigned cover for "${app.name}": ${coverPlaceholder}`)
+          console.log(`   Auto-assigned cover for "${app.name}": ${coverPlaceholder}`)
         }
       }
 
@@ -314,7 +314,7 @@ class AssetMapper {
           this.assetMap[app.name].screenshots = screenshotPlaceholders
           missingReport.used = screenshotPlaceholders.join(', ')
           missingReport.reason = 'Auto-assigned placeholders'
-          console.log(`   🎯 Auto-assigned ${screenshotPlaceholders.length} screenshots for "${app.name}"`)
+          console.log(`   Auto-assigned ${screenshotPlaceholders.length} screenshots for "${app.name}"`)
         }
       }
     })
@@ -419,8 +419,8 @@ class AssetMapper {
     }
 
     fs.writeFileSync(OUTPUT_FILE, jsonContent)
-    console.log(`💾 Asset map written to ${OUTPUT_FILE}`)
-    console.log(`📊 Total apps mapped: ${Object.keys(this.assetMap).length}`)
+    console.log(`Asset map written to ${OUTPUT_FILE}`)
+    console.log(`Total apps mapped: ${Object.keys(this.assetMap).length}`)
   }
 
   /**
@@ -435,7 +435,7 @@ class AssetMapper {
     }
 
     fs.writeFileSync(MISSING_ASSETS_LOG, JSON.stringify(this.missingAssetsReport, null, 2))
-    console.log(`📝 Missing assets report written to ${MISSING_ASSETS_LOG}`)
+    console.log(`Missing assets report written to ${MISSING_ASSETS_LOG}`)
   }
 
   /**
@@ -490,7 +490,7 @@ class AssetMapper {
    * Cleans up unused assets by moving them to archive folder
    */
   private cleanupUnusedAssets(): void {
-    console.log('🧹 Cleaning up unused assets...')
+    console.log('Cleaning up unused assets...')
 
     const unusedAssets = this.generateUnusedAssetsReport()
     const archiveDir = path.join(PUBLIC_DIR, '_archive')
@@ -511,21 +511,21 @@ class AssetMapper {
         try {
           fs.renameSync(fullPath, archivePath)
           movedCount++
-          console.log(`   📦 Moved to archive: ${filepath} → _archive/${filename}`)
+          console.log(`   Moved to archive: ${filepath} → _archive/${filename}`)
         } catch (error) {
-          console.error(`   ❌ Failed to move ${filepath}:`, error)
+          console.error(`   Failed to move ${filepath}:`, error)
         }
       }
     })
 
-    console.log(`✅ Cleanup completed: ${movedCount} unused assets archived`)
+    console.log(`Cleanup completed: ${movedCount} unused assets archived`)
   }
 
   /**
    * Main execution method
    */
   async execute(): Promise<void> {
-    console.log('🚀 EmmanuelOS v3.6 Asset Mapping System')
+    console.log('EmmanuelOS v3.6 Asset Mapping System')
     console.log('=====================================')
 
     // Step 1: Scan app directories
@@ -541,7 +541,7 @@ class AssetMapper {
     await this.writeMissingAssetsReport()
     this.cleanupUnusedAssets()
 
-    console.log('\n🎉 Asset mapping completed!')
+    console.log('\nAsset mapping completed!')
     console.log('Next steps:')
     console.log('1. Review /logs/missing-assets-report.json for incomplete assets')
     console.log('2. Review /public/_archive/ for archived unused assets')

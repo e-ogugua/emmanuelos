@@ -10,22 +10,22 @@ To create a unified, intelligent dashboard that empowers users to track, analyze
 
 ## Key Features
 
-### 🔄 Real-time Analytics
+### Real-time Analytics
 - Live traffic monitoring across all applications
 - Performance metrics and user engagement tracking
 - GitHub integration for development insights
 
-### 🎨 Modern UI/UX
+### Modern UI/UX
 - Glassmorphism design with dark theme aesthetics
 - Responsive layout optimized for all devices
 - Smooth animations and micro-interactions
 
-### 🏗️ Robust Architecture
+### Robust Architecture
 - Next.js 15 with App Router for optimal performance
 - TypeScript for type safety and developer experience
 - Supabase for scalable data management
 
-### 📱 Application Management
+### Application Management
 - Centralized app portfolio with detailed metadata
 - Status tracking and categorization
 - Social media and contact integration
@@ -84,4 +84,4 @@ This project is private and proprietary.
 
 ---
 
-*Built with ❤️ by Emmanuel Ogugua*
+*Built by Emmanuel Ogugua*
