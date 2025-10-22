@@ -1,10 +1,11 @@
+import React, { memo } from 'react'
 import { motion } from 'framer-motion'
 import { App } from '@/lib/types'
 import Image from 'next/image'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { ExternalLink, Github, Eye, Star, Timer } from 'lucide-react'
+import { ExternalLink, Github, Eye, Star, Timer } from '@/lib/icons'
 
 interface AppGridProps {
   apps: App[]
@@ -12,7 +13,8 @@ interface AppGridProps {
   onAppClick: (appName: string, action: string) => void
 }
 
-export function AppGrid({ apps, onAppView, onAppClick }: AppGridProps) {
+// Optimized app grid component with memoization to avoid re-rendering unchanged grid cells
+export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
   return (
     <motion.div
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -104,7 +106,7 @@ export function AppGrid({ apps, onAppView, onAppClick }: AppGridProps) {
                           : 'bg-rose-100 text-rose-800 hover:bg-rose-200'
                       }`}
                     >
-                      {app.status === 'Live' ? '🟢' : app.status === 'Finalizing' ? '🟡' : '🔴'} {app.status}
+                      {app.status}
                     </Badge>
                     <Badge variant="outline" className="text-xs bg-slate-50 text-slate-700 border-slate-300 rounded-full px-3 py-1 font-medium hover:bg-slate-100 transition-all duration-300">
                       {app.category}
@@ -215,4 +217,4 @@ export function AppGrid({ apps, onAppView, onAppClick }: AppGridProps) {
       ))}
     </motion.div>
   )
-}
+})

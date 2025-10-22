@@ -1,3 +1,4 @@
+import React, { memo } from 'react'
 import { motion } from 'framer-motion'
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard'
 
@@ -10,7 +11,8 @@ interface AnalyticsSectionProps {
   } | null
 }
 
-export function AnalyticsSection({ analyticsData }: AnalyticsSectionProps) {
+// Memoized analytics section to prevent unnecessary re-renders when data hasn't changed
+export const AnalyticsSection = memo<AnalyticsSectionProps>(({ analyticsData }) => {
   if (!analyticsData) return null
 
   return (
@@ -23,4 +25,4 @@ export function AnalyticsSection({ analyticsData }: AnalyticsSectionProps) {
       <AnalyticsDashboard data={analyticsData} />
     </motion.div>
   )
-}
+})

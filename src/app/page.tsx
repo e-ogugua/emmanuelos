@@ -6,15 +6,43 @@ import { mergeAppAssets } from '@/lib/assets'
 import { generateOptimizedAnalytics } from '@/lib/optimizedAnalytics'
 import { App } from '@/lib/types'
 import { motion } from 'framer-motion'
-import { Settings } from 'lucide-react'
+import dynamic from 'next/dynamic'
+
+// Dynamically import heavy components to reduce initial bundle size
+const AnalyticsSection = dynamic(() => import('@/components/AnalyticsSection').then(mod => ({ default: mod.AnalyticsSection })), {
+  loading: () => <div className="animate-pulse bg-gray-200 rounded-lg h-48 mb-8"></div>,
+  ssr: false
+})
+
+const FiltersSection = dynamic(() => import('@/components/FiltersSection').then(mod => ({ default: mod.FiltersSection })), {
+  loading: () => <div className="animate-pulse bg-gray-200 rounded-lg h-16 mb-8"></div>,
+  ssr: false
+})
+
+const AppGrid = dynamic(() => import('@/components/AppGrid').then(mod => ({ default: mod.AppGrid })), {
+  loading: () => <div className="animate-pulse bg-gray-200 rounded-lg h-96 mb-8"></div>,
+  ssr: false
+})
+
+const AppHeader = dynamic(() => import('@/components/AppHeader').then(mod => ({ default: mod.AppHeader })), {
+  loading: () => <div className="animate-pulse bg-gray-200 rounded-lg h-16 mb-8"></div>,
+  ssr: false
+})
+
+// Dynamically import admin components to reduce initial bundle size
+const AdminModal = dynamic(() => import('@/components/admin/AdminModal'), {
+  loading: () => null,
+  ssr: false
+})
+
+const AdminAnalyticsPanel = dynamic(() => import('@/components/admin/AdminAnalyticsPanel'), {
+  loading: () => null,
+  ssr: false
+})
+
+import { Settings } from '@/lib/icons'
 import { Button } from '@/components/ui/button'
 import { useAdmin } from '@/contexts/AdminContext'
-import { AnalyticsSection } from '@/components/AnalyticsSection'
-import { FiltersSection } from '@/components/FiltersSection'
-import { AppGrid } from '@/components/AppGrid'
-import { AppHeader } from '@/components/AppHeader'
-import { AdminModal } from '@/components/admin/AdminModal'
-import { AdminAnalyticsPanel } from '@/components/admin/AdminAnalyticsPanel'
 
 export default function HomePage() {
   const [apps, setApps] = useState<App[]>([])
@@ -26,18 +54,20 @@ export default function HomePage() {
 
   const { isAdmin } = useAdmin()
 
+  const [analyticsLoaded, setAnalyticsLoaded] = useState(false)
+
   // Event handler functions to prevent hydration issues
   const handleAppView = useCallback((appName: string, category: string) => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && analyticsLoaded) {
       trackAppView(appName, category)
     }
-  }, [])
+  }, [analyticsLoaded])
 
   const handleAppClick = useCallback((appName: string, action: string) => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && analyticsLoaded) {
       trackAppClick(appName, action)
     }
-  }, [])
+  }, [analyticsLoaded])
 
   // Optimized analytics data generation
   const analyticsData = useMemo(() => generateOptimizedAnalytics(apps), [apps])
@@ -54,8 +84,10 @@ export default function HomePage() {
         const data = await response.json()
         setApps(mergeAppAssets(data || []))
 
-        // Track dashboard view
-        trackEvent('dashboard_view')
+        // Track dashboard view after analytics are loaded
+        if (analyticsLoaded) {
+          trackEvent('dashboard_view')
+        }
       } catch (error) {
         console.error('Error fetching apps:', error)
         setApps([])
@@ -64,7 +96,38 @@ export default function HomePage() {
     }
 
     fetchApps()
-  }, [])
+  }, [analyticsLoaded])
+
+  // Load analytics only after first user interaction for better performance
+  useEffect(() => {
+    const loadAnalytics = () => {
+      if (!analyticsLoaded) {
+        setAnalyticsLoaded(true)
+        // Track initial page view after analytics load
+        trackEvent('page_view')
+      }
+    }
+
+    // Load analytics on first user interaction
+    const handleFirstInteraction = () => {
+      loadAnalytics()
+      // Remove listeners after first interaction
+      document.removeEventListener('click', handleFirstInteraction)
+      document.removeEventListener('scroll', handleFirstInteraction)
+      document.removeEventListener('keydown', handleFirstInteraction)
+    }
+
+    // Add listeners for first interaction
+    document.addEventListener('click', handleFirstInteraction)
+    document.addEventListener('scroll', handleFirstInteraction)
+    document.addEventListener('keydown', handleFirstInteraction)
+
+    return () => {
+      document.removeEventListener('click', handleFirstInteraction)
+      document.removeEventListener('scroll', handleFirstInteraction)
+      document.removeEventListener('keydown', handleFirstInteraction)
+    }
+  }, [analyticsLoaded])
 
   const filteredApps = useMemo(() => {
     if (!apps.length) return []
@@ -87,18 +150,22 @@ export default function HomePage() {
   }, [apps])
 
   useEffect(() => {
-    if (searchQuery) {
+    if (searchQuery && analyticsLoaded) {
       trackSearch(searchQuery, filteredApps.length)
     }
-  }, [searchQuery, filteredApps.length])
+  }, [searchQuery, filteredApps.length, analyticsLoaded])
 
   useEffect(() => {
-    trackFilter('status', statusFilter)
-  }, [statusFilter])
+    if (analyticsLoaded) {
+      trackFilter('status', statusFilter)
+    }
+  }, [statusFilter, analyticsLoaded])
 
   useEffect(() => {
-    trackFilter('category', categoryFilter)
-  }, [categoryFilter])
+    if (analyticsLoaded) {
+      trackFilter('category', categoryFilter)
+    }
+  }, [categoryFilter, analyticsLoaded])
 
   if (loading) {
     return (
@@ -136,7 +203,7 @@ export default function HomePage() {
                   <Settings className="w-5 h-5 text-amber-600" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold text-amber-800">🎛️ Super Explorer Admin Panel</h2>
+                  <h2 className="text-lg font-semibold text-amber-800">Super Explorer Admin Panel</h2>
                   <p className="text-sm text-amber-600">Control analytics modes and switch between demo/live data</p>
                 </div>
               </div>
@@ -280,9 +347,9 @@ export default function HomePage() {
                       }
                     }}
                   >
-                    <span className="animate-bounce text-2xl group-hover:animate-pulse">🚀</span>
+                    <span className="animate-bounce text-2xl group-hover:animate-pulse"></span>
                     <span className="font-semibold">View Full Portfolio</span>
-                    <span className="animate-pulse text-xl group-hover:animate-bounce">→</span>
+                    <span className="animate-pulse text-xl group-hover:animate-bounce"></span>
                   </a>
                 </Button>
               </motion.div>

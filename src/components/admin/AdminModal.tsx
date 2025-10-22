@@ -51,7 +51,7 @@ export function AdminModal({ isOpen, onClose }: AdminModalProps) {
               onClick={onClose}
               className="text-slate-400 hover:text-slate-600 p-1 h-8 w-8"
             >
-              ✕
+              ×
             </Button>
             <div className="p-3 bg-slate-100 rounded-full">
               <Settings className="w-6 h-6 text-slate-600" />
@@ -100,7 +100,7 @@ export function AdminModal({ isOpen, onClose }: AdminModalProps) {
 
           <div className="text-center pt-2">
             <p className="text-xs text-slate-500">
-              🔐 Secure • 🎛️ Advanced Controls • 📊 Analytics Management
+              Secure • Advanced Controls • Analytics Management
             </p>
           </div>
         </CardContent>

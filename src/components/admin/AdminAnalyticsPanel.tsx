@@ -7,7 +7,7 @@ import { Badge } from '../ui/badge'
 import { Input } from '../ui/input'
 import { Switch } from '../ui/switch'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
-import { Settings, Eye, EyeOff, Lock, Unlock, TrendingUp, Activity } from 'lucide-react'
+import { Settings, Eye, EyeOff, Lock, Unlock, TrendingUp, Activity } from '@/lib/icons'
 import { useAnalytics } from '../../contexts/AnalyticsContext'
 import { useAdmin } from '../../contexts/AdminContext'
 
@@ -87,7 +87,7 @@ export function AdminAnalyticsPanel() {
 
           <div className="text-center">
             <p className="text-xs text-muted-foreground">
-              🔐 Secure admin access • 📊 Full analytics control • 🎛️ Mode switching
+              Secure admin access • Full analytics control • Mode switching
             </p>
           </div>
         </CardContent>
@@ -151,7 +151,7 @@ export function AdminAnalyticsPanel() {
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-medium text-sm truncate">{appName}</span>
                       <Badge variant={appData.mode === 'real' ? 'default' : 'secondary'}>
-                        {appData.mode === 'real' ? '🟢 Live' : '🟡 Demo'}
+                        {appData.mode === 'real' ? 'Live' : 'Demo'}
                       </Badge>
                     </div>
                     <div className="text-xs text-muted-foreground">
@@ -237,10 +237,10 @@ export function AdminAnalyticsPanel() {
                 <h4 className="font-medium mb-2">Current Status:</h4>
                 <div className="flex gap-2">
                   <Badge variant="outline">
-                    🟡 Demo Mode: {summary.fakeModeCount}
+                    Demo Mode: {summary.fakeModeCount}
                   </Badge>
                   <Badge variant="outline">
-                    🟢 Live Mode: {summary.realModeCount}
+                    Live Mode: {summary.realModeCount}
                   </Badge>
                 </div>
               </div>

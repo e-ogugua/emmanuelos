@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { TrendingUp, Users, Eye, Activity, BarChart3, Zap } from 'lucide-react'
+import { TrendingUp, Users, Eye, Activity, BarChart3, Zap } from '@/lib/icons'
 
 interface AnalyticsData {
   topApps: Array<{

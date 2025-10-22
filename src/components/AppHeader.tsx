@@ -53,7 +53,7 @@ export function AppHeader() {
                       }
                     }}
                   >
-                    <span className="animate-pulse">🚀</span>
+                    <span className="animate-pulse"></span>
                     Explore Portfolio
                   </a>
                 </Button>
@@ -89,7 +89,7 @@ export function AppHeader() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <Image
-                src="/apps/emmanuelos/emmanuelos-logo.png"
+                src="/emmanuelos/emmanuelos-logo.png"
                 alt="EmmanuelOS Logo"
                 width={200}
                 height={200}

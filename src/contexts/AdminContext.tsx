@@ -11,7 +11,7 @@ interface AdminContextType {
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined)
 
-// Simple admin password (in production, use proper authentication)
+// Admin password for development (implement proper authentication in production)
 const ADMIN_PASSWORD = 'emmanuelos2025'
 
 export function AdminProvider({ children }: { children: React.ReactNode }) {
