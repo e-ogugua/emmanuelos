@@ -177,7 +177,7 @@ export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
                       asChild
                       variant="outline"
                       size="sm"
-                      className="flex-1 border-slate-300 bg-white hover:bg-slate-50 hover:border-slate-400 hover:shadow-[0_0_15px_rgba(71,85,105,0.15)] text-slate-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-normal ease-default"
+                      className="flex-1 border-slate-300 bg-white hover:bg-slate-50 hover:border-slate-400 hover:shadow-[0_0_15px_rgba(71,85,105,0.15)] text-slate-800 hover:text-slate-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-normal ease-default"
                       onClick={() => onAppClick(app.name, 'github_url')}
                     >
                       <a
@@ -195,7 +195,7 @@ export const AppGrid = memo<AppGridProps>(({ apps, onAppView, onAppClick }) => {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex-1 border-slate-300 bg-slate-100 text-slate-500 rounded-xl shadow-sm cursor-not-allowed opacity-60"
+                      className="flex-1 border-slate-300 bg-slate-100 text-slate-500 hover:text-slate-600 rounded-xl shadow-sm cursor-not-allowed opacity-60"
                       disabled
                     >
                       <Github className="w-4 h-4 mr-2" />

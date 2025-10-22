@@ -276,7 +276,7 @@ export default function AppDetailPage() {
                 </Button>
               )}
               {app.github_url && app.live_url?.toLowerCase() !== 'coming soon' && (
-                <Button asChild variant="outline" size="lg" className="bg-white/90 backdrop-blur-sm border-slate-300/60 text-slate-800 hover:bg-white hover:border-slate-400/80 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-2xl px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg font-semibold hover:scale-105">
+                <Button asChild variant="outline" size="lg" className="bg-white/90 backdrop-blur-sm border-slate-300/60 text-slate-800 hover:bg-white hover:border-slate-400/80 hover:text-slate-900 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-2xl px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg font-semibold hover:scale-105">
                   <a href={app.github_url} target="_blank" rel="noopener noreferrer">
                     <Github className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
                     Source Code
@@ -284,7 +284,7 @@ export default function AppDetailPage() {
                 </Button>
               )}
               {app.github_url && app.live_url?.toLowerCase() === 'coming soon' && (
-                <Button variant="outline" size="lg" className="bg-slate-100/90 backdrop-blur-sm border-slate-300/60 text-slate-500 shadow-xl transition-all duration-300 rounded-2xl px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg font-semibold cursor-not-allowed opacity-60">
+                <Button variant="outline" size="lg" className="bg-slate-100/90 backdrop-blur-sm border-slate-300/60 text-slate-500 hover:text-slate-600 shadow-xl transition-all duration-300 rounded-2xl px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg font-semibold cursor-not-allowed opacity-60">
                   <Github className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
                   Source Code
                 </Button>
@@ -700,7 +700,7 @@ export default function AppDetailPage() {
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Repository:</span>
                       {app.live_url?.toLowerCase() !== 'coming soon' ? (
-                        <a href={app.github_url} className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                        <a href={app.github_url} className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-normal ease-default" target="_blank" rel="noopener noreferrer">
                           {app.github_url}
                         </a>
                       ) : (
@@ -868,7 +868,7 @@ export default function AppDetailPage() {
                       e.stopPropagation()
                     }}
                   >
-                    <span className="font-semibold">View Full Portfolio</span>
+                    <span className="font-semibold">Connect with CEO</span>
                   </a>
                 </Button>
               </motion.div>

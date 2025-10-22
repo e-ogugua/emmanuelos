@@ -60,7 +60,7 @@ export function AppHeader({ onAdminClick }: AppHeaderProps) {
                 >
                   <span className="flex items-center gap-2">
                     <span className="animate-pulse"></span>
-                    Explore Portfolio
+                    Explore Applications
                   </span>
                 </Button>
               </motion.div>
