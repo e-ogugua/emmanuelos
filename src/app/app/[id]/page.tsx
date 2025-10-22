@@ -339,7 +339,7 @@ export default function AppDetailPage() {
           transition={{ duration: 0.3 }}
         >
           {activeTab === 'overview' && (
-            <div className="space-y-8">
+            <div className="space-y-6 md:space-y-8">
               {/* Screenshots Gallery - Enhanced Interactive Experience */}
               {app.screenshots && app.screenshots.length > 0 && (
                 <Card className="glass-card overflow-hidden shadow-2xl hover:shadow-[0_25px_60px_-12px_rgba(14,165,233,0.3)] transition-all duration-500 border-0">
@@ -434,6 +434,9 @@ export default function AppDetailPage() {
                   </CardContent>
                 </Card>
               )}
+
+              {/* Spacer for mobile to prevent content overlap */}
+              <div className="h-4 md:hidden"></div>
 
               {/* Tech Stack */}
               <Card className="glass-card shadow-xl hover:shadow-2xl transition-all duration-500 border-0">
