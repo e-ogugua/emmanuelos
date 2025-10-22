@@ -117,6 +117,15 @@ const appsData = [
     tags: ["Professional Services", "Web Development", "Portfolio", "Business Strategy", "Consulting", "Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Responsive Design", "Professional Branding"]
   },
   {
+    name: "PoshPoulet Scratch Game",
+    description: "An interactive Scratch-based farm simulation game integrated into a Next.js web app for educational organic farming experiences.",
+    category: "Education & Gaming",
+    status: "In Development",
+    live_url: "coming soon",
+    github_url: "https://github.com/e-ogugua/poshpoule-scratch-game",
+    tags: ["Scratch Game", "Farm Simulation", "Organic Farming", "Educational Gaming", "Next.js", "React", "TypeScript", "Tailwind CSS", "Interactive Learning", "Agriculture Education", "Progress Tracking", "Community Gaming"]
+  },
+  {
     name: "FinEdge-Pro v2",
     description: "A comprehensive cryptocurrency trading simulation platform with advanced portfolio management, market analysis, and strategy development tools for risk-free trading education and practice.",
     category: "Finance & Investment",
@@ -133,14 +142,5 @@ const appsData = [
     live_url: "Coming soon",
     github_url: "https://github.com/e-ogugua/finedge-global",
     tags: ["Fintech", "Open Source", "Banking", "Payments", "Multi-Currency", "Merchant Services", "Lending", "Cryptocurrency", "KYC/AML", "Next.js", "NestJS", "TypeScript", "PostgreSQL", "Sandbox", "Financial Services", "Cross-Border", "API Platform", "Developer Community"]
-  },
-  {
-    name: "PoshPoulet Scratch Game",
-    description: "An interactive Scratch-based farm simulation game integrated into a Next.js web app for educational organic farming experiences.",
-    category: "Education & Gaming",
-    status: "In Development",
-    live_url: "coming soon",
-    github_url: "https://github.com/e-ogugua/poshpoule-scratch-game",
-    tags: ["Scratch Game", "Farm Simulation", "Organic Farming", "Educational Gaming", "Next.js", "React", "TypeScript", "Tailwind CSS", "Interactive Learning", "Agriculture Education", "Progress Tracking", "Community Gaming"]
   }
 ]
