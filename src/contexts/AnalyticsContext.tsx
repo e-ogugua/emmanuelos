@@ -34,10 +34,10 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
   // Initialize analytics data immediately (SSR-safe)
   const [appAnalytics, setAppAnalytics] = useState<AppAnalytics>(() => {
     const apps = [
-      'emmdra-empire', 'zereth-cakes-hub', 'jepligom-ministry', 'financeflow-pro',
+      'emmdra-empire', 'zereth-cakesAndFoods-hub', 'jepligom-ministry', 'financeflow-pro',
       'workflow-hub', 'bible-game-hub', 'ceotr-ltd', 'poshpoule-farms',
       'ceo-writes', 'codementor-academy', 'finedge-pro', 'finedge-global',
-      'emmanuelos', 'farmtrack', 'ceo-dev', 'poshpoulet-scratch'
+      'emmanuelos', 'farmtrack', 'ceodev', 'poshpoulet-scratch'
     ]
 
     const initialAnalytics: AppAnalytics = {}

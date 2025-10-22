@@ -8,11 +8,11 @@ export function AppHeader() {
   return (
     <header className="relative overflow-hidden bg-gradient-to-r from-sky-100/80 via-blue-100/60 to-indigo-100/80 backdrop-blur-sm">
       <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
-      <div className="relative max-w-7xl mx-auto p-8 md:p-12">
+      <div className="relative max-w-7xl mx-auto p-6 md:p-8 lg:p-12">
         <div className="flex items-start justify-between">
-          <div className="flex-1">
+          <div className="flex-1 pr-4">
             <motion.h1
-              className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-sky-800 via-blue-800 to-indigo-800 bg-clip-text text-transparent mb-4 tracking-tight drop-shadow-sm"
+              className="text-3xl md:text-4xl lg:text-6xl font-bold bg-gradient-to-r from-sky-800 via-blue-800 to-indigo-800 bg-clip-text text-transparent mb-3 md:mb-4 tracking-tight drop-shadow-sm"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -20,15 +20,15 @@ export function AppHeader() {
               EmmanuelOS
             </motion.h1>
             <motion.div
-              className="space-y-3"
+              className="space-y-2 md:space-y-3"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
             >
-              <p className="text-lg md:text-xl text-slate-700 font-medium leading-relaxed">
+              <p className="text-base md:text-lg lg:text-xl text-slate-700 font-medium leading-relaxed">
                 System-Wide Analytics, Reporting & Tracking Dashboard
               </p>
-              <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
+              <p className="text-xs md:text-sm text-slate-600 max-w-2xl leading-relaxed">
                 Centralized command center for monitoring and managing your complete application portfolio with real-time insights and comprehensive analytics.
               </p>
 
@@ -37,11 +37,11 @@ export function AppHeader() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4, ease: 'easeOut' }}
-                className="pt-4"
+                className="pt-3 md:pt-4"
               >
                 <Button
                   asChild
-                  className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-semibold shadow-sky-md hover:shadow-sky-md transition-all duration-normal ease-default rounded-2xl px-6 py-3 text-sm"
+                  className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-semibold shadow-sky-md hover:shadow-sky-md transition-all duration-normal ease-default rounded-2xl px-5 md:px-6 py-2.5 md:py-3 text-xs md:text-sm"
                 >
                   <a
                     href="https://ceodev.vercel.app"
@@ -58,7 +58,7 @@ export function AppHeader() {
           </div>
 
           {/* Logo and Admin Section - Right side */}
-          <div className="flex items-center gap-4 ml-8">
+          <div className="flex items-center gap-3 md:gap-4 ml-4 md:ml-8">
             {/* Admin Button - Moved to left of logo */}
             <motion.div
               whileHover={{ scale: 1.1 }}
@@ -70,14 +70,14 @@ export function AppHeader() {
                 onClick={() => {
                   // This will be handled by parent component
                 }}
-                className="text-slate-600 hover:text-amber-600 hover:bg-amber-50/60 transition-all duration-normal ease-default rounded-full p-4 border-2 border-transparent hover:border-amber-300 hover:shadow-md active:scale-95"
+                className="text-slate-600 hover:text-amber-600 hover:bg-amber-50/60 transition-all duration-normal ease-default rounded-full p-3 md:p-4 border-2 border-transparent hover:border-amber-300 hover:shadow-md active:scale-95"
                 title="Admin Access - Click to access SuperExplorer"
               >
                 {/* Settings icon will be passed from parent */}
               </Button>
             </motion.div>
 
-            {/* EmmanuelOS Logo - Moved to the end */}
+            {/* EmmanuelOS Logo - Responsive sizing */}
             <motion.div
               className="relative"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -89,7 +89,7 @@ export function AppHeader() {
                 alt="EmmanuelOS Logo"
                 width={200}
                 height={200}
-                className="w-48 h-48 object-contain drop-shadow-md rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-slow ease-default hover:bg-white/20 hover:shadow-sky-md hover:scale-105"
+                className="w-32 h-32 md:w-48 md:h-48 object-contain drop-shadow-md rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-slow ease-default hover:bg-white/20 hover:shadow-sky-md hover:scale-105"
                 priority={true}
                 onError={(e) => {
                   e.currentTarget.style.display = 'none'

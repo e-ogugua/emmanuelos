@@ -1,3 +1,4 @@
+/* Tailwind CSS directives - these are valid and required for Tailwind to function */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -32,10 +33,12 @@
   }
 
   * {
+    /* stylelint-disable-next-line at-rule-no-unknown */
     @apply border-border;
   }
 
   body {
+    /* stylelint-disable-next-line at-rule-no-unknown */
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
@@ -69,16 +72,30 @@
 }
 
 @layer components {
+  /* stylelint-disable at-rule-no-unknown */
   .glass {
     @apply backdrop-blur-md bg-white/80 border border-slate-200/50 rounded-xl shadow-sm;
   }
 
   .glass-card {
-    @apply glass shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/90;
+    @apply glass shadow-lg hover:shadow-[0_0_30px_rgba(14,165,233,0.2),0_0_60px_rgba(99,102,241,0.15),0_0_90px_rgba(79,70,229,0.1)] hover:bg-gradient-to-br hover:from-sky-50/90 hover:via-blue-50/90 hover:to-indigo-50/90 transition-all duration-300;
   }
 
   .glass-button {
-    @apply glass hover:bg-slate-50 transition-all duration-200 px-4 py-2.5 rounded-lg font-medium;
+    @apply glass hover:bg-white hover:border-slate-300/60 transition-all duration-200 px-4 py-2.5 rounded-lg font-medium text-slate-700 hover:text-slate-800;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .portfolio-button {
+    @apply relative z-10;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .portfolio-button a {
+    @apply pointer-events-auto;
+    cursor: pointer;
   }
 
   .glass-header {
@@ -96,14 +113,20 @@
   .line-clamp-1 {
     overflow: hidden;
     display: -webkit-box;
+    display: box;
     -webkit-box-orient: vertical;
+    box-orient: vertical;
     -webkit-line-clamp: 1;
+    line-clamp: 1;
   }
 
   .line-clamp-3 {
     overflow: hidden;
     display: -webkit-box;
+    display: box;
     -webkit-box-orient: vertical;
+    box-orient: vertical;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
 }

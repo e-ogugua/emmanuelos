@@ -34,7 +34,7 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsData }) {
           </div>
 
           {/* Key Metrics Row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
             <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-white/50">
               <div className="flex items-center gap-2 mb-2">
                 <Users className="w-4 h-4 text-sky-600" />
@@ -79,7 +79,7 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsData }) {
       </div>
 
       {/* Analytics Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
         {/* Top Performing Apps */}
         <Card className="bg-white/70 backdrop-blur-sm border-sky-200/50 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden">
           <CardHeader className="pb-4 bg-gradient-to-r from-sky-50/80 to-blue-50/80 border-b border-sky-100/50">
@@ -90,7 +90,7 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsData }) {
             <p className="text-sm text-slate-600">Most viewed applications this week</p>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="space-y-4">
+            <div className="space-y-4 md:space-y-5">
               {data.topApps.slice(0, 5).map((app, index) => (
                 <div key={app.name} className="flex items-center justify-between p-3 bg-gradient-to-r from-white/60 to-sky-50/60 rounded-xl border border-sky-100/50 hover:shadow-sm transition-all duration-200">
                   <div className="flex items-center gap-3">
@@ -129,7 +129,7 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsData }) {
             <p className="text-sm text-slate-600">Application categories and their impact</p>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="space-y-4">
+            <div className="space-y-4 md:space-y-5">
               {data.categoryStats.slice(0, 5).map((category, index) => (
                 <div key={category.category} className="flex items-center justify-between p-3 bg-gradient-to-r from-white/60 to-blue-50/60 rounded-xl border border-blue-100/50 hover:shadow-sm transition-all duration-200">
                   <div className="flex items-center gap-3">

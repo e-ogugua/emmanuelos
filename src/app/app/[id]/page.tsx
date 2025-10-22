@@ -194,16 +194,16 @@ export default function AppDetailPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
       {/* Hero Section with Enhanced Professional Styling */}
-      <header className="relative h-[500px] bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
+      <header className="relative h-[400px] md:h-[450px] lg:h-[500px] bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
         {/* Enhanced gradient overlays for depth and professionalism */}
         <div className="absolute inset-0 bg-gradient-to-r from-sky-100/90 via-blue-100/70 to-indigo-100/90 backdrop-blur-sm"></div>
         <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-white/20"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/10"></div>
 
-        {/* Enhanced decorative floating elements */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-sky-200/40 to-transparent rounded-full blur-3xl -translate-y-64 translate-x-64"></div>
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-blue-200/30 to-transparent rounded-full blur-3xl translate-y-40 -translate-x-40"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-indigo-200/20 to-transparent rounded-full blur-3xl"></div>
+        {/* Enhanced decorative floating elements - Responsive sizing */}
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] bg-gradient-to-bl from-sky-200/40 to-transparent rounded-full blur-3xl -translate-y-32 md:-translate-y-48 lg:-translate-y-64 translate-x-32 md:translate-x-48 lg:translate-x-64"></div>
+        <div className="absolute bottom-0 left-0 w-[250px] h-[250px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] bg-gradient-to-tr from-blue-200/30 to-transparent rounded-full blur-3xl translate-y-20 md:translate-y-32 lg:translate-y-40 -translate-x-20 md:-translate-x-32 lg:-translate-x-40"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] bg-gradient-to-br from-indigo-200/20 to-transparent rounded-full blur-3xl"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <motion.div
@@ -238,52 +238,64 @@ export default function AppDetailPage() {
               {app.name}
             </h1>
 
-            <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
+            <div className="flex items-center justify-center gap-2 md:gap-4 mb-6 flex-wrap">
               <Badge
                 variant={app.status === 'Live' ? 'default' : app.status === 'Finalizing' ? 'secondary' : 'destructive'}
-                className={`text-sm px-5 py-2.5 bg-white/80 backdrop-blur-sm text-slate-800 border-slate-300/50 shadow-lg font-medium rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-xl`}
+                className={`text-xs md:text-sm px-3 md:px-5 py-1.5 md:py-2.5 bg-white/80 backdrop-blur-sm text-slate-800 border-slate-300/50 shadow-lg font-medium rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-xl`}
               >
                 {app.status === 'Live' ? '🟢' : app.status === 'Finalizing' ? '🟡' : '🔴'} {app.status}
               </Badge>
-              <Badge variant="outline" className={`text-sm px-5 py-2.5 bg-white/80 backdrop-blur-sm text-slate-800 border-slate-300/50 shadow-lg font-medium rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-xl`}>
+              <Badge variant="outline" className={`text-xs md:text-sm px-3 md:px-5 py-1.5 md:py-2.5 bg-white/80 backdrop-blur-sm text-slate-800 border-slate-300/50 shadow-lg font-medium rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-xl`}>
                 {app.category}
               </Badge>
             </div>
 
-            <p className="text-lg md:text-xl lg:text-2xl text-slate-800 max-w-5xl mx-auto leading-relaxed font-normal drop-shadow-md text-center px-4">
+            <p className="text-base md:text-lg lg:text-xl xl:text-2xl text-slate-800 max-w-4xl mx-auto leading-relaxed font-normal drop-shadow-md text-center px-4 mb-8 md:mb-10">
               {app.description}
             </p>
 
             {/* Action Buttons */}
             <motion.div
-              className="flex gap-6 justify-center mt-10 flex-wrap"
+              className="flex gap-3 md:gap-4 lg:gap-6 justify-center mt-8 md:mt-10 flex-wrap px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              {app.live_url && (
-                <Button asChild size="lg" className={`bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-semibold shadow-2xl hover:shadow-[0_0_40px_rgba(14,165,233,0.9),0_0_80px_rgba(99,102,241,0.7)] transition-all duration-300 rounded-2xl px-8 py-4 text-lg hover:scale-105`}>
+              {app.live_url && app.live_url.toLowerCase() !== 'coming soon' && (
+                <Button asChild size="lg" className={`bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-semibold shadow-2xl hover:shadow-[0_0_40px_rgba(14,165,233,0.9),0_0_80px_rgba(99,102,241,0.7)] transition-all duration-300 rounded-2xl px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg hover:scale-105`}>
                   <a href={app.live_url} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-5 h-5 mr-3" />
+                    <ExternalLink className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
                     Live Demo
                   </a>
                 </Button>
               )}
-              {app.github_url && (
-                <Button asChild variant="outline" size="lg" className="bg-white/90 backdrop-blur-sm border-slate-300/60 text-slate-800 hover:bg-white hover:border-slate-400/80 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-2xl px-8 py-4 text-lg font-semibold hover:scale-105">
+              {app.live_url && app.live_url.toLowerCase() === 'coming soon' && (
+                <Button size="lg" className={`bg-gradient-to-r ${appColors.primary} text-white font-semibold shadow-2xl transition-all duration-300 rounded-2xl px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg cursor-not-allowed opacity-60`}>
+                  <ExternalLink className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
+                  Live Demo
+                </Button>
+              )}
+              {app.github_url && app.live_url?.toLowerCase() !== 'coming soon' && (
+                <Button asChild variant="outline" size="lg" className="bg-white/90 backdrop-blur-sm border-slate-300/60 text-slate-800 hover:bg-white hover:border-slate-400/80 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-2xl px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg font-semibold hover:scale-105">
                   <a href={app.github_url} target="_blank" rel="noopener noreferrer">
-                    <Github className="w-5 h-5 mr-3" />
+                    <Github className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
                     Source Code
                   </a>
+                </Button>
+              )}
+              {app.github_url && app.live_url?.toLowerCase() === 'coming soon' && (
+                <Button variant="outline" size="lg" className="bg-slate-100/90 backdrop-blur-sm border-slate-300/60 text-slate-500 shadow-xl transition-all duration-300 rounded-2xl px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg font-semibold cursor-not-allowed opacity-60">
+                  <Github className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3" />
+                  Source Code
                 </Button>
               )}
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Back button - Enhanced styling */}
+        {/* Back button - Enhanced styling and responsive positioning */}
         <motion.div
-          className="absolute top-20 left-8 z-20"
+          className="absolute top-4 md:top-6 left-4 md:left-6 z-20"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -291,7 +303,7 @@ export default function AppDetailPage() {
           <Button
             variant="ghost"
             onClick={() => window.history.back()}
-            className="text-white font-medium hover:text-white hover:bg-white/20 backdrop-blur-lg transition-all duration-300 rounded-2xl px-6 py-3 border border-white/40 hover:border-white/70 hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] active:scale-95 bg-black/30 text-base shadow-lg"
+            className="text-white font-medium hover:text-slate-900 hover:bg-white/90 backdrop-blur-lg transition-all duration-300 rounded-2xl px-3 md:px-4 py-2 md:py-2.5 border border-white/40 hover:border-white/70 hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] active:scale-95 bg-black/30 text-xs md:text-sm shadow-lg"
           >
             ← Back to Portfolio
           </Button>
@@ -307,12 +319,12 @@ export default function AppDetailPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          {['overview', 'analytics', 'github', 'feedback'].map((tab) => (
+          {['overview', 'analytics', ...(app.live_url?.toLowerCase() !== 'coming soon' ? ['github'] : []), 'feedback'].map((tab) => (
             <Button
               key={tab}
               variant={activeTab === tab ? 'default' : 'ghost'}
               onClick={() => setActiveTab(tab)}
-              className={`capitalize ${activeTab === tab ? '' : 'glass-button'}`}
+              className={`capitalize px-4 py-2 text-sm md:text-base font-medium transition-all duration-200 ${activeTab === tab ? '' : 'glass-button hover:bg-white/90 hover:border-slate-300/60 hover:text-slate-800'}`}
             >
               {tab}
             </Button>
@@ -327,7 +339,7 @@ export default function AppDetailPage() {
           transition={{ duration: 0.3 }}
         >
           {activeTab === 'overview' && (
-            <div className="space-y-6">
+            <div className="space-y-8">
               {/* Screenshots Gallery - Enhanced Interactive Experience */}
               {app.screenshots && app.screenshots.length > 0 && (
                 <Card className="glass-card overflow-hidden shadow-2xl hover:shadow-[0_25px_60px_-12px_rgba(14,165,233,0.3)] transition-all duration-500 border-0">
@@ -350,13 +362,13 @@ export default function AppDetailPage() {
                           }}
                         />
 
-                        {/* Navigation Arrows - Enhanced */}
+                        {/* Navigation Arrows - Enhanced responsive positioning */}
                         {app.screenshots.length > 1 && (
                           <>
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="absolute left-6 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white border border-white/30 backdrop-blur-md opacity-90 hover:opacity-100 transition-all duration-300 rounded-full w-12 h-12 shadow-lg hover:shadow-xl hover:scale-110"
+                              className="absolute left-2 md:left-4 lg:left-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white border border-white/30 backdrop-blur-md opacity-90 hover:opacity-100 transition-all duration-300 rounded-full w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 shadow-lg hover:shadow-xl hover:scale-110"
                               onClick={prevScreenshot}
                             >
                               ←
@@ -364,7 +376,7 @@ export default function AppDetailPage() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="absolute right-6 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white border border-white/30 backdrop-blur-md opacity-90 hover:opacity-100 transition-all duration-300 rounded-full w-12 h-12 shadow-lg hover:shadow-xl hover:scale-110"
+                              className="absolute right-2 md:right-4 lg:right-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white border border-white/30 backdrop-blur-md opacity-90 hover:opacity-100 transition-all duration-300 rounded-full w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 shadow-lg hover:shadow-xl hover:scale-110"
                               onClick={nextScreenshot}
                             >
                               →
@@ -372,14 +384,14 @@ export default function AppDetailPage() {
                           </>
                         )}
 
-                        {/* Thumbnail Strip */}
-                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 bg-black/50 backdrop-blur-md rounded-full px-5 py-3 border border-white/20 shadow-xl">
+                        {/* Thumbnail Strip - Responsive and non-blocking */}
+                        <div className="absolute bottom-3 md:bottom-4 lg:bottom-6 left-1/2 -translate-x-1/2 flex gap-1.5 md:gap-2 bg-black/40 backdrop-blur-md rounded-full px-2 md:px-3 lg:px-5 py-1.5 md:py-2 lg:py-3 border border-white/20 shadow-xl">
                           {app.screenshots.map((screenshot: string, index: number) => (
                             <button
                               key={index}
-                              className={`w-4 h-4 rounded-full transition-all duration-300 border-2 ${
+                              className={`w-2 h-2 md:w-3 md:h-3 lg:w-4 lg:h-4 rounded-full transition-all duration-300 border ${
                                 index === currentScreenshotIndex
-                                  ? 'bg-sky-400 scale-125 shadow-lg ring-2 ring-sky-300/50 border-sky-300'
+                                  ? 'bg-sky-400 scale-125 shadow-lg ring-1 ring-sky-300/50 border-sky-300'
                                   : 'bg-white/60 hover:bg-white/90 border-white/30 hover:border-white/50 hover:scale-110'
                               }`}
                               onClick={() => setCurrentScreenshotIndex(index)}
@@ -388,25 +400,28 @@ export default function AppDetailPage() {
                           ))}
                         </div>
 
-                        {/* Auto-advance indicator */}
+                        {/* Auto-advance indicator - Smaller and less intrusive */}
                         {app.screenshots.length > 1 && (
-                          <div className="absolute top-6 right-6 bg-black/60 backdrop-blur-md rounded-full px-4 py-2 border border-white/30 shadow-lg">
-                            <div className="flex items-center gap-2 text-white/90 text-sm font-medium">
-                              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                              Auto-advance
+                          <div className="absolute top-3 md:top-4 lg:top-6 right-3 md:right-4 lg:right-6 bg-black/50 backdrop-blur-md rounded-full px-2 md:px-3 lg:px-4 py-1 md:py-1.5 lg:py-2 border border-white/30 shadow-lg">
+                            <div className="flex items-center gap-1.5 md:gap-2 text-white/90 text-xs font-medium">
+                              <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                              <span className="hidden md:inline">Auto-advance</span>
                             </div>
                           </div>
                         )}
                       </div>
 
-                      {/* Screenshot Navigation Info */}
-                      <div className="p-5 bg-slate-900/30 backdrop-blur-md border-t border-white/20 rounded-b-lg">
-                        <div className="flex items-center justify-between text-sm">
-                          <div className="flex items-center gap-4">
-                            <span className="text-slate-300 font-medium">
+                      {/* Screenshot Navigation Info - More compact for mobile */}
+                      <div className="p-3 md:p-4 lg:p-5 bg-slate-900/30 backdrop-blur-md border-t border-white/20 rounded-b-lg">
+                        <div className="flex items-center justify-between text-xs md:text-sm">
+                          <div className="flex items-center gap-2 md:gap-4">
+                            <span className="text-slate-300 font-medium hidden md:inline">
                               Use arrow keys or click thumbnails to navigate
                             </span>
-                            <Badge variant="outline" className="bg-white/80 backdrop-blur-sm text-slate-700 border-slate-300/50 shadow-md text-xs font-medium">
+                            <span className="text-slate-300 font-medium md:hidden">
+                              Tap thumbnails to navigate
+                            </span>
+                            <Badge variant="outline" className="bg-white/90 backdrop-blur-sm text-slate-700 border-slate-300/50 shadow-md text-xs font-medium hover:bg-white hover:border-slate-400 transition-all duration-200">
                               Interactive Gallery
                             </Badge>
                           </div>
@@ -426,10 +441,10 @@ export default function AppDetailPage() {
                   <CardTitle className="text-slate-800 font-semibold text-xl">Technology Stack</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
                     {/* For demo, showing sample tech stack - in real app this would come from the app data */}
                     {['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Supabase'].map((tech) => (
-                      <Badge key={tech} variant="outline" className="justify-center py-2">
+                      <Badge key={tech} variant="outline" className="justify-center py-2 text-slate-700 border-slate-300 bg-white/90 hover:bg-white hover:border-slate-400 transition-all duration-200">
                         {tech}
                       </Badge>
                     ))}
@@ -470,9 +485,9 @@ export default function AppDetailPage() {
                   <CardTitle className="text-slate-800 font-semibold text-xl">Tags & Categories</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 md:gap-3">
                     {app.tags.map((tag: string) => (
-                      <Badge key={tag} variant="secondary">
+                      <Badge key={tag} variant="secondary" className="text-slate-700 bg-slate-100/90 hover:bg-white hover:border-slate-300 transition-all duration-200">
                         {tag}
                       </Badge>
                     ))}
@@ -483,11 +498,11 @@ export default function AppDetailPage() {
           )}
 
           {activeTab === 'analytics' && (
-            <div className="space-y-6">
+            <div className="space-y-8">
               {/* Analytics Overview */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
                 <Card className="glass-card">
-                  <CardContent className="p-6">
+                  <CardContent className="p-5">
                     <div className="flex items-center gap-4">
                       <div className="p-3 bg-blue-500/20 rounded-lg">
                         👥
@@ -503,7 +518,7 @@ export default function AppDetailPage() {
                 </Card>
 
                 <Card className="glass-card">
-                  <CardContent className="p-6">
+                  <CardContent className="p-5">
                     <div className="flex items-center gap-4">
                       <div className="p-3 bg-green-500/20 rounded-lg">
                         👁
@@ -519,7 +534,7 @@ export default function AppDetailPage() {
                 </Card>
 
                 <Card className="glass-card">
-                  <CardContent className="p-6">
+                  <CardContent className="p-5">
                     <div className="flex items-center gap-4">
                       <div className="p-3 bg-purple-500/20 rounded-lg">
                         📈
@@ -535,7 +550,7 @@ export default function AppDetailPage() {
                 </Card>
 
                 <Card className="glass-card">
-                  <CardContent className="p-6">
+                  <CardContent className="p-5">
                     <div className="flex items-center gap-4">
                       <div className="p-3 bg-orange-500/20 rounded-lg">
                         ⏱
@@ -630,11 +645,11 @@ export default function AppDetailPage() {
           )}
 
           {activeTab === 'github' && (
-            <div className="space-y-6">
+            <div className="space-y-8">
               {/* GitHub Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
                 <Card className="glass-card">
-                  <CardContent className="p-4 text-center">
+                  <CardContent className="p-5 text-center">
                     ⭐
                     <p className="text-2xl font-bold gold-text">{githubData?.stars || 0}</p>
                     <p className="text-sm text-muted-foreground">Stars</p>
@@ -642,7 +657,7 @@ export default function AppDetailPage() {
                 </Card>
 
                 <Card className="glass-card">
-                  <CardContent className="p-4 text-center">
+                  <CardContent className="p-5 text-center">
                     📝
                     <p className="text-sm font-bold gold-text">
                       {githubData?.lastCommit ?
@@ -654,7 +669,7 @@ export default function AppDetailPage() {
                 </Card>
 
                 <Card className="glass-card">
-                  <CardContent className="p-4 text-center">
+                  <CardContent className="p-5 text-center">
                     👥
                     <p className="text-2xl font-bold gold-text">{githubData?.contributors || 0}</p>
                     <p className="text-sm text-muted-foreground">Contributors</p>
@@ -662,7 +677,7 @@ export default function AppDetailPage() {
                 </Card>
 
                 <Card className="glass-card">
-                  <CardContent className="p-4 text-center">
+                  <CardContent className="p-5 text-center">
                     <div className="w-8 h-8 mx-auto mb-2 bg-purple-500/20 rounded-lg flex items-center justify-center">
                       <span className="text-purple-400 font-bold">TS</span>
                     </div>
@@ -681,9 +696,15 @@ export default function AppDetailPage() {
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Repository:</span>
-                      <a href={app.github_url} className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">
-                        {app.github_url}
-                      </a>
+                      {app.live_url?.toLowerCase() !== 'coming soon' ? (
+                        <a href={app.github_url} className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                          {app.github_url}
+                        </a>
+                      ) : (
+                        <span className="text-slate-500 cursor-not-allowed opacity-60">
+                          {app.github_url}
+                        </span>
+                      )}
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Last Updated:</span>
@@ -704,13 +725,13 @@ export default function AppDetailPage() {
           )}
 
           {activeTab === 'feedback' && (
-            <div className="space-y-6">
+            <div className="space-y-8">
               <Card className="glass-card">
                 <CardHeader>
                   <CardTitle className="text-slate-800 font-medium text-xl">Share & Feedback</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex flex-col sm:flex-row gap-4 md:gap-5">
                     <Button className="flex-1 glass-button" onClick={() => {
                       if (typeof window !== 'undefined') {
                         if (navigator.share) {
@@ -804,7 +825,7 @@ export default function AppDetailPage() {
 
                 {/* Professional Stats */}
                 <motion.div
-                  className="grid grid-cols-3 gap-8 max-w-lg mx-auto mb-8"
+                  className="grid grid-cols-3 gap-6 md:gap-8 max-w-lg mx-auto mb-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.7 }}
@@ -832,24 +853,15 @@ export default function AppDetailPage() {
                 <Button
                   asChild
                   size="lg"
-                  className={`bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-bold shadow-2xl hover:shadow-[0_0_50px_rgba(14,165,233,0.9),0_0_100px_rgba(99,102,241,0.7),0_0_150px_rgba(14,165,233,0.5)] transition-all duration-500 rounded-2xl px-12 py-6 text-xl group`}
+                  className={`portfolio-button bg-gradient-to-r ${appColors.primary} hover:${getHoverColors(appColors.primary)} text-white font-bold shadow-2xl hover:shadow-[0_0_50px_rgba(14,165,233,0.9),0_0_100px_rgba(99,102,241,0.7),0_0_150px_rgba(14,165,233,0.5)] transition-all duration-500 rounded-2xl px-12 py-6 text-xl group`}
                 >
                   <a
                     href="https://ceodev.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-4"
-                    onClick={(e) => {
-                      // Ensure the link opens properly
-                      e.preventDefault()
-                      if (typeof window !== 'undefined') {
-                        window.open('https://ceodev.vercel.app', '_blank', 'noopener,noreferrer')
-                      }
-                    }}
                   >
-                    <span className="animate-bounce text-2xl group-hover:animate-pulse">🚀</span>
                     <span className="font-semibold">View Full Portfolio</span>
-                    <span className="animate-pulse text-xl group-hover:animate-bounce">→</span>
                   </a>
                 </Button>
               </motion.div>

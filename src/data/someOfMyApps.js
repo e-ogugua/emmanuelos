@@ -15,7 +15,7 @@ const appsData = [
     category: "Food & Bakery",
     status: "Live",
     live_url: "https://zereth-cakes-hub.vercel.app/",
-    github_url: "https://github.com/e-ogugua/zereth-cakes-hub",
+    github_url: "https://github.com/e-ogugua/zereth-cakesAndFoods-hub",
     tags: ["Cakes", "Bakery", "Food", "E-commerce", "Recipes", "Custom Orders", "React", "TypeScript", "Nigeria", "Desserts", "Events"]
   },
   {
@@ -60,7 +60,7 @@ const appsData = [
     category: "Business & ERP",
     status: "Live",
     live_url: "https://ceotr-ltd-erp-suite.vercel.app/",
-    github_url: "https://github.com/e-ogugua/ceotrLtdErpSuite",
+    github_url: "https://github.com/e-ogugua/ceotr-ltd-erp-suite",
     tags: ["Business Management", "ERP", "Portfolio Showcase", "Client Engagement", "Construction", "IT Solutions", "Consulting", "Software Development", "React", "Vite", "Tailwind CSS", "Business Analytics", "Lead Management", "Invoice System", "Professional Services", "Multi-Currency", "Responsive Design", "Glass Morphism UI"]
   },
   {
@@ -69,7 +69,7 @@ const appsData = [
     category: "Agriculture & E-commerce",
     status: "Live",
     live_url: "https://poshpoule-farms.vercel.app",
-    github_url: "https://github.com/e-ogugua/PoshPOULE-Farms-suite",
+    github_url: "https://github.com/e-ogugua/poshpoule-farms-suite",
     tags: ["Agriculture", "E-commerce", "ERP", "Farm Management", "Organic Products", "Poultry", "Vegetables", "Next.js", "TypeScript", "Tailwind CSS", "Sustainable Farming", "Healthy Living"]
   },
   {
@@ -105,7 +105,7 @@ const appsData = [
     category: "Agriculture & Farm Management",
     status: "Live",
     live_url: "https://farm-track-gamma.vercel.app/dashboard/",
-    github_url: "https://github.com/e-ogugua/FarmTrack",
+    github_url: "https://github.com/e-ogugua/farm-track",
     tags: ["Agriculture", "Farm Management", "Farming Technology", "Crop Tracking", "Inventory Management", "Financial Tracking", "Labor Management", "Weather Integration", "Offline-First", "Next.js", "React", "TypeScript", "Tailwind CSS", "Farm Analytics", "Agricultural Software"]
   },
   {
@@ -114,7 +114,7 @@ const appsData = [
     category: "Professional Services & Web Development Portfolio",
     status: "Live",
     live_url: "https://ceodev.vercel.app",
-    github_url: "https://github.com/e-ogugua/ceodev-portfolio",
+    github_url: "https://github.com/e-ogugua/ceodev",
     tags: ["Professional Services", "Web Development", "Portfolio", "Business Strategy", "Consulting", "Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Responsive Design", "Professional Branding"]
   },
   {
@@ -132,7 +132,7 @@ const appsData = [
     category: "Finance & Investment",
     status: "In Development",
     live_url: "coming soon",
-    github_url: "https://github.com/e-ogugua/finEdge-pro",
+    github_url: "https://github.com/e-ogugua/finedge-pro-v2",
     tags: ["Cryptocurrency", "Trading Simulation", "Portfolio Management", "Financial Education", "Investment Strategy", "Market Analysis", "Risk Management", "Next.js", "TypeScript", "React", "Financial Technology", "Trading Platform", "Investment Tracking", "Glass UI Design"]
   },
   {

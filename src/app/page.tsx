@@ -56,11 +56,11 @@ const FiltersSection = dynamic(() => import('@/components/FiltersSection').then(
 const AppGrid = dynamic(() => import('@/components/AppGrid').then(mod => ({ default: mod.AppGrid })), {
   loading: () => (
     <div className="animate-fade-in">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-clamp-8-16 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8">
         {[1, 2, 3, 4, 5, 6].map(i => (
           <div key={i} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/40 overflow-hidden min-h-[450px]">
             <div className="h-48 bg-slate-200 shimmer"></div>
-            <div className="p-6 space-y-4">
+            <div className="p-5 space-y-4">
               <div className="flex items-start justify-between">
                 <div className="space-y-2 flex-1">
                   <div className="h-6 bg-slate-200 rounded-lg w-3/4 shimmer"></div>
@@ -396,7 +396,7 @@ export default function HomePage() {
 
                 {/* Professional Stats */}
                 <motion.div
-                  className="grid grid-cols-3 gap-8 max-w-lg mx-auto mb-8"
+                  className="grid grid-cols-3 gap-6 md:gap-8 max-w-lg mx-auto mb-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.7, ease: 'easeOut' }}
@@ -424,13 +424,16 @@ export default function HomePage() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-bold shadow-sky-lg hover:shadow-sky-lg transition-all duration-normal ease-default rounded-2xl px-12 py-6 text-xl group"
+                  className="portfolio-button bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-700 hover:from-sky-600 hover:via-blue-700 hover:to-indigo-800 text-white font-bold shadow-sky-lg hover:shadow-sky-lg transition-all duration-normal ease-default rounded-2xl px-12 py-6 text-xl group"
                 >
                   <a
                     href="https://ceodev.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-4"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                    }}
                   >
                     <span className="animate-bounce text-2xl group-hover:animate-pulse"></span>
                     <span className="font-semibold">View Full Portfolio</span>
