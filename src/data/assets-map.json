@@ -63,9 +63,6 @@
       "/apps/codementor-academy/codementorScreenshot4.png"
     ]
   },
-  "emmanuelos": {
-    "screenshots": []
-  },
   "emmdraEmpireImages": {
     "cover": "/apps/emmdraEmpireImages/EmmdraScreenshot1.png",
     "screenshots": [
@@ -103,6 +100,7 @@
     ]
   },
   "EmmanuelOS": {
+    "cover": "/emmanuelos/emmanuelosScreenshot1.png",
     "logo": "/emmanuelos/emmanuelos-logo.png",
     "screenshots": [
       "/emmanuelos/emmanuelosScreenshot1.png",
@@ -111,14 +109,31 @@
       "/emmanuelos/emmanuelosScreenshot4.png"
     ]
   },
-  "ceodev": {
-    "cover": "/ceoPortfolio/ceodevScreenshot1.png",
-    "logo": "/ceoPortfolio/ceodevLogo.png",
+  "finedge-pro-v2": {
+    "cover": "/apps/finedge-pro-v2/finedge-pro-v2Screenshot1.png",
     "screenshots": [
-      "/ceoPortfolio/ceodevScreenshot1.png",
-      "/ceoPortfolio/ceodevScreenshot2.png",
-      "/ceoPortfolio/ceodevScreenshot3.png",
-      "/ceoPortfolio/ceodevScreenshot4.png"
+      "/apps/finedge-pro-v2/finedge-pro-v2Screenshot1.png",
+      "/apps/finedge-pro-v2/finedge-pro-v2Screenshot2.png",
+      "/apps/finedge-pro-v2/finedge-pro-v2Screenshot3.png",
+      "/apps/finedge-pro-v2/finedge-pro-v2Screenshot4.png"
+    ]
+  },
+  "finedge-global": {
+    "cover": "/apps/finedge-global/finedge-globalScreenshot1.png",
+    "screenshots": [
+      "/apps/finedge-global/finedge-globalScreenshot1.png",
+      "/apps/finedge-global/finedge-globalScreenshot2.png",
+      "/apps/finedge-global/finedge-globalScreenshot3.png",
+      "/apps/finedge-global/finedge-globalScreenshot4.png"
+    ]
+  },
+  "poshpoulet-scratch-game": {
+    "cover": "/apps/poshpoulet-scratch-game/poshpoulet-scratch-gameScreenshot1.png",
+    "screenshots": [
+      "/apps/poshpoulet-scratch-game/poshpoulet-scratch-gameScreenshot1.png",
+      "/apps/poshpoulet-scratch-game/poshpoulet-scratch-gameScreenshot2.png",
+      "/apps/poshpoulet-scratch-game/poshpoulet-scratch-gameScreenshot3.png",
+      "/apps/poshpoulet-scratch-game/poshpoulet-scratch-gameScreenshot4.png"
     ]
   }
 }
