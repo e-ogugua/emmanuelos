@@ -182,3 +182,10 @@ This project is private and intended for personal portfolio use. All rights rese
 ## Author
 
 Developed by CEO – Chukwuka Emmanuel Ogugua.
+
+## Ecosystem Links
+- Portfolio Hub: https://ceodev.vercel.app/
+- EmmanuelOS Repo: https://github.com/e-ogugua/emmanuelos
+- Workflow Hub: https://github.com/e-ogugua/workflow-hub
+- FinanceFlow Pro: https://github.com/e-ogugua/financeflow-pro
+- PoshPOULE ERP: https://github.com/e-ogugua/PoshPOULE-Farms-suite
