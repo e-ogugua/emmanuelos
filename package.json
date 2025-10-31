@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "capture:hero": "node scripts/capture-hero.mjs"
   },
   "dependencies": {
     "@eslint/config-array": "^0.21.1",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",
+    "playwright": "^1.55.0",
     "@types/node": "^22.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
